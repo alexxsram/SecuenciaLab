@@ -27,13 +27,13 @@
 
                 <h3>Inicio de sesión a la plataforma</h3>
 
-                <form action="#" method="GET" id="formLogin">
+                <form method="GET" id="formLogin">
                     <label for="claveUsuario"> <b> <i> Clave de usuario </i> </b> </label>
                     <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text"> <i class="fas fa-user"></i> </div>
                         </div>
-                        <input type="text" id="claveUsuario" class="form-control" placeholder="Ej. 215862742">
+                        <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. 215862742" required="required">
                     </div>
 
                     <label for="passwordUsuario"> <b> <i> Contraseña </i> </b> </label>
@@ -41,7 +41,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"> <i class="fas fa-lock"></i> </div>
                         </div>
-                        <input type="password" id="passwordUsuario" class="form-control">
+                        <input type="password" id="passwordUsuario" name="passwordUsuario" class="form-control" required="required">
                     </div>
 
                     <div class="float-right">
@@ -56,9 +56,12 @@
         </div>
     </div>
 
-    <script src="js/jquery-3.3.1.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/validation-form-plugin/jquery-validate.min.js"></script>
+    <script src="js/validation-form-plugin/additional-methods.min.js"></script>
+    <script src="js/validation-form-plugin/validacion-formularios.js"></script>
     <script defer src="fontawesome-free-5.7.2/js/all.js"></script>
 </body>
 </html>
