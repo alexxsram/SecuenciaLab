@@ -9,6 +9,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 } else {
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
+    $estado = $_SESSION['estado'];
 	//require('utileria/sesion/duracion-sesion.php');
 }
 ?>
@@ -35,6 +36,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+                    <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-list-ul"></i> Opciones
@@ -46,10 +48,11 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                             <a class="dropdown-item" href="#">Calificar prácticas</a>
                         </div>
                     </li>
+                    <?php }?>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-alt"></i> <?php echo $_SESSION['nombre']; ?>
+                            <i class="fas fa-user-alt"></i> <?php echo $nombre; ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">Cambiar contraseña <i class="fas fa-key"></i></a>
@@ -68,8 +71,13 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-center">
-                    <h1 class="font-weight-light">Bienvenido a la página de administración profesor</h1>
+                    <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
+                    <h1 class="font-weight-light">Bienvenido a la página de administración del profesor</h1>
                     <p class="lead">Aquí podrás realizar todo lo necesario para llevar un control de tu(s) materias.</p>
+                    <?php } else if($estado == 'INICIO_SESION_ALUMNO') {?>
+                    <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
+                    <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -84,6 +92,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     </section>
 
     <?php include('utileria/encabezados/encabezado-js.php'); ?>
-    
+
 </body>
 </html>
