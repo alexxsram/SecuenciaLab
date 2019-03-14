@@ -84,10 +84,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     </section>
 
     <?php include('utileria/encabezados/encabezado-js.php'); ?>
-    <script type="text/javascript">
-        $('.btn-expand-collapse').click(function(e) {
-            $('.navbar-primary').toggleClass('collapsed');
-        });
-    </script>
+    
 </body>
 </html>
