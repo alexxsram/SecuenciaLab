@@ -1,0 +1,2 @@
+Cada vez que agreguen campos a la base de datos
+exportenla y reemplacenla para tenerla actualizada todos.
