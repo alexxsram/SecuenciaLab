@@ -1,2 +1,3 @@
 Cada vez que agreguen campos a la base de datos
-exportenla y reemplacenla para tenerla actualizada todos.
+exporten y reemplacen el archivo "secuencialab.sql" por 
+uno nueva para tenerla actualizada todos.
