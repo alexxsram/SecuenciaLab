@@ -4,7 +4,7 @@ include('../operaciones/conexion.php');
 try {
     $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
     $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
-    
+
     $aux = substr($claveUsuario, 0, 1);
 
     if($aux != "A") {
