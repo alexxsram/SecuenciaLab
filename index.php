@@ -27,7 +27,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <title>Panel de gestión</title>
 </head>
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand" href="">SecuenciaLab</a>
@@ -42,10 +41,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                 <i class="fas fa-list-ul"></i> Opciones
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#crearClase"> <i class="fas fa-users-class"></i> Crear una clase</a>
-                <a class="dropdown-item" href="#"> <i class="fas fa-users"></i> Agregar alumnos</a>
-                <a class="dropdown-item" href="#"> <i class="far fa-file-alt"></i> Agregar prácticas (Esto deberia ir adentro de una sección)</a>
-                <a class="dropdown-item" href="#">Calificar prácticas (Esto deberia ir adentro de una sección)</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCrearClase"> <i class="fas fa-users"></i> Crear una clase</a>
               </div>
             </li>
           <?php }?>
@@ -67,60 +63,78 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   </nav>
 
   <!-- El modal para crear una clase -->
-  <div class="modal" id="crearClase">
-    <div class="modal-dialog">
+  <div class="modal fade" id="modalCrearClase" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Crear una clase</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+        <div class="modal-header bg-info">
+          <h4 class="modal-title text-white">Crear una clase</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+
         <!-- Modal body -->
-        <form id="formCrearMateria" method="POST">
+        <form id="formCrearMateria" name="formCrearMateria" method="POST">
           <div id="mensajeCrearMateria"></div>
           <div class="modal-body">
+            
+            <div class="alert alert-info text-justify" role="alert"> 
+              Aquí los profesores que impartan materias pueden crear sus secciones.
+              Todos los campos con (*) son obligatorios.
+            </div>
+
             <div class="form-group">
               <label for="nombreClase">Nombre de la clase:</label>
-              <input type="text" class="form-control" id="nombreClase" name="nombreClase"  placeholder="Laboratorio de Control Secuencial" required="required">
+              <input type="text" class="form-control" id="nombreClase" name="nombreClase"  placeholder="Ej. Laboratorio de Control Secuencial" required="required">
             </div>
+
             <div class="form-group">
               <label for="seccionClase">Sección:</label>
-              <input type="text" class="form-control" id="seccionClase" name="seccionClase" placeholder="D01" required="required">
+              <input type="text" class="form-control" id="seccionClase" name="seccionClase" placeholder="Ej. D01" required="required">
             </div>
+
             <div class="form-group">
               <label for="nrcClase">NRC:</label>
-              <input type="number" class="form-control" id="nrcClase" name="nrcClase" placeholder="46259" required="required">
+              <input type="number" class="form-control" id="nrcClase" name="nrcClase" placeholder="Ej. 46259" min=1 required="required">
             </div>
+
             <div class="form-group">
               <label for="materiaClase">Materia:</label>
-              <input type="text" class="form-control" id="materiaClase" name="materiaClase" placeholder="Control Secuencial" required="required">
+              <input type="text" class="form-control" id="materiaClase" name="materiaClase" placeholder="Ej. Control Secuencial" required="required">
             </div>
+
             <div class="form-group">
               <label for="aulaClase">Aula:</label>
-              <input type="text" class="form-control" id="aulaClase" name="aulaClase"  placeholder="X-25" required="required">
+              <input type="text" class="form-control" id="aulaClase" name="aulaClase"  placeholder="Ej. X-25" required="required">
             </div>
+
             <!-- ESTO PODRIA DEJARSE COMO TEXTO Y VALIDARLO CON UN PATRON O USAR UN DATEPICKER -->
             <div class="form-group">
               <label for="anoClase">Año:</label>
-              <input type="number" class="form-control" name="numero" id="anoClase" name="anoClase" value="2019" min="2019"
-              max="9999" step="1">
+              <!-- <input type="number" class="form-control" name="numero" id="anoClase" name="anoClase" value="2019" min="2019"
+              max="9999" step="1"> -->
+              <input type="date" class="form-control" id="anoClase" name="anoClase" placeholder="">
             </div>
+
             <div class="form-group">
-              <label for="cicloEscolar">Ciclo escolar:</label>
-              <select name="cicloEscolar" class="custom-select">
-                <option selected value="clicloA">A</option>
+              <label for="cicloEscolarClase">Ciclo escolar:</label>
+              <select id="cicloEscolarClase" name="cicloEscolar" class="custom-select">
+                <option value="">Seleccionar...</option>
+                <option value="clicloA">A</option>
                 <option value="clicloB">B</option>
                 <option value="clicloV">V</option>
               </select>
             </div>
+
           </div>
+
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" type="submit" href="#">Crear</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+            <button type="submit" class="btn btn-primary">Crear <i class="fas fa-check-circle"></i> </button>
           </div>
         </form>
-
       </div>
     </div>
   </div>
@@ -136,22 +150,14 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           <?php } else if($estado == 'INICIO_SESION_ALUMNO') {?>
             <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
             <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
-          <?php } ?>
+          <?php }?>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Page Content -->
-  <section class="py-5">
-    <div class="container">
-      <h2 class="font-weight-light">Algún texto de pie de página</h2>
-      <p>Prediseñado solo por muestra.</p>
-    </div>
-  </section>
   <!-- Footer -->
-  <footer class="page-footer font-small blue">
-
+  <footer class="page-footer font-small blue fixed-bottom">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2019 Copyright:
       <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>

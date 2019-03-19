@@ -6,56 +6,78 @@ try {
     $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
     $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
     $nuevoPasswordUsuario = htmlentities(addslashes($_POST['nuevoPasswordUsuario']));
-    $confirNuevoPassword = htmlentities(addslashes($_POST['confirNuevoPassword']));
+    $confirmNuevoPasswordUsuario = htmlentities(addslashes($_POST['confirmNuevoPasswordUsuario']));
 
     $aux = substr($claveUsuario, 0, 1);
 
-    if($aux != "A") {
-        $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor';
+    if($aux == 'A' || $aux == 'a') {
+        $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno AND respuestaSeguridad = :respuestaSeguridad';
         $resultado = $baseDatos->prepare($sql);
-        $resultado->bindValue(':codigoProfesor', $claveUsuario);
-        $resultado->execute();
+        $array = array(':codigoAlumno'=>$claveUsuario, ':respuestaSeguridad'=>$respuestaSeguridad);
+        $resultado->execute($array);
 
         $numRow = $resultado->rowCount();
         if($numRow != 0) {
-            session_start();
-            $profesor = $resultado->fetch(PDO::FETCH_OBJ);
-            if($profesor->password == $passwordUsuario) {
-                $_SESSION['codigo'] = $profesor->codigoProfesor;
-                $_SESSION['nombre'] = $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno;
-                $_SESSION['estado'] = 'INICIO_SESION_PROFESOR';
-                echo "success";
-            }
-            else {
-                echo 'Contraseña incorrecta, intente de nuevo.';
-            }
+            $alumno = $resultado->fetch(PDO::FETCH_OBJ);
+
+            // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE ALUMNOS A SU CORREO
+            // $alumno = $resultado->fetch(PDO::FETCH_OBJ);
+            // ini_set( 'display_errors', 1 );
+            // error_reporting( E_ALL );
+            // $from = "soporte@secuencialab.com";
+            // $to = $alumno->email;
+            // $subject = "Reestablecimiento de contraseña.";
+            // $texto = 'Hola usuario ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
+            // $texto = 'con código ' . $alumno->codigoAlumno . ' ';
+            // $texto = 'tu contraseña es: ' . $alumno->password;
+            // $message = $texto;
+            // $headers = "DE: " . $from;
+            // @mail($to, $subject, $message, $headers);
+            // echo "The email message was sent to: " . $to;
+
+            $sql = 'UPDATE alumnousuario SET password = :nuevoPasswordUsuario WHERE codigoAlumno = :codigoAlumno';
+            $resultado = $baseDatos->prepare($sql);
+            $array = array(':nuevoPasswordUsuario'=>$nuevoPasswordUsuario, ':codigoAlumno'=>$alumno->codigoAlumno);
+            $resultado->execute($array);
+            echo 'success';
+        } else {
+            echo 'Error. No se encontro un alumno con ese código.';
         }
-        else {
-            echo 'Clave de profesor no encontrada.';
+    } else if($aux == 'P' || $aux != 'p') {
+        $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor AND respuestaSeguridad = :respuestaSeguridad';
+        $resultado = $baseDatos->prepare($sql);
+        $array = array(':codigoProfesor'=>$claveUsuario, ':respuestaSeguridad'=>$respuestaSeguridad);
+        $resultado->execute($array);
+
+        $numRow = $resultado->rowCount();
+        if($numRow != 0) {
+            $profesor = $resultado->fetch(PDO::FETCH_OBJ);
+
+            // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE PROFESORES A SU CORREO
+            // $profesor = $resultado->fetch(PDO::FETCH_OBJ);
+            // ini_set( 'display_errors', 1 );
+            // error_reporting( E_ALL );
+            // $from = "soporte@secuencialab.com";
+            // $to = $profesor->email;
+            // $subject = "Reestablecimiento de contraseña.";
+            // $texto = 'Hola usuario ' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ' ';
+            // $texto = 'con código ' . $profesor->codigoProfesor . ' ';
+            // $texto = 'tu contraseña es: ' . $profesor->password;
+            // $message = $texto;
+            // $headers = "DE: " . $from;
+            // @mail($to, $subject, $message, $headers);
+            // echo "The email message was sent to: " . $to;
+
+            $sql = 'UPDATE profesorusuario SET password = :nuevoPasswordUsuario WHERE codigoProfesor = :codigoProfesor';
+            $resultado = $baseDatos->prepare($sql);
+            $array = array(':nuevoPasswordUsuario'=>$nuevoPasswordUsuario, ':codigoProfesor'=>$profesor->codigoProfesor);
+            $resultado->execute($array);
+            echo 'success';
+        } else {
+            echo 'Error. No se encontro un alumno con ese código.';
         }
     } else {
-        $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno';
-        $resultado = $baseDatos->prepare($sql);
-        $resultado->bindValue(':codigoAlumno', $claveUsuario);
-        $resultado->execute();
-
-        $numRow = $resultado->rowCount();
-        if($numRow != 0) {
-            session_start();
-            $alumno = $resultado->fetch(PDO::FETCH_OBJ);
-            if($alumno->password == $passwordUsuario) {
-                $_SESSION['codigo'] = $alumno->codigoAlumno;
-                $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
-                $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
-                echo "success";
-            }
-            else {
-                echo 'Contraseña incorrecta, intente de nuevo.';
-            }
-        }
-        else {
-            echo 'Clave de alumno no encontrada.';
-        }
+        echo 'No se encontro un usuario con el prefijo "' . $aux . '".';
     }
 } catch(Exception $exec) {
     die("Error en la base de datos: " . $exec->getMessage());

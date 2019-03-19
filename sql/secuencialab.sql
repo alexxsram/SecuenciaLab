@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-03-2019 a las 06:27:03
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 19-03-2019 a las 00:49:30
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -23,6 +23,8 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `secuencialab` DEFAULT CHARACTER SET utf8 ;
+USE `secuencialab` ;
 
 --
 -- Estructura de tabla para la tabla `alumnousuario`
@@ -34,77 +36,55 @@ CREATE TABLE IF NOT EXISTS `alumnousuario` (
   `nombrePila` varchar(100) NOT NULL,
   `apellidoPaterno` varchar(100) NOT NULL,
   `apellidoMaterno` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `PreguntaSeguridad_idPreguntaSeguridad` int(11) NOT NULL DEFAULT '1',
+  `respuestaSeguridad` varchar(50) NOT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`codigoAlumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`codigoAlumno`),
+  KEY `fk_AlumnoUsuario_PreguntaSeguridad1_idx` (`PreguntaSeguridad_idPreguntaSeguridad`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `alumnousuario`
 --
 
-INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `password`) VALUES
-('A215862742', 'Miguel Alejandro', 'Salgado', 'Ramírez', '215862742');
+INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
+('215861738', 'cristian', 'castillo', 'serrano', 'agua2_cristian@hotmail.com', 1, 'sebastian', '123456789');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alumnousuario_has_seccion`
+-- Estructura de tabla para la tabla `clase`
 --
 
-DROP TABLE IF EXISTS `alumnousuario_has_seccion`;
-CREATE TABLE IF NOT EXISTS `alumnousuario_has_seccion` (
+DROP TABLE IF EXISTS `clase`;
+CREATE TABLE IF NOT EXISTS `clase` (
+  `claveAcceso` varchar(10) NOT NULL,
+  `nombreMateria` varchar(45) NOT NULL,
+  `nrc` int(11) NOT NULL,
+  `claveSeccion` varchar(3) NOT NULL DEFAULT 'D01',
+  `nombreClase` varchar(45) NOT NULL,
+  `aula` varchar(45) NOT NULL,
+  `anio` varchar(4) NOT NULL,
+  `cicloEscolar` varchar(45) NOT NULL,
+  PRIMARY KEY (`claveAcceso`),
+  UNIQUE KEY `claveAcceso_UNIQUE` (`claveAcceso`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clase_has_alumnousuario`
+--
+
+DROP TABLE IF EXISTS `clase_has_alumnousuario`;
+CREATE TABLE IF NOT EXISTS `clase_has_alumnousuario` (
+  `Clase_claveAcceso` varchar(10) NOT NULL,
   `AlumnoUsuario_codigoAlumno` varchar(15) NOT NULL,
-  `Seccion_nrc` int(11) NOT NULL,
-  PRIMARY KEY (`AlumnoUsuario_codigoAlumno`,`Seccion_nrc`),
-  KEY `fk_AlumnoUsuario_has_Seccion_Seccion1_idx` (`Seccion_nrc`),
-  KEY `fk_AlumnoUsuario_has_Seccion_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cicloescolar`
---
-
-DROP TABLE IF EXISTS `cicloescolar`;
-CREATE TABLE IF NOT EXISTS `cicloescolar` (
-  `idCiclo` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(5) DEFAULT '0000A',
-  PRIMARY KEY (`idCiclo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cicloescolar_has_materia`
---
-
-DROP TABLE IF EXISTS `cicloescolar_has_materia`;
-CREATE TABLE IF NOT EXISTS `cicloescolar_has_materia` (
-  `CicloEscolar_idCiclo` int(11) NOT NULL,
-  `Materia_claveMateria` varchar(10) NOT NULL,
-  `ProfesorUsuario_codigoProfesor` int(11) NOT NULL,
-  PRIMARY KEY (`CicloEscolar_idCiclo`,`Materia_claveMateria`),
-  KEY `fk_CicloEscolar_has_Materia_Materia1_idx` (`Materia_claveMateria`),
-  KEY `fk_CicloEscolar_has_Materia_CicloEscolar_idx` (`CicloEscolar_idCiclo`),
-  KEY `fk_CicloEscolar_has_Materia_ProfesorUsuario1_idx` (`ProfesorUsuario_codigoProfesor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cicloescolar_has_materia_has_practica`
---
-
-DROP TABLE IF EXISTS `cicloescolar_has_materia_has_practica`;
-CREATE TABLE IF NOT EXISTS `cicloescolar_has_materia_has_practica` (
-  `CicloEscolar_has_Materia_CicloEscolar_idCiclo` int(11) NOT NULL,
-  `CicloEscolar_has_Materia_Materia_claveMateria` varchar(10) NOT NULL,
-  `Practica_idPractica` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`CicloEscolar_has_Materia_CicloEscolar_idCiclo`,`CicloEscolar_has_Materia_Materia_claveMateria`,`Practica_idPractica`),
-  KEY `fk_CicloEscolar_has_Materia_has_Practica_Practica1_idx` (`Practica_idPractica`),
-  KEY `fk_CicloEscolar_has_Materia_has_Practica_CicloEscolar_has_M_idx` (`CicloEscolar_has_Materia_CicloEscolar_idCiclo`,`CicloEscolar_has_Materia_Materia_claveMateria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`Clase_claveAcceso`,`AlumnoUsuario_codigoAlumno`),
+  KEY `fk_Clase_has_AlumnoUsuario_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`),
+  KEY `fk_Clase_has_AlumnoUsuario_Clase1_idx` (`Clase_claveAcceso`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -125,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `cuestionario` (
   PRIMARY KEY (`idCuestionario`),
   KEY `fk_Cuestionario_Practica1_idx` (`Practica_idPractica`),
   KEY `fk_Cuestionario_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -140,20 +120,7 @@ CREATE TABLE IF NOT EXISTS `evaluacion` (
   `Cuestionario_idCuestionario` int(11) NOT NULL,
   PRIMARY KEY (`idEvaluacion`),
   KEY `fk_Evaluacion_Cuestionario1_idx` (`Cuestionario_idCuestionario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `materia`
---
-
-DROP TABLE IF EXISTS `materia`;
-CREATE TABLE IF NOT EXISTS `materia` (
-  `claveMateria` varchar(10) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  PRIMARY KEY (`claveMateria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -168,7 +135,29 @@ CREATE TABLE IF NOT EXISTS `practica` (
   `descripcion` varchar(100) NOT NULL,
   `fechaLimite` date NOT NULL,
   PRIMARY KEY (`idPractica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `preguntaseguridad`
+--
+
+DROP TABLE IF EXISTS `preguntaseguridad`;
+CREATE TABLE IF NOT EXISTS `preguntaseguridad` (
+  `idPreguntaSeguridad` int(11) NOT NULL,
+  `pregunta` text NOT NULL,
+  PRIMARY KEY (`idPreguntaSeguridad`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `preguntaseguridad`
+--
+
+INSERT INTO `preguntaseguridad` (`idPreguntaSeguridad`, `pregunta`) VALUES
+(1, '¿Cual es el nomre de tu mejor amigo de la infacia?'),
+(2, '¿Cúal es el nombre de la ciudad de tu primer viaje?'),
+(3, '¿Cúal es el nombre de tu primera mascota?');
 
 -- --------------------------------------------------------
 
@@ -178,65 +167,41 @@ CREATE TABLE IF NOT EXISTS `practica` (
 
 DROP TABLE IF EXISTS `profesorusuario`;
 CREATE TABLE IF NOT EXISTS `profesorusuario` (
-  `codigoProfesor` int(11) NOT NULL,
+  `codigoProfesor` varchar(15) NOT NULL,
   `nombrePila` varchar(100) NOT NULL,
   `apellidoPaterno` varchar(100) NOT NULL,
   `apellidoMaterno` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `PreguntaSeguridad_idPreguntaSeguridad` int(11) NOT NULL DEFAULT '1',
+  `respuestaSeguridad` varchar(50) NOT NULL,
   `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`codigoProfesor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`codigoProfesor`),
+  KEY `fk_ProfesorUsuario_PreguntaSeguridad1_idx` (`PreguntaSeguridad_idPreguntaSeguridad`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `profesorusuario`
 --
 
-INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `password`) VALUES
-(12345, 'Marco Angel', 'Gutierrez', 'Perez', '12345');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `seccion`
---
-
-DROP TABLE IF EXISTS `seccion`;
-CREATE TABLE IF NOT EXISTS `seccion` (
-  `nrc` int(11) NOT NULL,
-  `claveSeccion` varchar(3) NOT NULL DEFAULT 'D01',
-  `dias_semana` varchar(20) NOT NULL DEFAULT 'L,I',
-  `hora_inicio` varchar(5) NOT NULL DEFAULT '07:00',
-  `hora_fin` varchar(5) NOT NULL DEFAULT '07:50',
-  `CicloEscolar_has_Materia_CicloEscolar_idCiclo` int(11) NOT NULL,
-  `CicloEscolar_has_Materia_Materia_claveMateria` varchar(10) NOT NULL,
-  PRIMARY KEY (`nrc`),
-  KEY `fk_Seccion_CicloEscolar_has_Materia1_idx` (`CicloEscolar_has_Materia_CicloEscolar_idCiclo`,`CicloEscolar_has_Materia_Materia_claveMateria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
+('215861738', 'cristian', 'castillo', 'serrano', 'agua_cristian@hotmail.com', 1, 'sebastian', '123456789');
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `alumnousuario_has_seccion`
+-- Filtros para la tabla `alumnousuario`
 --
-ALTER TABLE `alumnousuario_has_seccion`
-  ADD CONSTRAINT `fk_AlumnoUsuario_has_Seccion_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_AlumnoUsuario_has_Seccion_Seccion1` FOREIGN KEY (`Seccion_nrc`) REFERENCES `seccion` (`nrc`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `alumnousuario`
+  ADD CONSTRAINT `fk_AlumnoUsuario_PreguntaSeguridad1` FOREIGN KEY (`PreguntaSeguridad_idPreguntaSeguridad`) REFERENCES `preguntaseguridad` (`idPreguntaSeguridad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `cicloescolar_has_materia`
+-- Filtros para la tabla `clase_has_alumnousuario`
 --
-ALTER TABLE `cicloescolar_has_materia`
-  ADD CONSTRAINT `fk_CicloEscolar_has_Materia_CicloEscolar` FOREIGN KEY (`CicloEscolar_idCiclo`) REFERENCES `cicloescolar` (`idCiclo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_CicloEscolar_has_Materia_Materia1` FOREIGN KEY (`Materia_claveMateria`) REFERENCES `materia` (`claveMateria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_CicloEscolar_has_Materia_ProfesorUsuario1` FOREIGN KEY (`ProfesorUsuario_codigoProfesor`) REFERENCES `profesorusuario` (`codigoProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `cicloescolar_has_materia_has_practica`
---
-ALTER TABLE `cicloescolar_has_materia_has_practica`
-  ADD CONSTRAINT `fk_CicloEscolar_has_Materia_has_Practica_CicloEscolar_has_Mat1` FOREIGN KEY (`CicloEscolar_has_Materia_CicloEscolar_idCiclo`,`CicloEscolar_has_Materia_Materia_claveMateria`) REFERENCES `cicloescolar_has_materia` (`CicloEscolar_idCiclo`, `Materia_claveMateria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_CicloEscolar_has_Materia_has_Practica_Practica1` FOREIGN KEY (`Practica_idPractica`) REFERENCES `practica` (`idPractica`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `clase_has_alumnousuario`
+  ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `cuestionario`
@@ -252,10 +217,10 @@ ALTER TABLE `evaluacion`
   ADD CONSTRAINT `fk_Evaluacion_Cuestionario1` FOREIGN KEY (`Cuestionario_idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `seccion`
+-- Filtros para la tabla `profesorusuario`
 --
-ALTER TABLE `seccion`
-  ADD CONSTRAINT `fk_Seccion_CicloEscolar_has_Materia1` FOREIGN KEY (`CicloEscolar_has_Materia_CicloEscolar_idCiclo`,`CicloEscolar_has_Materia_Materia_claveMateria`) REFERENCES `cicloescolar_has_materia` (`CicloEscolar_idCiclo`, `Materia_claveMateria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `profesorusuario`
+  ADD CONSTRAINT `fk_ProfesorUsuario_PreguntaSeguridad1` FOREIGN KEY (`PreguntaSeguridad_idPreguntaSeguridad`) REFERENCES `preguntaseguridad` (`idPreguntaSeguridad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

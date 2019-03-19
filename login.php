@@ -31,7 +31,7 @@ session_start(); //aqui iniciamos la sesión
 
         <h3>Inicio de sesión a la plataforma</h3>
 
-        <form id="formLogin" name= "formLogin" method="POST">
+        <form id="formLogin" name="formLogin" method="POST">
           <label for="claveUsuario"> <b> <i> Clave de usuario </i> </b> </label>
           <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
@@ -47,14 +47,18 @@ session_start(); //aqui iniciamos la sesión
             </div>
             <input type="password" id="passwordUsuario" name="passwordUsuario" class="form-control" required="required">
           </div>
+
           <div class="float-right">
             <div class="input-group">
-              <a class="btn btn-outline-primary" href="registrar-usuario.php" role="button">Sing in</a>
-              <button class="btn btn-outline-success" type="submit" href="#">
+              <button class="btn btn-outline-primary" type="button" onclick="location.href='registrar-usuario.php';">
+                Sing in <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-outline-success" type="submit">
                 Log in <i class="fas fa-sign-in-alt"></i>
               </button>
             </div>
           </div>
+
           <div class="form-group">
             <div class="row">
               <div class="col-lg-12">
@@ -70,10 +74,13 @@ session_start(); //aqui iniciamos la sesión
   </div>
   <!-- Footer -->
   <footer class="page-footer font-small blue">
-
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
-      <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
+    <div class="footer-copyright text-center py-3">
+      <h2>
+        <span class="badge badge-light"> 
+          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a> 
+        </span>
+      </h2>
     </div>
     <!-- Copyright -->
   </footer>
