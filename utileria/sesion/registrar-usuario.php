@@ -2,69 +2,86 @@
 include('../operaciones/conexion.php');
 
 try {
-    $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
-    $nombrePilaUsuario = htmlentities(addslashes($_POST['nombrePilaUsuario']));
-    $apellidoPaternoUsuario = htmlentities(addslashes($_POST['apellidoPaternoUsuario']));
-    $apellidoMaternoUsuario = htmlentities(addslashes($_POST['apellidoMaternoUsuario']));
-    $emailUsuario = htmlentities(addslashes($_POST['emailUsuario']));
-    $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
-    $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
-    $password = htmlentities(addslashes($_POST['password']));
-    $confirPassword = htmlentities(addslashes($_POST['confirPassword']));
-    $aux = substr($claveUsuario, 0, 1);
-    echo "entra al funcionamiento"
-    if($aux == "P" || $aux == "p") {
+  $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
+  $nombrePilaUsuario = htmlentities(addslashes($_POST['nombrePilaUsuario']));
+  $apellidoPaternoUsuario = htmlentities(addslashes($_POST['apellidoPaternoUsuario']));
+  $apellidoMaternoUsuario = htmlentities(addslashes($_POST['apellidoMaternoUsuario']));
+  $emailUsuario = htmlentities(addslashes($_POST['emailUsuario']));
+  $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
+  $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
+  $password = htmlentities(addslashes($_POST['password']));
+  $confirPassword = htmlentities(addslashes($_POST['confirPassword']));
+  $aux = substr($claveUsuario, 0, 1);
+  $claveUsuario = substr($claveUsuario, 1);
+  //echo "$emailUsuario" . json_decode($emailUsuario);
+  if(is_numeric($claveUsuario)){//Validar codigo profesor y alumno
+    $sql = "SELECT email FROM (SELECT email FROM alumnousuario UNION SELECT
+      email FROM profesorusuario) as unionEmail WHERE email='$emailUsuario'";
+    $resultado = $baseDatos->prepare($sql);
+    $resultado->bindValue(':email', $emailUsuario);
+    $resultado->execute();
+    $numRow = $resultado->rowCount();
+    if($numRow == 0) {
+      if($aux == "P" || $aux == "p") { //Comprobar profesor
         $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor';
         $resultado = $baseDatos->prepare($sql);
         $resultado->bindValue(':codigoProfesor', $claveUsuario);
         $resultado->execute();
         $numRow = $resultado->rowCount();
         if($numRow == 0) {
-          $sql = "INSERT INTO profesorusuario (codigoProfesor, nombrePila, apellidoPaterno,
-                       apellidoMaterno, password)
-                       VALUES ('$claveUsuario', '$nombrePilaUsuario', '$apellidoPaternoUsuario', '$apellidoMaternoUsuario', '$password')";
-                       if ($baseDatos->query($sql) === TRUE) {
-                           echo "New record created successfully";
-                       } else {
-                           echo "Error: " . $sql . "<br>" . $conn->error;
-                       }
-                       echo "success";
+          $sql = "INSERT INTO profesorusuario (codigoProfesor, nombrePila,
+             apellidoPaterno, apellidoMaterno, email,
+             PreguntaSeguridad_idPreguntaSeguridad, respuestaSeguridad,
+             password)
+            VALUES ($claveUsuario, '$nombrePilaUsuario',
+              '$apellidoPaternoUsuario', '$apellidoMaternoUsuario',
+              '$emailUsuario', 1, '$respuestaSeguridad',
+              '$password')";
+            if ($baseDatos->query($sql)) {
+              echo "success";
+            } else {
+              echo "Error: " . $sql . "<br>";
             }
-            else {
-                echo 'Contraseña incorrecta, intente de nuevo.';
-            }
-        }
-        else {
-            echo 'La clave del profesor ya se encuentra registrada.';
-        }
-    } else if($aux == "A") {
-        $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno';
-        $resultado = $baseDatos->prepare($sql);
-        $resultado->bindValue(':codigoAlumno', $claveUsuario);
-        $resultado->execute();
-
-        $numRow = $resultado->rowCount();
-        if($numRow != 0) {
-            session_start();
-            $alumno = $resultado->fetch(PDO::FETCH_OBJ);
-            if($alumno->password == $passwordUsuario) {
-                $_SESSION['codigo'] = $alumno->codigoAlumno;
-                $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
-                $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
+          }
+          else {
+            echo 'Error. El código del profesor ya se encuentra registrado en el sistema.';
+          }
+        }else if ($aux == "a" || $aux == "A"){ // Alumno
+          $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno';
+          $resultado = $baseDatos->prepare($sql);
+          $resultado->bindValue(':codigoAlumno', $claveUsuario);
+          $resultado->execute();
+          $numRow = $resultado->rowCount();
+          if($numRow == 0) {
+            $sql = "INSERT INTO alumnousuario (codigoalumno, nombrePila,
+               apellidoPaterno,
+              apellidoMaterno, email,
+              PreguntaSeguridad_idPreguntaSeguridad, respuestaSeguridad,
+              password)
+              VALUES ($claveUsuario, '$nombrePilaUsuario',
+                '$apellidoPaternoUsuario', '$apellidoMaternoUsuario',
+                '$emailUsuario', 1, '$respuestaSeguridad',
+                '$password')";
+              if ($baseDatos->query($sql)) {
                 echo "success";
+              } else {
+                echo "Error: " . $sql . "<br>";
+              }
             }
             else {
-                echo 'Contraseña incorrecta, intente de nuevo.';
+              echo 'Error. El código del profesor ya se encuentra registrado en el sistema';
             }
+          }else{
+            echo "Error. Si es un alumno debe anteponer a su código de estudiante la letra A. Ej. A215861738.";
+          }
+        }else{
+          echo "Error. El corro electrónico ya se encuentra en el sistema. Introduzca otro correo.";
         }
-        else {
-            echo 'Clave de alumno no encontrada.';
-        }
-    }else{
-      echo 'Error. Falta el prefijo en el codigo.'
+      }else
+      {
+        echo "Error. Su código es invalido. Debe estar compuesto unicamente de dígitos.";
+      }
+    } catch(Exception $exec) {
+      die("Error en la base de datos: " . $exec->getMessage());
     }
-} catch(Exception $exec) {
-    die("Error en la base de datos: " . $exec->getMessage());
-}
-
-?>
+    ?>
