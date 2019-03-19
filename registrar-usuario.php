@@ -18,7 +18,7 @@
       <div class="col-md-6 ads">
         <h1> <span id="fl">Secuencia</span><span id="sl">Lab</span> </h1>
         <h2> <span id="fl">Registrar nuevo usuario</span></h2>
-        <div id="mensajeNuevoUsuario"></div>
+        <div id="mensajeNuevoUsuario" name="mensajeNuevoUsuario"></div>
       </div>
       <div class="col-md-6 login-form">
         <div class="profile-img">
@@ -32,7 +32,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. 215862742" required="required">
+            <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. 215862742" value= "P215861738" required="required">
           </div>
 
           <label for="nombrePilaUsuario"> <b> <i>Nombre:</i> </b> </label>
@@ -40,7 +40,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Pedro" required="required">
+            <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Pedro" value= "cristian" required="required">
           </div>
 
           <label for="apellidoPaternoUsuario"> <b> <i>Apellido paterno:</i> </b> </label>
@@ -48,7 +48,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="apellidoPaternoUsuario" name="apellidoPaternoUsuario" class="form-control" placeholder="Ej. Ramirez" required="required">
+            <input type="text" id="apellidoPaternoUsuario" name="apellidoPaternoUsuario" class="form-control" placeholder="Ej. Ramirez" value= "castillo" required="required">
           </div>
 
           <label for="apellidoMaternoUsuario"> <b> <i>Apellido materno :</i> </b> </label>
@@ -56,7 +56,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="apellidoMaternoUsuario" name="apellidoMaternoUsuario" class="form-control" placeholder="Ej. Perez" required="required">
+            <input type="text" id="apellidoMaternoUsuario" name="apellidoMaternoUsuario" class="form-control" placeholder="Ej. Perez" value= "serrano" required="required">
           </div>
 
           <label for="emailUsuario"> <b> <i>Correo electrónico:</i> </b> </label>
@@ -64,7 +64,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-at"></i> </div>
             </div>
-            <input type="email" id="emailUsuario" name="emailUsuario" class="form-control" required="required">
+            <input type="text" id="emailUsuario" name="emailUsuario" class="form-control" value= "agua_cristian@hotmail.com" required="required">
           </div>
 
           <div class="form-group">
@@ -81,7 +81,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-question-circle"></i> </div>
             </div>
-            <input type="text" id="respuestaSeguridad" name="respuestaSeguridad" class="form-control" required="required">
+            <input type="text" id="respuestaSeguridad" name="respuestaSeguridad" value= "sebastian" class="form-control" required="required">
           </div>
 
           <label for="password"> <b> <i> Nueva contraseña </i> </b> </label>
@@ -89,7 +89,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-lock"></i> </div>
             </div>
-            <input type="password" id="password" name="password" class="form-control" required="required">
+            <input type="password" id="password" name="password" class="form-control" value= "123456789" required="required">
           </div>
 
           <label for="confirPassword"> <b> <i> Contraseña de nuevo </i> </b> </label>
@@ -97,7 +97,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-lock"></i> </div>
             </div>
-            <input type="password" id="confirPassword" name="confirPassword" class="form-control" required="required">
+            <input type="password" id="confirPassword" name="confirPassword" class="form-control" value= "123456789" required="required">
           </div>
 
           <div class="float-right">

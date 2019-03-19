@@ -225,8 +225,8 @@ $("#formRestarblecerContrasena").validate({
         var html = "<div class='alert alert-danger' role='alert'>";
         html += echo;
         html += "</div>";
-        mensajeLogin.html(html);
-        mensajeLogin.slideDown(500);
+        mensajeRestablecerContrasena.html(html);
+        mensajeRestablecerContrasena.slideDown(500);
       }
     });
   },
@@ -336,9 +336,11 @@ $("#formNuevoUsuario").validate({
       + "&nombrePilaUsuario=" + $("#nombrePilaUsuario").val()
       + "&apellidoPaternoUsuario=" + $("#apellidoPaternoUsuario").val()
       + "&apellidoMaternoUsuario=" + $("#apellidoMaternoUsuario").val()
+      + "&emailUsuario=" + $("#emailUsuario").val()
+      + "&preguntaSeguridad=" + $("#preguntaSeguridad")
       + "&respuestaSeguridad=" + $("#respuestaSeguridad").val()
-      + "&nuevoPasswordUsuario=" + $("#nuevoPasswordUsuario").val()
-      + "&confirNuevoPassword=" + $("#confirNuevoPassword").val()
+      + "&password=" + $("#password").val()
+      + "&confirPassword=" + $("#confirPassword").val()
     }).done(function(echo) {
       if(echo == "success") {
         window.location = "login.php";
@@ -347,8 +349,8 @@ $("#formNuevoUsuario").validate({
         var html = "<div class='alert alert-danger' role='alert'>";
         html += echo;
         html += "</div>";
-        mensajeLogin.html(html);
-        mensajeLogin.slideDown(500);
+        mensajeNuevoUsuario.html(html);
+        mensajeNuevoUsuario.slideDown(500);
       }
     });
   },
@@ -370,7 +372,6 @@ $("#formNuevoUsuario").validate({
     $(element).addClass("is-valid").removeClass("is-invalid");
   }
 });
-
 
 
 // Función auxiliar en caso de necesitarla en el futuro, luego revisar como funcionaba
