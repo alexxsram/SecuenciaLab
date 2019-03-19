@@ -88,6 +88,10 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
               <input type="text" class="form-control" id="seccionClase" name="seccionClase" placeholder="D01" required="required">
             </div>
             <div class="form-group">
+              <label for="nrcClase">NRC:</label>
+              <input type="number" class="form-control" id="nrcClase" name="nrcClase" placeholder="46259" required="required">
+            </div>
+            <div class="form-group">
               <label for="materiaClase">Materia:</label>
               <input type="text" class="form-control" id="materiaClase" name="materiaClase" placeholder="Control Secuencial" required="required">
             </div>
@@ -116,7 +120,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
             <button type="button" class="btn btn-primary" data-dismiss="modal" type="submit" href="#">Crear</button>
           </div>
         </form>
-        
+
       </div>
     </div>
   </div>
