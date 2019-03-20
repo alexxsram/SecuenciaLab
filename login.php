@@ -71,9 +71,8 @@ session_start();
       </div>
     </div>
   </div>
-  <!-- Footer -->
+  
   <footer class="page-footer font-small blue">
-    <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
       <h2>
         <span class="badge badge-light"> 
@@ -81,9 +80,7 @@ session_start();
         </span>
       </h2>
     </div>
-    <!-- Copyright -->
   </footer>
-  <!-- Footer -->
 
   <?php include('utileria/encabezados/encabezado-js.php'); ?>
 </body>

@@ -82,8 +82,12 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <?php include('modals.php'); ?>
   
   <footer class="page-footer font-small blue fixed-bottom">
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
-      <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
+    <div class="footer-copyright text-center py-3">
+      <h2>
+        <span class="badge badge-light"> 
+          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a> 
+        </span>
+      </h2>
     </div>
   </footer>
 
