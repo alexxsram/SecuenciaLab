@@ -343,15 +343,15 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
     },
     submitHandler: function(form) {
       $.ajax({
-        url: "utileria/sesion/crear-materia.php",
+        url: "utileria/materia/crear-materia.php",
         type: "POST",
         dataType: "HTML",
         data: "nombreClase=" + $("#nombreClase").val() 
-        + "&nrcClasae=" + $("#nrcClase").val()
+        + "&nrcClase=" + $("#nrcClase").val()
         + "&seccionClase=" + $("#seccionClase").val() 
         + "&materiaClase=" + $("#materiaClase").val() 
         + "&aulaClase=" + $("#aulaClase").val()
-        + "anoClase=" + $("#anoClase").val() 
+        + "&anoClase=" + $("#anoClase").val() 
         + "&cicloEscolarClase=" + $("#cicloEscolarClase").val()
       }).done(function(echo) {
         if(echo == "success") {
@@ -362,8 +362,8 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
           var html = "<div class='alert alert-danger' role='alert'>";
           html += echo;
           html += "</div>";
-          mensajeLogin.html(html);
-          mensajeLogin.slideDown(500);
+          mensajeCrearMateria.html(html);
+          mensajeCrearMateria.slideDown(500);
         }
       });
     },

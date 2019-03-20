@@ -1,6 +1,5 @@
 <?php
-session_start(); //aqui iniciamos la sesión
-//require('utileria/sesion/duracion-sesion.php'); //con esto definimos la duración de la sesión actual
+session_start();
 ?>
 
 <!DOCTYPE html>

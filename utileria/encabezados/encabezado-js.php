@@ -5,6 +5,6 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/validation-form-plugin/jquery-validate.min.js"></script>
     <script src="js/validation-form-plugin/additional-methods.min.js"></script>
+    <script src="fontawesome-free-5.7.2/js/all.js"></script>
     <script src="js/validation-form-plugin/validacion-formularios.js"></script>
-    <script defer src="fontawesome-free-5.7.2/js/all.js"></script>  
 </head>
