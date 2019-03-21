@@ -541,7 +541,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   });
 });
 
-// Funciones auxiliares en caso de necesitarla en el futuro, luego revisar como funcionaba
+// Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
 }
