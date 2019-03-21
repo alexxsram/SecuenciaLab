@@ -61,25 +61,9 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     </div>
   </nav>
 
-
-  <!-- Contenido del centro -->
-  <header class="masthead">
-    <div class="container h-100">
-      <div class="row h-100 align-items-center">
-        <div class="col-12 text-center">
-          <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
-            <h1 class="font-weight-light">Bienvenido a la página de administración del profesor</h1>
-            <p class="lead">Aquí podrás realizar todo lo necesario para llevar un control de tu(s) materias.</p>
-          <?php } else if($estado == 'INICIO_SESION_ALUMNO') {?>
-            <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
-            <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
-          <?php }?>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <?php include('modals.php'); ?>
+
+  <?php include('content.php'); ?>
   
   <footer class="page-footer font-small blue fixed-bottom">
     <div class="footer-copyright text-center py-3">

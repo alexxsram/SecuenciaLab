@@ -272,10 +272,9 @@ $("#formRestablecerContrasena").validate({
 });
 
 // ***************************************** Para el creación de clase
-//NOTA: FALTA MANDAR LA CLAVE DEL USUAURIO
 var mensajeCrearMateria = $("#mensajeCrearMateria");
 mensajeCrearMateria.hide();
-$('#modalCrearClase').on('show.bs.modal', function (event) {
+$("#modalCrearClase").on("show.bs.modal", function (event) {
   $("#formCrearMateria").validate({
     rules: {
       nombreClase: {
@@ -305,7 +304,7 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
         required: true,
         date: true
       },
-      cicloEscolar: {
+      cicloEscolarClase: {
         required: true
       }
     },
@@ -337,7 +336,7 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
         required: "Ingresa el año. Debe ser igual o mayor al año actual",
         date: "Ingresa la fecha correctamente"      
       },
-      cicloEscolar: {
+      cicloEscolarClase: {
         required: "Seleccione un ciclo escolar valido"
       }
     },
@@ -353,6 +352,7 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
         + "&aulaClase=" + $("#aulaClase").val()
         + "&anoClase=" + $("#anoClase").val() 
         + "&cicloEscolarClase=" + $("#cicloEscolarClase").val()
+        + "&codigoProfesorClase=" + $("#codigoProfesorClase").val()
       }).done(function(echo) {
         if(echo == "success") {
           limpiarFormulario("#formCrearMateria");
@@ -387,6 +387,160 @@ $('#modalCrearClase').on('show.bs.modal', function (event) {
   });
 });
 
+var mensajeEditarMateria = $("#mensajeEditarMateria");
+mensajeEditarMateria.hide();
+$("#modalEditarClase").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var claveAcceso = button.data("claveacceso");
+  var nombreMateria = button.data("nombremateria");
+  var nrc = button.data("nrc");
+  var claveSeccion = button.data("claveseccion");
+  var nombreClase = button.data("nombreclase");
+  var aula = button.data("aula");
+  var anio = button.data("anio");
+  var f = new Date();
+  var fecha, dia = f.getDate(), mes = f.getMonth() + 1;
+  if(dia < 10) {
+    dia = "0" + dia;
+  }
+  if(mes < 10) {
+    mes = "0" + mes;
+  }
+  fecha = anio + "-" + mes + "-" + dia;
+  var cicloEscolar = button.data("cicloescolar");
+  if(cicloEscolar == "A") {
+    cicloEscolar = "cicloA";
+  } else if(cicloEscolar == "B") {
+    cicloEscolar = "cicloB";
+  } else if(cicloEscolar == "V") {
+    cicloEscolar = "cicloV";
+  }
+  var codigoProfesor = button.data("codigoprofesor");
+
+  modal.find("#formEditarMateria #editarClaveAccesoClase").val(claveAcceso);
+  modal.find("#formEditarMateria #editarNombreClase").val(nombreMateria);
+  modal.find("#formEditarMateria #editarNrcClase").val(nrc);
+  modal.find("#formEditarMateria #editarSeccionClase").val(claveSeccion);
+  modal.find("#formEditarMateria #editarMateriaClase").val(nombreClase);
+  modal.find("#formEditarMateria #editarAulaClase").val(aula);
+  modal.find("#formEditarMateria #editarAnoClase").val(fecha);
+  modal.find("#formEditarMateria #editarCicloEscolarClase").val(cicloEscolar);
+  modal.find("#formEditarMateria #editarCodigoProfesorClase").val(codigoProfesor);
+
+  $("#formEditarMateria").validate({
+    rules: {
+      editarNombreClase: {
+        required: true,
+        minlength: 4,
+        maxlength: 80
+      },
+      editarSeccionClase: {
+        required: true,
+        minlength: 2,
+        maxlength: 5
+      },
+      editarNrcClase: {
+        required: true
+      },
+      editarEateriaClase: {
+        required: true,
+        minlength: 3,
+        maxlength: 80
+      },
+      editarAulaClase: {
+        required: true,
+        minlength: 2,
+        maxlength: 15
+      },
+      editarAnoClase: {
+        required: true,
+        date: true
+      },
+      editarCicloEscolarClase: {
+        required: true
+      }
+    },
+    messages: {
+      editarNombreClase: {
+        required: "Ingresa el nombre de la clase",
+        minlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres")
+      },
+      editarSeccionClase: {
+        required: "Ingresa el número de sección",
+        minlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres")
+      },
+      editarNrcClase: {
+        required: "Ingresa el nrc de la materia"
+      },
+      editarMateriaClase: {
+        required: "Ingresa el nombre de la materia",
+        minlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres")
+      },
+      editarAulaClase: {
+        required: "Ingresa el aula",
+        minlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres")
+      },
+      editarAnoClase: {
+        required: "Ingresa el año. Debe ser igual o mayor al año actual",
+        date: "Ingresa la fecha correctamente"      
+      },
+      editarCicloEscolarClase: {
+        required: "Seleccione un ciclo escolar valido"
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/materia/editar-materia.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "claveAccesoClase=" + $("#editarClaveAccesoClase").val()
+        + "&nombreClase=" + $("#editarNombreClase").val() 
+        + "&nrcClase=" + $("#editarNrcClase").val()
+        + "&seccionClase=" + $("#editarSeccionClase").val() 
+        + "&materiaClase=" + $("#editarMateriaClase").val() 
+        + "&aulaClase=" + $("#editarAulaClase").val()
+        + "&anoClase=" + $("#editarAnoClase").val() 
+        + "&cicloEscolarClase=" + $("#editarCicloEscolarClase").val()
+        + "&codigoProfesorClase=" + $("#editarCodigoProfesorClase").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          redireccionarPagina("index.php");
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          mensajeEditarMateria.html(html);
+          mensajeEditarMateria.slideDown(500);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
 // Funciones auxiliares en caso de necesitarla en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
@@ -396,14 +550,44 @@ function redireccionarPagina(ruta) {
   setTimeout(window.location = ruta, 5000);
 }
 
-/*function ejecutarAjax(metodo, ruta, archivoPHP, datos, idEtiqueta) {
-$.ajax({
-type: metodo,
-url: ruta + archivoPHP,
-dataType: "HTML",
-data: datos,
-success: function(response) {
-$(idEtiqueta).html(response).fadeIn();
+function confirmarEliminarClase(nrc) {
+  bootbox.confirm({
+    message: "Alerta antes de continuar! Deseas eliminar la clase?",
+    className: "bounceInLeft animated",
+    buttons: {
+        confirm: {
+            label: "Si <i class='fas fa-check-circle'>",
+            className: "btn-success"
+        },
+        cancel: {
+            label: "No <i class='fas fa-times-circle'>",
+            className: "btn-danger"
+        }
+    },
+    callback: function (result) {
+      if(result == true) {
+        ejecutarAjax("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + nrc, "index.php");
+      }
+    }
+  });
 }
-});
-}*/
+
+function ejecutarAjax(metodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {
+  $.ajax({
+    type: metodo,
+    url: ruta + archivoPHP,
+    dataType: tipoDato,
+    data: datos,
+    success: function(response) {
+      bootbox.alert({
+        message: "Registro eliminado correctamente!",
+        callback: function () {
+          window.location = rutaRedireccionar;
+        }
+      });
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
+  });
+}

@@ -15,21 +15,27 @@ try {
   $seccionClase = htmlentities(addslashes($_POST['seccionClase']));
   $materiaClase = htmlentities(addslashes($_POST['materiaClase']));
   $aulaClase = htmlentities(addslashes($_POST['aulaClase']));
-  $anoClase = htmlentities(addslashes($_POST['anoClase']));
-  $anoClase = substr($anoClase, 0, 4);
-  $cicloEscolarClase = htmlentities(addslashes($_POST['cicloEscolarClase']));
+  $anio = htmlentities(addslashes($_POST['anoClase']));
+  $anoClase = substr($anio, 0, 4);
+  $cicloEscolar = htmlentities(addslashes($_POST['cicloEscolarClase']));
+  if($cicloEscolar == 'cicloA') {
+    $cicloEscolarClase = 'A';
+  } else if($cicloEscolar == 'cicloB') {
+    $cicloEscolarClase = 'B';
+  } else if($cicloEscolar == 'cicloV') {
+    $cicloEscolarClase = 'V';
+  }
+  $codigoProfesorClase = htmlentities(addslashes($_POST['codigoProfesorClase']));
 
-  //echo 'console.log('. json_encode( $data ) .')';
   $sql = 'SELECT * FROM clase WHERE nrc = :nrc';
   $resultado = $baseDatos->prepare($sql);
   $resultado->bindValue(':nrc', $nrcClase);
   $resultado->execute();
   $numRow = $resultado->rowCount();
-
   if($numRow == 0) {
-    $sql = 'INSERT INTO clase (claveAcceso, nombreMateria, nrc, claveSeccion, nombreClase, aula, anio, cicloEscolar) VALUES (:ca, :nm, :n, :cs, :nc, :a, :y, :ce)';
+    $sql = 'INSERT INTO clase (claveAcceso, nombreMateria, nrc, claveSeccion, nombreClase, aula, anio, cicloEscolar, ProfesorUsuario_codigoProfesor) VALUES (:ca, :nm, :n, :cs, :nc, :a, :y, :ce, :pucp)';
     $resultado = $baseDatos->prepare($sql);
-    $array = array(':ca'=>$claveAccesoClase, ':nm'=>$nombreClase, ':n'=>$nrcClase, ':cs'=>$seccionClase, ':nc'=>$materiaClase, ':a'=>$aulaClase, ':y'=>$anoClase, ':ce'=>$cicloEscolarClase);
+    $array = array(':ca'=>$claveAccesoClase, ':nm'=>$nombreClase, ':n'=>$nrcClase, ':cs'=>$seccionClase, ':nc'=>$materiaClase, ':a'=>$aulaClase, ':y'=>$anoClase, ':ce'=>$cicloEscolarClase, ':pucp'=>$codigoProfesorClase);
     $resultado->execute($array);
     echo 'success';
   } else {
