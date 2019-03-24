@@ -550,31 +550,13 @@ function redireccionarPagina(ruta) {
   setTimeout(window.location = ruta, 5000);
 }
 
-function confirmarEliminarClase(nrc) {
-  bootbox.confirm({
-    message: "Alerta antes de continuar! Deseas eliminar la clase?",
-    className: "bounceInLeft animated",
-    buttons: {
-        confirm: {
-            label: "Si <i class='fas fa-check-circle'>",
-            className: "btn-success"
-        },
-        cancel: {
-            label: "No <i class='fas fa-times-circle'>",
-            className: "btn-danger"
-        }
-    },
-    callback: function (result) {
-      if(result == true) {
-        ejecutarAjax("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + nrc, "index.php");
-      }
-    }
-  });
+function cargarContenido(idEtiqueta, ruta, archivoPHP, datos) {
+  $(idEtiqueta).load(ruta + archivoPHP + datos);
 }
 
-function ejecutarAjax(metodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {
+function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {
   $.ajax({
-    type: metodo,
+    type: tipoMetodo,
     url: ruta + archivoPHP,
     dataType: tipoDato,
     data: datos,
@@ -582,12 +564,34 @@ function ejecutarAjax(metodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccion
       bootbox.alert({
         message: "Registro eliminado correctamente!",
         callback: function () {
-          window.location = rutaRedireccionar;
+          redireccionarPagina(rutaRedireccionar);
         }
       });
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
+    }
+  });
+}
+
+function confirmarEliminar(nrc) {
+  bootbox.confirm({
+    message: "Antes de continuar! ¿Desea eliminar la clase?",
+    className: "bounceInLeft animated",
+    buttons: {
+        confirm: {
+            label: "Si <i class='fas fa-check-circle'></i>",
+            className: "btn-success"
+        },
+        cancel: {
+            label: "No <i class='fas fa-times-circle'></i>",
+            className: "btn-danger"
+        }
+    },
+    callback: function (result) {
+      if(result == true) {
+        accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + nrc, "index.php");
+      }
     }
   });
 }
