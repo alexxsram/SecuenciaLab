@@ -1,7 +1,5 @@
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones que validan los formularios
 // ***************************************** Para el login de la página
-var mensajeLogin = $("#mensajeLogin");
-mensajeLogin.hide();
 $("#formLogin").validate({
   rules: {
     claveUsuario: {
@@ -62,8 +60,6 @@ $("#formLogin").validate({
 });
 
 // ***************************************** Para dar de alta un usuario
-var mensajeNuevoUsuario = $("#mensajeNuevoUsuario");
-mensajeNuevoUsuario.hide();
 $("#formNuevoUsuario").validate({
   rules: {
     claveUsuario: {
@@ -186,8 +182,6 @@ $("#formNuevoUsuario").validate({
 });
 
 // ***************************************** Para restablecer contraseña de usuario
-var mensajeRestablecerContrasena = $("#mensajeRestablecerContrasena");
-mensajeRestablecerContrasena.hide();
 $("#formRestablecerContrasena").validate({
   rules: {
     claveUsuario: {
@@ -270,8 +264,6 @@ $("#formRestablecerContrasena").validate({
 });
 
 // ***************************************** Para el creación de clase
-var mensajeCrearMateria = $("#mensajeCrearMateria");
-mensajeCrearMateria.hide();
 $("#modalCrearClase").on("show.bs.modal", function (event) {
   $("#formCrearMateria").validate({
     rules: {
@@ -384,8 +376,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
   });
 });
 
-var mensajeEditarMateria = $("#mensajeEditarMateria");
-mensajeEditarMateria.hide();
+// ***************************************** Para la edición de la clase
 $("#modalEditarClase").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var modal = $(this);
@@ -537,9 +528,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   });
 });
 
-// Accion que ejecuta el modal crear practica
-var mensajeCrearPractica = $("#mensajeCrearPractica");
-mensajeCrearPractica.hide();
+// ***************************************** Para el creación de la práctica
 $("#modalCrearPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var modal = $(this);
@@ -583,14 +572,14 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
         + "&claveAccesoClase=" + $("#claveAccesoClase").val()
       }).done(function(echo) {
         if(echo == "success") {
+          limpiarFormulario("#formCrearPractica");
+          cerrarModal("#modalCrearPractica", "hide");
           cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + nrc);
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
           html += echo;
           html += "</div>";
-          // mensajeCrearPractica.html(html);
-          // mensajeCrearPractica.slideDown(500);
           bootbox.alert(html);
         }
       });
@@ -668,4 +657,8 @@ function confirmarEliminar(nrc) {
       }
     }
   });
+}
+
+function cerrarModal(idEtiqueta, tipoAccion) {
+  $(idEtiqueta).modal(tipoAccion);
 }

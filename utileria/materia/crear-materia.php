@@ -4,7 +4,6 @@ include('../operaciones/conexion.php');
 try {
   $cadena_base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   $cadena_base .= '0123456789';
-  $cadena_base .= '!@#%^&*()_,./<>?;:[]{}\|=+';
   $limite = strlen($cadena_base) - 1;
   $claveAccesoClase = '';
   for($i=0; $i < 10; $i++) { 

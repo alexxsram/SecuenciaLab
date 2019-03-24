@@ -82,9 +82,9 @@ try {
             <?php foreach($practicas as $practica) { ?>
             <tr>
                 <td class="text-center"> <?php echo $practica->idPractica; ?> </td>
-                <td> <?php $practica->nombre; ?> </td>
-                <td> <?php $practica->descripcion; ?> </td>
-                <td> <?php $practica->fechaLimite; ?> </td>
+                <td> <?php echo $practica->nombre; ?> </td>
+                <td> <?php echo $practica->descripcion; ?> </td>
+                <td> <?php echo $practica->fechaLimite; ?> </td>
                 <td class="td-actions text-center">
                     <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
                         <i class="material-icons">person</i>
