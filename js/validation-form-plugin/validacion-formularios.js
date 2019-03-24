@@ -1,3 +1,4 @@
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones que validan los formularios
 // ***************************************** Para el login de la página
 var mensajeLogin = $("#mensajeLogin");
 mensajeLogin.hide();
@@ -37,8 +38,7 @@ $("#formLogin").validate({
         var html = "<div class='alert alert-danger' role='alert'>";
         html += echo;
         html += "</div>";
-        mensajeLogin.html(html);
-        mensajeLogin.slideDown(400);
+        bootbox.alert(html);
       }
     });
   },
@@ -162,8 +162,7 @@ $("#formNuevoUsuario").validate({
         var html = "<div class='alert alert-danger' role='alert'>";
         html += echo;
         html += "</div>";
-        mensajeNuevoUsuario.html(html);
-        mensajeNuevoUsuario.slideDown(500);
+        bootbox.alert(html);
       }
     });
   },
@@ -247,8 +246,7 @@ $("#formRestablecerContrasena").validate({
         var html = "<div class='alert alert-danger' role='alert'>";
         html += echo;
         html += "</div>";
-        mensajeRestablecerContrasena.html(html);
-        mensajeRestablecerContrasena.slideDown(500);
+        bootbox.alert(html);
       }
     });
   },
@@ -516,8 +514,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
           var html = "<div class='alert alert-danger' role='alert'>";
           html += echo;
           html += "</div>";
-          mensajeEditarMateria.html(html);
-          mensajeEditarMateria.slideDown(500);
+          bootbox.alert(html);
         }
       });
     },
@@ -541,7 +538,85 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   });
 });
 
-// Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
+// Accion que ejecuta el modal crear practica
+var mensajeCrearPractica = $("#mensajeCrearPractica");
+mensajeCrearPractica.hide();
+$("#modalCrearPractica").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var claveAcceso = button.data("claveacceso");
+  var nrc = button.data("nrc");
+
+  modal.find("#formCrearPractica #claveAccesoClase").val(claveAcceso);
+
+  $("#formCrearPractica").validate({
+    rules: {
+      nombrePractica: {
+        required: true
+      },
+      descripcionPractica: {
+        required: true
+      },
+      fechaLimitePractica: {
+        required: true
+      }
+    },
+    messages: {
+      nombrePractica: {
+        required: "Ingresar el nombre de la práctica"
+      },
+      descripcionPractica: {
+        required: "Ingresar la descripción"
+      },
+      fechaLimitePractica: {
+        required: "Ingresar una fecha límite"
+      }
+    }, 
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/practica/crear-practica.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "nombrePractica=" + $("#nombrePractica").val()
+        + "&descripcionPractica=" + $("#descripcionPractica").val() 
+        + "&fechaLimitePractica=" + $("#fechaLimitePractica").val()
+        + "&claveAccesoClase=" + $("#claveAccesoClase").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + nrc);
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          // mensajeCrearPractica.html(html);
+          // mensajeCrearPractica.slideDown(500);
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
 }
@@ -551,7 +626,7 @@ function redireccionarPagina(ruta) {
 }
 
 function cargarContenido(idEtiqueta, ruta, archivoPHP, datos) {
-  $(idEtiqueta).load(ruta + archivoPHP + datos);
+  $("#" + idEtiqueta).load(ruta + archivoPHP + "?" + datos);
 }
 
 function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {

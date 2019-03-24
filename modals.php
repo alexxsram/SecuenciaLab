@@ -166,3 +166,53 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
         </div>
     </div>
 </div>
+
+<!-- El modal para crear una practica -->
+<div class="modal fade" id="modalCrearPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title text-white">Crear una practica</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="formCrearPractica" name="formCrearPractica" method="POST">
+                <div id="mensajeCrearPractica"></div>
+                <div class="modal-body">
+                    <div class="alert alert-info text-justify" role="alert"> 
+                        Aquí los profesores en su clase pueden registrar las prácticas que vayan solicitando durante el curso.
+                        Todos los campos con (*) son obligatorios.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombrePractica">Nombre de la práctica *</label>
+                        <input type="text" class="form-control" id="nombrePractica" name="nombrePractica"  placeholder="Ej. Arrancador a tensión reducida" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcionPractica">Descripción * </label>
+                        <textarea class="form-control" id="descripcionPractica" name="descripcionPractica" placeholder="Agregar una breve explicación de lo que se debe realizar..." required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaLimitePractica">Fecha limíte de entrega *</label>
+                        <input type="date" class="form-control" id="fechaLimitePractica" name="fechaLimitePractica" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="claveAccesoClase" name="claveAccesoClase" disabled="disabled">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+                    <button type="submit" class="btn btn-primary">Crear <i class="fas fa-check-circle"></i> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

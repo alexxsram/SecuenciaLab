@@ -58,7 +58,7 @@ include('utileria/operaciones/conexion.php');
                             <b>NRC:</b> <?php echo $clase->nrc; ?>
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
                         </p>
-                        <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('#contenidoClase', 'utileria/materia/', 'ingresar-materia.php', '?nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button>
+                        <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button>
                             
                         <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
                         data-claveacceso="<?php echo $clase->claveAcceso; ?>"
