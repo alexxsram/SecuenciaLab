@@ -360,8 +360,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
           var html = "<div class='alert alert-danger' role='alert'>";
           html += echo;
           html += "</div>";
-          mensajeCrearMateria.html(html);
-          mensajeCrearMateria.slideDown(500);
+          bootbox.alert(html);
         }
       });
     },
