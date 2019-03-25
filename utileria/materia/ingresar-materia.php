@@ -16,13 +16,27 @@ try {
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':nrc', $nrcClase);
     $resultado->execute();
-
     $clase = $resultado->fetch(PDO::FETCH_OBJ);
+    $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
+    $resultado = $baseDatos->prepare($sql);
+    $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
+    $resultado->execute();
+    $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
 ?>
 
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-4"> <?php echo $clase->claveAcceso . ' - ' . $clase->nombreClase; ?> </h1>
+      nombreClase
+        <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
+        <p class="h5"> <?php echo "Clave de acceso: " . $clase->claveAcceso; ?>
+          <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="exparndirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+            <i class="fas fa-sign-in-alt"></i>
+          </button>
+        </p>
+        <p class="h5"> <small class="text-muted"><?php echo "Materia: " . $clase->nombreMateria; ?> </small></p>
+        <p class="h6"> <small class="text-muted"><?php echo "Sección: " . $clase->claveSeccion; ?> </small></p>
+        <p class="h6"> <small class="text-muted"><?php echo "Aula: " . $clase->aula; ?> </small></p>
+        <p class="h6"> <small class="text-muted"><?php echo "Ciclo: " . $clase->anio . " " . $ciclo->ciclo; ?> </small></p>
         <p class="lead text-justify">
             En la siguiente sección, el profesor puede crear las practicas de laboratorio relacionadas al manual
         </p>
@@ -39,7 +53,7 @@ try {
     </div>
 </div>
 
-<?php 
+<?php
     $sql = "SELECT * FROM practica WHERE Clase_claveAcceso LIKE :claveAcceso";
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':claveAcceso', $clase->claveAcceso);
@@ -61,7 +75,7 @@ try {
     </div>
 </div>
 
-<?php 
+<?php
     } else {
         $practicas = $resultado->fetchAll(PDO::FETCH_OBJ);
 ?>
@@ -77,7 +91,7 @@ try {
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
-        
+
         <tbody>
             <?php foreach($practicas as $practica) { ?>
             <tr>
@@ -89,11 +103,11 @@ try {
                     <button type="button" rel="tooltip" class="btn btn-info btn-just-icon btn-sm" data-original-title="" title="">
                         <i class="material-icons">person</i>
                     </button>
-                    
+
                     <button type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-original-title="" title="">
                         <i class="material-icons">edit</i>
                     </button>
-                    
+
                     <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
                         <i class="material-icons">close</i>
                     </button>
