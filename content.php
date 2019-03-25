@@ -13,7 +13,7 @@ include('utileria/operaciones/conexion.php');
     <div class="container h-100" id="contenidoClase">
         <!-- Aqui voy a ejecutar PHP -->
         <?php
-        $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY claveSeccion ASC";
+        $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY claveSeccion ASC, anio ASC";
         $resultado = $baseDatos->prepare($sql);
         $resultado->bindValue(':codigoProfesor', $codigo);
         $resultado->execute();
@@ -44,7 +44,7 @@ include('utileria/operaciones/conexion.php');
             </div>
         </div>
         <div class="row h-100" style="margin-top: -1%;">
-            <?php 
+            <?php
             $clases = $resultado->fetchAll(PDO::FETCH_OBJ);
             foreach ($clases as $clase) {
             ?>
@@ -52,26 +52,27 @@ include('utileria/operaciones/conexion.php');
             <div class="col-sm-3 py-2">
                 <div class="card border-success">
                     <img class="card-img" src="images/index/fondo-card.jpg" alt="Card image">
-                    <div class="card-body">    
-                        <h4 class="card-title border-bottom pb-2" style="font-size: 16.5px; font-family: 'Candara';"> <i> <b> <?php echo $clase->nombreClase; ?> </b> </i></h4>
-                        <p class="card-text text-center">
-                            <b>NRC:</b> <?php echo $clase->nrc; ?>
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-2" style="text-align: center; font-size: 18.5px; font-family: 'Candara';"> <i> <b> <?php echo $clase->nombreClase; ?> </b> </i></h4>
+                        <p class="card-text text-center" style="font-size: 12.5px;">
+                            <b>NRC:</b> <?php echo $clase->nrc; ?> <br>
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
+                            0 alumnos<br>
                         </p>
-                        <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button>
-                            
-                        <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
-                        data-claveacceso="<?php echo $clase->claveAcceso; ?>"
-                        data-nombremateria="<?php echo $clase->nombreMateria; ?>"
-                        data-nrc="<?php echo $clase->nrc; ?>"
-                        data-claveseccion="<?php echo $clase->claveSeccion; ?>"
-                        data-nombreclase="<?php echo $clase->nombreClase; ?>"
-                        data-aula="<?php echo $clase->aula; ?>"
-                        data-anio="<?php echo $clase->anio; ?>"
-                        data-cicloescolar="<?php echo $clase->cicloEscolar; ?>"
-                        data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
-                            
-                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>);">Eliminar <i class="fas fa-trash"></i></button>
+                        <div class="trans text-center">
+                            <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
+                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
+                            data-claveacceso="<?php echo $clase->claveAcceso; ?>"
+                            data-nombremateria="<?php echo $clase->nombreMateria; ?>"
+                            data-nrc="<?php echo $clase->nrc; ?>"
+                            data-claveseccion="<?php echo $clase->claveSeccion; ?>"
+                            data-nombreclase="<?php echo $clase->nombreClase; ?>"
+                            data-aula="<?php echo $clase->aula; ?>"
+                            data-anio="<?php echo $clase->anio; ?>"
+                            data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
+                            data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>);">Eliminar <i class="fas fa-trash"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,7 +81,7 @@ include('utileria/operaciones/conexion.php');
             }
             ?>
         </div>
-        <?php 
+        <?php
         }
         ?>
     </div>
