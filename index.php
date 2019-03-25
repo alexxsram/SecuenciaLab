@@ -34,20 +34,24 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-list-ul"></i> Opciones
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCrearClase"> <i class="fas fa-users"></i> Crear una clase</a>
+              <?php } else{?>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalUnirseClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
+                <?php }?>
               </div>
             </li>
-          <?php }?>
+
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user-alt"></i> <?php echo $nombre; ?>
+              <i class="fas fa-user-alt"></i> <?php echo $nombre . " - " . $codigo; ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Cambiar contraseña</a>
@@ -64,16 +68,16 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <?php include('modals.php'); ?>
 
   <?php include('content.php'); ?>
-  
-  <footer class="page-footer font-small blue fixed-bottom">
-    <div class="footer-copyright text-center py-3">
+
+  <!--<footer class="page-footer font-small blue fixed-bottom">
+    <div class="footer-copyright text-center">
       <h2>
-        <span class="badge badge-light"> 
-          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a> 
+        <span class="badge badge-light">
+          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
         </span>
       </h2>
     </div>
-  </footer>
+  </footer>-->
 
   <?php include('utileria/encabezados/encabezado-js.php'); ?>
 </body>
