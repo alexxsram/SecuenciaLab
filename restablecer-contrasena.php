@@ -83,8 +83,8 @@
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
       <h2>
-        <span class="badge badge-light"> 
-          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a> 
+        <span class="badge badge-light">
+          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
         </span>
       </h2>
     </div>
