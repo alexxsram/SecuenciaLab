@@ -8,13 +8,6 @@ try {
   $apellidoMaternoUsuario = htmlentities(addslashes($_POST['apellidoMaternoUsuario']));
   $emailUsuario = htmlentities(addslashes($_POST['emailUsuario']));
   $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
-  if($preguntaSeguridad == 'pregunta1') {
-    $preguntaSeguridad = 1;
-  } else if($preguntaSeguridad == 'pregunta2') {
-    $preguntaSeguridad = 2;
-  } else if($preguntaSeguridad == 'pregunta3') {
-    $preguntaSeguridad = 3;
-  }
   $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
   $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
   $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
@@ -57,7 +50,7 @@ try {
           $resultado = $baseDatos->prepare($sql);
           $array = array(':cp'=>$aux.$claveUsuario, ':np'=>$nombrePilaUsuario, ':ap'=>$apellidoPaternoUsuario, ':am'=>$apellidoMaternoUsuario, ':e'=>$emailUsuario, ':psidps'=>$preguntaSeguridad, ':rs'=>$respuestaSeguridad, ':p'=>$passwordUsuario);
           $resultado->execute($array);
-          echo 'success';          
+          echo 'success';
         } else {
           echo 'Error. El código del profesor ya se encuentra registrado en el sistema';
         }
