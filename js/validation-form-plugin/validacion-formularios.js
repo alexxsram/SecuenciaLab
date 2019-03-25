@@ -16,7 +16,7 @@ $("#formLogin").validate({
       required: "Ingresa tu número de usuario",
       minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
       maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
-  },
+    },
     passwordUsuario: {
       required: "Ingresa la contraseña"
     }
@@ -324,7 +324,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       },
       anoClase: {
         required: "Ingresa el año. Debe ser igual o mayor al año actual",
-        date: "Ingresa la fecha correctamente"      
+        date: "Ingresa la fecha correctamente"
       },
       cicloEscolarClase: {
         required: "Seleccione un ciclo escolar valido"
@@ -335,12 +335,12 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
         url: "utileria/materia/crear-materia.php",
         type: "POST",
         dataType: "HTML",
-        data: "nombreClase=" + $("#nombreClase").val() 
+        data: "nombreClase=" + $("#nombreClase").val()
         + "&nrcClase=" + $("#nrcClase").val()
-        + "&seccionClase=" + $("#seccionClase").val() 
-        + "&materiaClase=" + $("#materiaClase").val() 
+        + "&seccionClase=" + $("#seccionClase").val()
+        + "&materiaClase=" + $("#materiaClase").val()
         + "&aulaClase=" + $("#aulaClase").val()
-        + "&anoClase=" + $("#anoClase").val() 
+        + "&anoClase=" + $("#anoClase").val()
         + "&cicloEscolarClase=" + $("#cicloEscolarClase").val()
         + "&codigoProfesorClase=" + $("#codigoProfesorClase").val()
       }).done(function(echo) {
@@ -476,7 +476,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       },
       editarAnoClase: {
         required: "Ingresa el año. Debe ser igual o mayor al año actual",
-        date: "Ingresa la fecha correctamente"      
+        date: "Ingresa la fecha correctamente"
       },
       editarCicloEscolarClase: {
         required: "Seleccione un ciclo escolar valido"
@@ -488,12 +488,12 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
         type: "POST",
         dataType: "HTML",
         data: "claveAccesoClase=" + $("#editarClaveAccesoClase").val()
-        + "&nombreClase=" + $("#editarNombreClase").val() 
+        + "&nombreClase=" + $("#editarNombreClase").val()
         + "&nrcClase=" + $("#editarNrcClase").val()
-        + "&seccionClase=" + $("#editarSeccionClase").val() 
-        + "&materiaClase=" + $("#editarMateriaClase").val() 
+        + "&seccionClase=" + $("#editarSeccionClase").val()
+        + "&materiaClase=" + $("#editarMateriaClase").val()
         + "&aulaClase=" + $("#editarAulaClase").val()
-        + "&anoClase=" + $("#editarAnoClase").val() 
+        + "&anoClase=" + $("#editarAnoClase").val()
         + "&cicloEscolarClase=" + $("#editarCicloEscolarClase").val()
         + "&codigoProfesorClase=" + $("#editarCodigoProfesorClase").val()
       }).done(function(echo) {
@@ -560,14 +560,14 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
       fechaLimitePractica: {
         required: "Ingresar una fecha límite"
       }
-    }, 
+    },
     submitHandler: function(form) {
       $.ajax({
         url: "utileria/practica/crear-practica.php",
         type: "POST",
         dataType: "HTML",
         data: "nombrePractica=" + $("#nombrePractica").val()
-        + "&descripcionPractica=" + $("#descripcionPractica").val() 
+        + "&descripcionPractica=" + $("#descripcionPractica").val()
         + "&fechaLimitePractica=" + $("#fechaLimitePractica").val()
         + "&claveAccesoClase=" + $("#claveAccesoClase").val()
       }).done(function(echo) {
@@ -604,6 +604,65 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
   });
 });
 
+// ***************************************** Para unir estudiante a una clase
+$("#modalUnirseClase").on("show.bs.modal", function (event) {
+  $("#formUnirseClase").validate({
+    rules: {
+      unirseClaveAcceso: {
+        required: true,
+        minlength: 10,
+        maxlength: 10
+      }
+    },
+    messages: {
+      unirseClaveAcceso: {
+        required: "Ingresa la clave de acceso",
+        minlength: jQuery.validator.format("La clave de acceso debe tener {0} caracteres"),
+        maxlength: jQuery.validator.format("La clave de acceso debe tener {0} caracteres")
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/materia/unirse-clase.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "claveClase=" + $("#unirseClaveAcceso").val()
+        + "&nrcClase=" + $("#nrcClase").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formUnirseClase");
+          redireccionarPagina("index.php");
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
+
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
@@ -639,17 +698,20 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
 
 function confirmarEliminar(nrc) {
   bootbox.confirm({
-    message: "Antes de continuar! ¿Desea eliminar la clase?",
+    title: "Eliminar clase",
+    message: "¿Esta seguro que desea eliminar la clase?",
+    size: 'small',
+    backdrop: true,
     className: "bounceInLeft animated",
     buttons: {
-        confirm: {
-            label: "Si <i class='fas fa-check-circle'></i>",
-            className: "btn-success"
-        },
-        cancel: {
-            label: "No <i class='fas fa-times-circle'></i>",
-            className: "btn-danger"
-        }
+      confirm: {
+        label: "Si <i class='fas fa-check-circle'></i>",
+        className: "btn-success"
+      },
+      cancel: {
+        label: "No <i class='fas fa-times-circle'></i>",
+        className: "btn-danger"
+      }
     },
     callback: function (result) {
       if(result == true) {
@@ -659,6 +721,62 @@ function confirmarEliminar(nrc) {
   });
 }
 
+
+function exparndirClaveAcceso(claveAcceso) {
+  bootbox.alert({
+    title: "Clave de acceso",
+
+    message: '<blockquote class="blockquote text-center"> <h1 class="display-1">' +  claveAcceso + '</h1></blockquote>',
+    size: 'large',
+    backdrop: true,
+    className: "bounceInLeft animated",
+    callback: function (result) {
+    }
+  });
+}
+
 function cerrarModal(idEtiqueta, tipoAccion) {
   $(idEtiqueta).modal(tipoAccion);
 }
+
+$('#formNuevoUsuario').ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "utileria/sesion/selector-seguridad.php",
+    success: function(response)
+    {
+      $('#preguntaSeguridad').html(response).fadeIn();
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
+  });
+});
+
+$('#modalCrearClase').ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "utileria/materia/selector-cicloEscolar.php",
+    success: function(response)
+    {
+      $('#cicloEscolarClase').html(response).fadeIn();
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
+  });
+});
+
+$('#modalCrearClase').ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "utileria/materia/selector-cicloEscolar.php",
+    success: function(response)
+    {
+      $('#editarCicloEscolarClase').html(response).fadeIn();
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
+  });
+});
