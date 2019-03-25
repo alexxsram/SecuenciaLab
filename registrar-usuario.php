@@ -35,7 +35,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. P215861738" required="required">
+            <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. A123456789" required="required">
           </div>
 
           <label for="nombrePilaUsuario"> <b> <i> Nombre * </i> </b> </label>
@@ -43,7 +43,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Cristian" required="required">
+            <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Juan Jose" required="required">
           </div>
 
           <label for="apellidoPaternoUsuario"> <b> <i> Apellido paterno * </i> </b> </label>
@@ -51,7 +51,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="apellidoPaternoUsuario" name="apellidoPaternoUsuario" class="form-control" placeholder="Ej. Castillo" required="required">
+            <input type="text" id="apellidoPaternoUsuario" name="apellidoPaternoUsuario" class="form-control" placeholder="Ej. López" required="required">
           </div>
 
           <label for="apellidoMaternoUsuario"> <b> <i> Apellido materno * </i> </b> </label>
@@ -67,16 +67,12 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-at"></i> </div>
             </div>
-            <input type="text" id="emailUsuario" name="emailUsuario" class="form-control" placeholder="Ej. agua_cristian@hotmail.com" required="required">
+            <input type="text" id="emailUsuario" name="emailUsuario" class="form-control" placeholder="Ej. email@domain.com" required="required">
           </div>
 
           <div class="form-group">
             <label for="preguntaSeguridad"> <b> <i> Pregunta de seguridad * </i> </b> </label>
             <select id="preguntaSeguridad" name="preguntaSeguridad" class="custom-select">
-              <option value="">Selecciona...</option>
-              <option value="pregunta1">¿Cúal es el nombre de tu mejor amigo de la infancia?</option>
-              <option value="pregunta2">¿Cúal es el nombre de la ciudad de tu primer viaje?</option>
-              <option value="pregunta3">¿Cúal es el nombre de tu primera mascota?</option>
             </select>
           </div>
 
@@ -85,7 +81,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-question-circle"></i> </div>
             </div>
-            <input type="text" id="respuestaSeguridad" name="respuestaSeguridad" placeholder= "Ej. sebastian" class="form-control" required="required">
+            <input type="text" id="respuestaSeguridad" name="respuestaSeguridad" placeholder= "Ej. respuesta" class="form-control" required="required">
           </div>
 
           <label for="passwordUsuario"> <b> <i> Nueva contraseña * </i> </b> </label>
@@ -124,8 +120,8 @@
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
       <h2>
-        <span class="badge badge-light"> 
-          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a> 
+        <span class="badge badge-light">
+          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
         </span>
       </h2>
     </div>
