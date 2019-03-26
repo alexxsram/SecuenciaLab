@@ -627,7 +627,7 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
         type: "POST",
         dataType: "HTML",
         data: "claveClase=" + $("#unirseClaveAcceso").val()
-        + "&nrcClase=" + $("#nrcClase").val()
+        + "&codigoAlumno=" + $("#codigoAlumnoUnirse").val()
       }).done(function(echo) {
         if(echo == "success") {
           limpiarFormulario("#formUnirseClase");
