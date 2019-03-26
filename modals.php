@@ -242,6 +242,9 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                       <label for="unirseClaveAcceso">Clave de acceso *</label>
                       <input type="text" class="form-control" id="unirseClaveAcceso" name="unirseClaveAcceso"  placeholder="Ej. 3qoxi0NApW" required="required">
                   </div>
+                  <div class="form-group">
+                      <input type="hidden" class="form-control" id="codigoAlumnoUnirse" name="codigoAlumnoUnirse" value="<?php echo $codigo; ?>" disabled="disabled">
+                  </div>
               <!-- Modal footer -->
               <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
