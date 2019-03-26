@@ -57,21 +57,23 @@ include('utileria/operaciones/conexion.php');
                         <p class="card-text text-center" style="font-size: 12.5px;">
                             <b>NRC:</b> <?php echo $clase->nrc; ?> <br>
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
-                            0 alumnos<br>
+                            <!-- 0 alumnos<br> -->
                         </p>
                         <div class="trans text-center">
-                            <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
-                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
-                            data-claveacceso="<?php echo $clase->claveAcceso; ?>"
-                            data-nombremateria="<?php echo $clase->nombreMateria; ?>"
-                            data-nrc="<?php echo $clase->nrc; ?>"
-                            data-claveseccion="<?php echo $clase->claveSeccion; ?>"
-                            data-nombreclase="<?php echo $clase->nombreClase; ?>"
-                            data-aula="<?php echo $clase->aula; ?>"
-                            data-anio="<?php echo $clase->anio; ?>"
-                            data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
-                            data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>);">Eliminar <i class="fas fa-trash"></i></button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
+                                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
+                                data-claveacceso="<?php echo $clase->claveAcceso; ?>"
+                                data-nombremateria="<?php echo $clase->nombreMateria; ?>"
+                                data-nrc="<?php echo $clase->nrc; ?>"
+                                data-claveseccion="<?php echo $clase->claveSeccion; ?>"
+                                data-nombreclase="<?php echo $clase->nombreClase; ?>"
+                                data-aula="<?php echo $clase->aula; ?>"
+                                data-anio="<?php echo $clase->anio; ?>"
+                                data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
+                                data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>

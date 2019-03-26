@@ -661,8 +661,6 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
-
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
@@ -696,36 +694,79 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
   });
 }
 
-function confirmarEliminar(nrc) {
-  bootbox.confirm({
-    title: "Eliminar clase",
-    message: "¿Esta seguro que desea eliminar la clase?",
-    size: 'small',
-    backdrop: true,
-    className: "bounceInLeft animated",
-    buttons: {
-      confirm: {
-        label: "Si <i class='fas fa-check-circle'></i>",
-        className: "btn-success"
-      },
-      cancel: {
-        label: "No <i class='fas fa-times-circle'></i>",
-        className: "btn-danger"
-      }
+function accionarEliminacionContenido(tipoMetodo, ruta, archivoPHP, tipoDato, datos, idEtiqueta, rutaRecargar, archivoPHP, datos) { //esta función sirve para eliminar todo lo relacionado a una clase como practicas, alumnos y/o calificaciones de alumnos
+  $.ajax({
+    type: tipoMetodo,
+    url: ruta + archivoPHP,
+    dataType: tipoDato,
+    data: datos,
+    success: function(response) {
+      bootbox.alert({
+        message: "Registro eliminado correctamente!",
+        callback: function () {
+          cargarContenido(idEtiqueta, rutaRecargar, archivoPHP, datos);
+        }
+      });
     },
-    callback: function (result) {
-      if(result == true) {
-        accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + nrc, "index.php");
-      }
+    error: function(response) {
+      bootbox.alert("Error: " + response);
     }
   });
 }
 
+function confirmarEliminar(valor, tipo) {
+  if(tipo == "clase") { //Si elimino una clase 
+    bootbox.confirm({
+      title: "Eliminar clase",
+      message: "¿Esta seguro que desea eliminar la clase?",
+      size: 'small',
+      backdrop: true,
+      className: "bounceInLeft animated",
+      buttons: {
+        confirm: {
+          label: "Si <i class='fas fa-check-circle'></i>",
+          className: "btn-success"
+        },
+        cancel: {
+          label: "No <i class='fas fa-times-circle'></i>",
+          className: "btn-danger"
+        }
+      },
+      callback: function (result) {
+        if(result == true) {
+          accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + valor, "index.php");
+        }
+      }
+    });
+  } else if(tipo == "practica") { //Si elimino una practica
+    bootbox.confirm({
+      title: "Eliminar practica",
+      message: "¿Esta seguro que desea eliminar la practica?",
+      size: 'small',
+      backdrop: true,
+      className: "bounceInLeft animated",
+      buttons: {
+        confirm: {
+          label: "Si <i class='fas fa-check-circle'></i>",
+          className: "btn-success"
+        },
+        cancel: {
+          label: "No <i class='fas fa-times-circle'></i>",
+          className: "btn-danger"
+        }
+      },
+      callback: function (result) {
+        if(result == true) {
+          
+        }
+      }
+    });
+  }
+}
 
-function exparndirClaveAcceso(claveAcceso) {
+function expandirClaveAcceso(claveAcceso) {
   bootbox.alert({
     title: "Clave de acceso",
-
     message: '<blockquote class="blockquote text-center"> <h1 class="display-1">' +  claveAcceso + '</h1></blockquote>',
     size: 'large',
     backdrop: true,

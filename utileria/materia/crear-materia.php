@@ -27,7 +27,7 @@ try {
   if($numRow == 0) {
     $sql = 'INSERT INTO clase (claveAcceso, nombreMateria, nrc, claveSeccion, nombreClase, aula, anio, CicloEscolar_idCicloEscolar, ProfesorUsuario_codigoProfesor) VALUES (:ca, :nm, :n, :cs, :nc, :a, :y, :ce, :pucp)';
     $resultado = $baseDatos->prepare($sql);
-    $array = array(':ca'=>$claveAccesoClase, ':nm'=>$materiaClase, ':n'=>$nrcClase, ':cs'=>$seccionClase, ':nc'=>$nombreClase ':a'=>$aulaClase, ':y'=>$anoClase, ':ce'=>$cicloEscolarClase, ':pucp'=>$codigoProfesorClase);
+    $array = array(':ca'=>$claveAccesoClase, ':nm'=>$materiaClase, ':n'=>$nrcClase, ':cs'=>$seccionClase, ':nc'=>$nombreClase, ':a'=>$aulaClase, ':y'=>$anoClase, ':ce'=>$cicloEscolarClase, ':pucp'=>$codigoProfesorClase);
     $resultado->execute($array);
     echo 'success';
   } else {
