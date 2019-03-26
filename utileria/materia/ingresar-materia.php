@@ -26,7 +26,6 @@ try {
 
 <div class="jumbotron">
     <div class="container">
-      nombreClase
         <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
         <p class="h5"> <?php echo "Clave de acceso: " . $clase->claveAcceso; ?>
           <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="exparndirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
