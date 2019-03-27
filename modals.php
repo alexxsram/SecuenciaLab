@@ -255,6 +255,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 </div>
 
 <!-- El modal para calificar una practica -->
+<!-- Agrego algo para que se carguen los cambios, solo de prueba -->
 <div class="modal fade" id="modalCalificarPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -273,7 +274,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="calificarIdPractica" name="editarIdPractica" disabled="disabled">
+                        <input type="hidden" class="form-control" id="calificarIdPractica" name="calificarIdPractica" disabled="disabled">
                     </div>
 
                     <div class="form-group">
