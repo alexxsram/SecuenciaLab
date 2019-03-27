@@ -56,7 +56,7 @@ try {
     <!-- PESTAÑAS/TABS DEL CONTENIDO QUE VOY A MOSTRAR -->
     <div class="card border-dark mb-3">
         <div class="card-header bg-dark border-dark">
-            <ul class="nav nav-tabs justify-content-end card-header-tabs text-white" id="myTab" role="tablist">
+            <ul class="nav nav-tabs justify-content-end card-header-tabs text-white" id="tabsDashboard" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="tablero-tab" data-toggle="tab" href="#tablero" role="tab" aria-controls="tablero" aria-selected="true">Tablero</a>
                 </li>
@@ -64,16 +64,16 @@ try {
                     <a class="nav-link" id="practica-tab" data-toggle="tab" href="#practica" role="tab" aria-controls="practica" aria-selected="false">Práctica</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="alumno-tab" data-toggle="tab" href="#alumno" role="tab" aria-controls="alumno" aria-selected="false">Alumno</a>
+                    <a class="nav-link" id="alumnos-tab" data-toggle="tab" href="#alumnos" role="tab" aria-controls="alumnos" aria-selected="false">Alumnos</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
-                    
+
                 </div>
-                
+
                 <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
                     <?php
                         $sql = "SELECT * FROM practica WHERE Clase_claveAcceso LIKE :claveAcceso";
@@ -84,7 +84,7 @@ try {
                         $numRow = $resultado->rowCount();
                         if($numRow == 0) {
                     ?>
-                    
+
                     <div class="col-12 text-center">
                         <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                             <h1 class="font-weight-light">La clase no cuenta con practicas que registrar</h1>
@@ -94,9 +94,9 @@ try {
                             <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
                         <?php } ?>
                     </div>
-                    
-                    <?php 
-                        } else { 
+
+                    <?php
+                        } else {
                             $practicas = $resultado->fetchAll(PDO::FETCH_OBJ);
                     ?>
 
@@ -127,31 +127,47 @@ try {
                                     <td class="text-center">
                                         <?php echo $practica->idPractica; ?>
                                     </td>
-                                    <td> 
+                                    <td>
                                         <?php echo $practica->nombre; ?>
                                     </td>
-                                    <td> 
-                                        <?php echo $practica->descripcion; ?> 
+                                    <td>
+                                        <?php echo $practica->descripcion; ?>
                                     </td>
                                     <td>
-                                        <?php echo $practica->fechaLimite; ?> 
+                                        <?php echo $practica->fechaLimite; ?>
                                     </td>
-                                    <td class="text-center"> 
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica" data-idpractica="<?php echo $practica->idPractica; ?>"> <i class="fas fa-edit"></i> Editar</button> 
-                                        <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>, 'practica');"> <i class="fas fa-times"></i> Eliminar</button>
+                                    <td class="text-center">
+                                      <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarPractica" data-idpractica="<?php echo $practica->idPractica; ?>"> <i class="fas fa-edit"></i> Calificar</button>
+                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica" data-idpractica="<?php echo $practica->idPractica; ?>"> <i class="fas fa-edit"></i> Editar</button>
+                                        <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo $practica->idPractica; ?>, 'practica');"> <i class="fas fa-times"></i> Eliminar</button>
+                                      </div>
                                     </td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
                     </div>
-                    <?php 
+                    <?php
                         }
                     ?>
                 </div>
-                
-                <div class="tab-pane fade" id="alumno" role="tabpanel" aria-labelledby="alumno-tab">
-                    
+
+                <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
+                  <div class="list-group list-group-flush" id=listaAlumnos name=listaAlumnos>
+                    <h3 href="#" class="list-group-item list-group-item-heading">
+                      Lista de Alumnos
+                    </h3>
+                    <button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
+                      <span class="badge badge-primary badge-pill">1</span>
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action">Zamora Alvarez Diego Adrian - 123456789
+                      <span class="badge badge-primary badge-pill">2</span>
+                    </button>
+                  </div>
+
+
+
                 </div>
             </div>
         </div>
