@@ -72,7 +72,7 @@ include('utileria/operaciones/conexion.php');
                                 data-anio="<?php echo $clase->anio; ?>"
                                 data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
                                 data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo $clase->nrc; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\''.$clase->claveAcceso.'\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
