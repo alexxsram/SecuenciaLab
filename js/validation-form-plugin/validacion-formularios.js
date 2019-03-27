@@ -541,21 +541,30 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
   $("#formCrearPractica").validate({
     rules: {
       nombrePractica: {
-        required: true
+        required: true,
+        minlength: 1,
+        maxlength: 100
       },
       descripcionPractica: {
-        required: true
+        required: true,
+        minlength: 1,
+        maxlength: 2000
       },
       fechaLimitePractica: {
-        required: true
+        required: true,
+        date: true
       }
     },
     messages: {
       nombrePractica: {
-        required: "Ingresar el nombre de la práctica"
+        required: "Ingresar el nombre de la práctica",
+        minlength: jQuery.validator.format("El nombre de la práctica debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("El nombre de la práctica debe tener máximo {0} caracteres")
       },
       descripcionPractica: {
-        required: "Ingresar la descripción"
+        required: "Ingresar la descripción",
+        minlength: jQuery.validator.format("La descripción de la práctica debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La descripción de la práctica debe tener máximo {0} caracteres")
       },
       fechaLimitePractica: {
         required: "Ingresar una fecha límite"
@@ -680,13 +689,22 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
     url: ruta + archivoPHP,
     dataType: tipoDato,
     data: datos,
-    success: function(response) {
+    success: function(echo) {
+      if(echo =="success"){
       bootbox.alert({
         message: "Registro eliminado correctamente!",
         callback: function () {
           redireccionarPagina(rutaRedireccionar);
         }
       });
+    }else{
+      bootbox.alert({
+        message: echo,
+        callback: function () {
+          redireccionarPagina(rutaRedireccionar);
+        }
+      });
+    }
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
@@ -715,7 +733,7 @@ function accionarEliminacionContenido(tipoMetodo, ruta, archivoPHP, tipoDato, da
 }
 
 function confirmarEliminar(valor, tipo) {
-  if(tipo == "clase") { //Si elimino una clase 
+  if(tipo == "clase") { //Si elimino una clase
     bootbox.confirm({
       title: "Eliminar clase",
       message: "¿Esta seguro que desea eliminar la clase?",
@@ -734,13 +752,13 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "nrcClase=" + valor, "index.php");
+          accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "claveAcceso=" + valor, "index.php");
         }
       }
     });
   } else if(tipo == "practica") { //Si elimino una practica
     bootbox.confirm({
-      title: "Eliminar practica",
+      title: "Eliminar practica #" + valor,
       message: "¿Esta seguro que desea eliminar la practica?",
       size: 'small',
       backdrop: true,
@@ -757,7 +775,7 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          
+          accionarEliminacion("POST", "utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + valor, "index.php");
         }
       }
     });
