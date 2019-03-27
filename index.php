@@ -1,17 +1,14 @@
 <?php
-session_start(); //Reanudamos la sesión
-//Comprobamos si el usuario está logueado
-//Si no lo está, se le redirecciona a login
-//Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
+session_start(); 
 if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO')) {
   header('Location: utileria/sesion/sesion.php');
 } else {
   $codigo = $_SESSION['codigo'];
   $nombre = $_SESSION['nombre'];
   $estado = $_SESSION['estado'];
-  //require('utileria/sesion/duracion-sesion.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,27 +30,24 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-list-ul"></i> Opciones
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <?php if($estado == 'INICIO_SESION_PROFESOR') {?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-list-ul"></i> Opciones
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCrearClase"> <i class="fas fa-users"></i> Crear una clase</a>
-              <?php } else{?>
+              <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalUnirseClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
-                <?php }?>
-              </div>
-            </li>
-
-
+              <?php } ?>
+            </div>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-user-alt"></i> <?php echo $nombre . " - " . $codigo; ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Cambiar contraseña</a>
+              <a class="dropdown-item" data-toggle="modal" href="#modalCambiarPassword" data-codigo="<?php echo $codigo; ?>"><i class="fas fa-key"></i> Cambiar contraseña</a>
             </div>
           </li>
           <li class="form-inline">
@@ -67,16 +61,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <?php include('modals.php'); ?>
 
   <?php include('content.php'); ?>
-
-  <!--<footer class="page-footer font-small blue fixed-bottom">
-    <div class="footer-copyright text-center">
-      <h2>
-        <span class="badge badge-light">
-          © 2019 Copyright: <a href="https://secuenciaLab.com/"> secuenciaLab.com</a>
-        </span>
-      </h2>
-    </div>
-  </footer>-->
 
   <?php include('utileria/encabezados/encabezado-js.php'); ?>
 </body>

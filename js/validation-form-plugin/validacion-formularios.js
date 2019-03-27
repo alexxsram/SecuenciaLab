@@ -59,6 +59,82 @@ $("#formLogin").validate({
   }
 });
 
+// ***************************************** Para cambiar la contraseña de un usuario
+$("#modalCambiarPassword").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var claveUsuario = button.data("codigo");
+
+  modal.find("#formCambiarPassword #claveUsuario").val(claveUsuario);
+
+  $("#formCambiarPassword").validate({
+    rules: {
+      nuevaPasswordUsuario: {
+        required: true,
+        minlength: 8,
+        maxlength: 45
+      },
+      confirmarNuevaPasswordUsuario: {
+        required: true,
+        minlength: 8,
+        maxlength: 45,
+        equalTo: "#nuevaPasswordUsuario"
+      }
+    },
+    messages: {
+      nuevaPasswordUsuario: {
+        required: "Ingresa la contraseña",
+        minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+        maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
+      },
+      confirmarNuevaPasswordUsuario: {
+        required: "Ingresa la contraseña",
+        minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+        maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
+        equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/sesion/cambiar-contrasena.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "passwordUsuario=" + $("#nuevaPasswordUsuario").val()
+        + "&claveUsuario=" + $("#claveUsuario").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formCambiarPassword");
+          redireccionarPagina("index.php");
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
 // ***************************************** Para dar de alta un usuario
 $("#formNuevoUsuario").validate({
   rules: {
@@ -534,7 +610,6 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
   var modal = $(this);
 
   var claveAcceso = button.data("claveacceso");
-  var nrc = button.data("nrc");
 
   modal.find("#formCrearPractica #claveAccesoClase").val(claveAcceso);
 
@@ -583,7 +658,98 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
         if(echo == "success") {
           limpiarFormulario("#formCrearPractica");
           cerrarModal("#modalCrearPractica", "hide");
-          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + nrc);
+          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + claveAcceso);
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
+// ***************************************** Para el creación de la práctica
+$("#modalEditarPractica").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var idPractica = button.data("idpractica");
+  var nombre = button.data("nombre");
+  var descripcion = button.data("descripcion");
+  var fechaLimite = button.data("fechalimite");
+  var claveAcceso = button.data("claveacceso");
+
+  modal.find("#formEditarPractica #editarIdPractica").val(idPractica);
+  modal.find("#formEditarPractica #editarNombrePractica").val(nombre);
+  modal.find("#formEditarPractica #editarDescripcionPractica").val(descripcion);
+  modal.find("#formEditarPractica #editarFechaLimitePractica").val(fechaLimite);
+
+  $("#formEditarPractica").validate({
+    rules: {
+      editarNombrePractica: {
+        required: true,
+        minlength: 1,
+        maxlength: 100
+      },
+      editarDescripcionPractica: {
+        required: true,
+        minlength: 1,
+        maxlength: 2000
+      },
+      editarFechaLimitePractica: {
+        required: true,
+        date: true
+      }
+    },
+    messages: {
+      editarNombrePractica: {
+        required: "Ingresar el nombre de la práctica",
+        minlength: jQuery.validator.format("El nombre de la práctica debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("El nombre de la práctica debe tener máximo {0} caracteres")
+      },
+      editarDescripcionPractica: {
+        required: "Ingresar la descripción",
+        minlength: jQuery.validator.format("La descripción de la práctica debe tener mínimo {0} caracteres"),
+        maxlength: jQuery.validator.format("La descripción de la práctica debe tener máximo {0} caracteres")
+      },
+      editarFechaLimitePractica: {
+        required: "Ingresar una fecha límite"
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/practica/editar-practica.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "idPractica=" + $("#editarIdPractica").val()
+        + "&nombrePractica=" + $("#editarNombrePractica").val()
+        + "&descripcionPractica=" + $("#editarDescripcionPractica").val()
+        + "&fechaLimitePractica=" + $("#editarFechaLimitePractica").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formEditarPractica");
+          cerrarModal("#modalEditarPractica", "hide");
+          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + claveAcceso);
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
@@ -734,12 +900,13 @@ function accionarEliminacionContenido(tipoMetodo, ruta, archivoPHP, tipoDato, da
 
 function confirmarEliminar(valor, tipo) {
   if(tipo == "clase") { //Si elimino una clase
+    var claveAcceso = valor;
     bootbox.confirm({
       title: "Eliminar clase",
       message: "¿Esta seguro que desea eliminar la clase?",
       size: 'small',
       backdrop: true,
-      className: "bounceInLeft animated",
+      className: "swing animated",
       buttons: {
         confirm: {
           label: "Si <i class='fas fa-check-circle'></i>",
@@ -752,13 +919,16 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "claveAcceso=" + valor, "index.php");
+          accionarEliminacion("POST", "utileria/materia/", "eliminar-materia.php", "HTML", "claveAcceso=" + claveAcceso, "index.php");
         }
       }
     });
   } else if(tipo == "practica") { //Si elimino una practica
+    var vectorValores = valor.split("-");
+    var idPractica = vectorValores[0];
+    var claveAcceso = vectorValores[1];
     bootbox.confirm({
-      title: "Eliminar practica #" + valor,
+      title: "Eliminar practica #" + idPractica,
       message: "¿Esta seguro que desea eliminar la practica?",
       size: 'small',
       backdrop: true,
@@ -775,7 +945,7 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          accionarEliminacion("POST", "utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + valor, "index.php");
+          accionarEliminacionContenido("POST", "utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + idPractica, "contenidoClase", "utileria/materia/", "ingresar-materia.php", "claveAccesoClase=" + claveAcceso);
         }
       }
     });
@@ -784,11 +954,11 @@ function confirmarEliminar(valor, tipo) {
 
 function expandirClaveAcceso(claveAcceso) {
   bootbox.alert({
-    title: "Clave de acceso",
-    message: '<blockquote class="blockquote text-center"> <h1 class="display-1">' +  claveAcceso + '</h1></blockquote>',
+    title: "Clave de acceso de la clase",
+    message: '<blockquote class="blockquote text-center"> <h1 class="display-1" id="titulo">' +  claveAcceso + '</h1></blockquote>',
     size: 'large',
     backdrop: true,
-    className: "bounceInLeft animated",
+    className: "swing animated",
     callback: function (result) {
     }
   });

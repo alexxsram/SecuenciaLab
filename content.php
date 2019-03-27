@@ -11,7 +11,6 @@ include('utileria/operaciones/conexion.php');
 
 <div class="masthead">
     <div class="container h-100" id="contenidoClase">
-        <!-- Aqui voy a ejecutar PHP -->
         <?php
         $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY claveSeccion ASC, anio ASC";
         $resultado = $baseDatos->prepare($sql);
@@ -20,6 +19,7 @@ include('utileria/operaciones/conexion.php');
         $numRow = $resultado->rowCount();
         if($numRow == 0) {
         ?>
+
         <div class="row h-100 align-items-center">
             <div class="col-12 text-center">
                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
@@ -31,9 +31,11 @@ include('utileria/operaciones/conexion.php');
                 <?php } ?>
             </div>
         </div>
+        
         <?php
         } else {
         ?>
+
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-4"> <i class="fas fa-users"></i> Listado de clases</h1>
@@ -43,11 +45,14 @@ include('utileria/operaciones/conexion.php');
                 </p>
             </div>
         </div>
+
         <div class="row h-100" style="margin-top: -1%;">
+            
             <?php
             $clases = $resultado->fetchAll(PDO::FETCH_OBJ);
             foreach ($clases as $clase) {
             ?>
+
             <!-- Aqui voy a cargar las clases -->
             <div class="col-sm-3 py-2">
                 <div class="card border-success">
@@ -61,7 +66,7 @@ include('utileria/operaciones/conexion.php');
                         </p>
                         <div class="trans text-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'nrcClase=' + <?php echo $clase->nrc; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
+                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . $clase->claveAcceso . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
                                 data-claveacceso="<?php echo $clase->claveAcceso; ?>"
                                 data-nombremateria="<?php echo $clase->nombreMateria; ?>"
@@ -72,19 +77,23 @@ include('utileria/operaciones/conexion.php');
                                 data-anio="<?php echo $clase->anio; ?>"
                                 data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
                                 data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
-                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\''.$clase->claveAcceso.'\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--  -->
+            
             <?php
             }
             ?>
+
         </div>
+        
         <?php
         }
         ?>
+
     </div>
 </div>

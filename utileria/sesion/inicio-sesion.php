@@ -7,7 +7,7 @@ try {
 
     $aux = substr($claveUsuario, 0, 1);
 
-    if($aux != "A") {
+    if($aux == "P" || $aux == "p") {
         $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor';
         $resultado = $baseDatos->prepare($sql);
         $resultado->bindValue(':codigoProfesor', $claveUsuario);

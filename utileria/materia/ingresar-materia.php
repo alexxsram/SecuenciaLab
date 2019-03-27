@@ -9,12 +9,12 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 }
 include('../operaciones/conexion.php');
 
-$nrcClase = $_GET['nrcClase'];
+$claveAccesoClase = $_GET['claveAccesoClase'];
 
 try {
-    $sql = "SELECT * FROM clase WHERE nrc = :nrc";
+    $sql = "SELECT * FROM clase WHERE claveAcceso = :claveAcceso";
     $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':nrc', $nrcClase);
+    $resultado->bindValue(':claveAcceso', $claveAccesoClase);
     $resultado->execute();
     $clase = $resultado->fetch(PDO::FETCH_OBJ);
 
@@ -28,15 +28,15 @@ try {
     <div class="jumbotron">
         <div class="container">
             <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
-            <p class="h5"> Clave de acceso: <?php echo $clase->claveAcceso; ?>
-            <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
-                <i class="fas fa-sign-in-alt"></i>
-            </button>
+            <p class="h5"> 
+                <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+                    Clave de acceso <i class="fas fa-sign-in-alt"></i>
+                </button>
             </p>
-            <p class="h5"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small></p>
-            <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small></p>
-            <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small></p>
-            <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small></p>
+            <p class="h5"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> </p>
+            <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
+            <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
+            <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> </p>
             <p class="lead text-justify">
                 En la siguiente sección, el profesor puede crear las practicas de laboratorio relacionadas al manual
             </p>
@@ -45,8 +45,7 @@ try {
                     Acciones de la clase
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" data-toggle="modal" href="#modalCrearPractica" data-claveacceso="<?php echo $clase->claveAcceso; ?>" data-nrc="<?php echo $clase->nrc; ?>"><i class="fas fa-clipboard"></i> Agregar práctica</a>
-                    <a class="dropdown-item" href="#">Calificar práctica</a>
+                    <a class="dropdown-item" data-toggle="modal" href="#modalCrearPractica" data-claveacceso="<?php echo $clase->claveAcceso; ?>"><i class="fas fa-clipboard"></i> Agregar práctica</a>
                 </div>
             </div>
             <button type="button" class="btn btn-danger" onclick="redireccionarPagina('index.php');">Regresar <i class="fas fa-arrow-left"></i></button>
@@ -71,7 +70,7 @@ try {
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
-
+                    sdasdasdasdad
                 </div>
 
                 <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
@@ -137,11 +136,26 @@ try {
                                         <?php echo $practica->fechaLimite; ?>
                                     </td>
                                     <td class="text-center">
-                                      <div class="btn-group">
-                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarPractica" data-idpractica="<?php echo $practica->idPractica; ?>"> <i class="fas fa-edit"></i> Calificar</button>
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica" data-idpractica="<?php echo $practica->idPractica; ?>"> <i class="fas fa-edit"></i> Editar</button>
-                                        <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo $practica->idPractica; ?>, 'practica');"> <i class="fas fa-times"></i> Eliminar</button>
-                                      </div>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCalificarPractica" 
+                                            data-idpractica="<?php echo $practica->idPractica; ?>"
+                                            data-claveacceso="<?php echo $clase->claveAcceso; ?>"> 
+                                                <i class="fas fa-edit"></i> Calificar
+                                            </button>
+                                            
+                                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica" 
+                                            data-idpractica="<?php echo $practica->idPractica; ?>"
+                                            data-nombre="<?php echo $practica->nombre; ?>"
+                                            data-descripcion="<?php echo $practica->descripcion; ?>"
+                                            data-fechalimite="<?php echo $practica->fechaLimite; ?>"
+                                            data-claveacceso="<?php echo $clase->claveAcceso; ?>">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                            
+                                            <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo '\'' . $practica->idPractica . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
+                                                <i class="fas fa-times"></i> Eliminar
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -154,20 +168,17 @@ try {
                 </div>
 
                 <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
-                  <div class="list-group list-group-flush" id=listaAlumnos name=listaAlumnos>
-                    <h3 href="#" class="list-group-item list-group-item-heading">
-                      Lista de Alumnos
-                    </h3>
-                    <button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
-                      <span class="badge badge-primary badge-pill">1</span>
-                    </button>
-                    <button type="button" class="list-group-item list-group-item-action">Zamora Alvarez Diego Adrian - 123456789
-                      <span class="badge badge-primary badge-pill">2</span>
-                    </button>
-                  </div>
-
-
-
+                    <div class="list-group list-group-flush" id=listaAlumnos name=listaAlumnos>
+                        <h3 href="#" class="list-group-item list-group-item-heading">
+                            Lista de Alumnos
+                        </h3>
+                        <button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
+                            <span class="badge badge-primary badge-pill">1</span>
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action">Zamora Alvarez Diego Adrian - 123456789
+                            <span class="badge badge-primary badge-pill">2</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
