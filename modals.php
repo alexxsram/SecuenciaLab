@@ -266,7 +266,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                 </button>
             </div>
             
-            <form id="formEditarPractica">
+            <form id="formCalificarPractica" name="formCalificarPractica" method="POST">
                 <div class="modal-body">
                     <div class="alert alert-info text-justify" role="alert">
                         En este apartado el profesor puede verificar los alumnos que han entregado su practica correspondiente y así calificarla.
@@ -311,7 +311,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                 </button>
             </div>
             
-            <form id="formEditarPractica">
+            <form id="formEditarPractica" name="formEditarPractica" method="POST">
                 <div class="modal-body">
                     <div class="alert alert-info text-justify" role="alert">
                         El profesor puede editar los datos de una práctica en cualquier momento.
@@ -319,7 +319,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden" class="form-control" id="editarIdPractica" name="editarIdPractica" disabled="disabled">
+                        <input type="text" class="form-control" id="editarIdPractica" name="editarIdPractica" disabled="disabled">
                     </div>
 
                     <div class="form-group">

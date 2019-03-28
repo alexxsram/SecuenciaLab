@@ -13,6 +13,6 @@ try {
     $resultado->execute($array);
     echo 'success';
 } catch(Exception $exec) {
-    die('Error en la base de datos: ' . $exec->getMessage() . ' Fec -> ' . $fechaLimitePractica);
+    die('Error en la base de datos: ' . $exec->getMessage());
 }
 ?>

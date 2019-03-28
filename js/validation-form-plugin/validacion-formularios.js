@@ -688,7 +688,7 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
   });
 });
 
-// ***************************************** Para el creación de la práctica
+// ***************************************** Para la edición de la práctica
 $("#modalEditarPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var modal = $(this);
@@ -733,7 +733,8 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
         maxlength: jQuery.validator.format("La descripción de la práctica debe tener máximo {0} caracteres")
       },
       editarFechaLimitePractica: {
-        required: "Ingresar una fecha límite"
+        required: "Ingresar una fecha límite",
+        date: ""
       }
     },
     submitHandler: function(form) {
