@@ -319,7 +319,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="editarIdPractica" name="editarIdPractica" disabled="disabled">
+                        <input type="hidden" class="form-control" id="editarIdPractica" name="editarIdPractica" disabled="disabled">
                     </div>
 
                     <div class="form-group">
