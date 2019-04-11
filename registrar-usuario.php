@@ -30,7 +30,7 @@
         </div>
 
         <form id="formNuevoUsuario" name="formNuevoUsuario" method="POST">
-          <label for="claveUsuario"> <b> <i> Clave de usuario * </i> </b> </label>
+          <label for="claveUsuario"> <b> <i> Código de usuario * </i> </b> </label>
           <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
@@ -38,7 +38,7 @@
             <input type="text" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ej. A123456789" required="required">
           </div>
 
-          <label for="nombrePilaUsuario"> <b> <i> Nombre * </i> </b> </label>
+          <label for="nombrePilaUsuario"> <b> <i> Nombre(s) * </i> </b> </label>
           <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
