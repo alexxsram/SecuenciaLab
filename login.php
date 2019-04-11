@@ -31,7 +31,7 @@ session_start();
         <h3>Inicio de sesión a la plataforma</h3>
 
         <form id="formLogin" name="formLogin" method="POST">
-          <label for="claveUsuario"> <b> <i> Clave de usuario </i> </b> </label>
+          <label for="claveUsuario"> <b> <i> Código de usuario </i> </b> </label>
           <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
@@ -50,20 +50,17 @@ session_start();
           <div class="float-right">
             <div class="input-group">
               <button class="btn btn-outline-primary" type="button" onclick="location.href='registrar-usuario.php';">
-                Sing in <i class="fas fa-edit"></i>
+                Registrar <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-outline-success" type="submit">
-                Log in <i class="fas fa-sign-in-alt"></i>
+                Ingresar <i class="fas fa-sign-in-alt"></i>
               </button>
             </div>
           </div>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="text-center">
-                  <a href="restablecer-contrasena.php" tabindex="5" class="forgot-password">¿Has olvidado tu contraseña?</a>
-                </div>
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="col-lg-12">
+              <div class="text-center">
+                <a href="restablecer-contrasena.php" tabindex="5" class="forgot-password">¿Has olvidado tu contraseña?</a>
               </div>
             </div>
           </div>
