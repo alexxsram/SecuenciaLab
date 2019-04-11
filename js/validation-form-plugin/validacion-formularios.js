@@ -904,7 +904,7 @@ function confirmarEliminar(valor, tipo) {
     var claveAcceso = valor;
     bootbox.confirm({
       title: "Eliminar clase",
-      message: "¿Esta seguro que desea eliminar la clase?",
+      message: "¿Está seguro que desea eliminar la clase?",
       size: 'small',
       backdrop: true,
       className: "swing animated",
@@ -930,7 +930,7 @@ function confirmarEliminar(valor, tipo) {
     var claveAcceso = vectorValores[1];
     bootbox.confirm({
       title: "Eliminar practica #" + idPractica,
-      message: "¿Esta seguro que desea eliminar la practica?",
+      message: "¿Está seguro que desea eliminar la práctica?",
       size: 'small',
       backdrop: true,
       className: "bounceInLeft animated",
