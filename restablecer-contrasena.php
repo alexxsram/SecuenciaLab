@@ -30,7 +30,7 @@
         </div>
 
         <form id="formRestablecerContrasena" name="formRestablecerContrasena" method="POST">
-          <label for="claveUsuario"> <b> <i> Clave de usuario </i> </b> </label>
+          <label for="claveUsuario"> <b> <i> Código de usuario </i> </b> </label>
           <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
