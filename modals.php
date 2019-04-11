@@ -29,7 +29,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 
                     <div class="form-group">
                         <input type="hidden" class="form-control" id="claveUsuario" name="claveUsuario" required="required" disabled="disabled">
-                    </div>                    
+                    </div>
 
                     <div class="form-group">
                         <label for="nuevaContrasenaUsuario">Nueva contraseña *</label>
@@ -48,7 +48,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-save"></i> </button>
                 </div>
             </form>
-        </div>        
+        </div>
     </div>
 </div>
 
@@ -183,10 +183,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     <div class="form-group">
                         <label for="cicloEscolarClase">Ciclo escolar *</label>
                         <select id="editarCicloEscolarClase" name="editarCicloEscolarClase" class="custom-select">
-                            <option value="">Seleccionar...</option>
-                            <option value="cicloA">A</option>
-                            <option value="cicloB">B</option>
-                            <option value="cicloV">V</option>
                         </select>
                     </div>
 
@@ -265,7 +261,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
+
             <form id="formCalificarPractica" name="formCalificarPractica" method="POST">
                 <div class="modal-body">
                     <div class="alert alert-info text-justify" role="alert">
@@ -310,7 +306,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
+
             <form id="formEditarPractica" name="formEditarPractica" method="POST">
                 <div class="modal-body">
                     <div class="alert alert-info text-justify" role="alert">
