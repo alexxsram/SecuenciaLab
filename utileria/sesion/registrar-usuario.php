@@ -13,7 +13,11 @@ try {
   $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
 
   $aux = substr($claveUsuario, 0, 1);
-  $claveUsuario = substr($claveUsuario, 1);
+  $claveUsuario = substr($claveUsuario, 1); //Código del usaurio
+  //Convertir nombre conpleto del usaurio en mayusculas de usuario a mayusculas
+  $nombrePilaUsuario = strtoupper($nombrePilaUsuario);
+  $apellidoPaternoUsuario = strtoupper($apellidoPaternoUsuario);
+  $apellidoMaternoUsuario = strtoupper($apellidoMaternoUsuario);
 
   if(is_numeric($claveUsuario)) { //Validar codigo profesor y alumno
     $sql = 'SELECT email FROM (SELECT email FROM alumnousuario UNION SELECT email FROM profesorusuario) as unionEmail WHERE email = :email';

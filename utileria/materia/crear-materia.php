@@ -19,6 +19,10 @@ try {
   $cicloEscolarClase = htmlentities(addslashes($_POST['cicloEscolarClase']));
   $codigoProfesorClase = htmlentities(addslashes($_POST['codigoProfesorClase']));
 
+  //Convertir dinformación de cadena a mayusculas
+  $nombreClase = strtoupper($nombreClase);
+  $materiaClase = strtoupper($materiaClase);
+
   $sql = 'SELECT * FROM clase WHERE nrc = :nrc';
   $resultado = $baseDatos->prepare($sql);
   $resultado->bindValue(':nrc', $nrcClase);
