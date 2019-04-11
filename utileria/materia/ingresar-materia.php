@@ -28,15 +28,16 @@ try {
     <div class="jumbotron">
         <div class="container">
             <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
-            <p class="h5"> 
-                <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
-                    Clave de acceso <i class="fas fa-sign-in-alt"></i>
-                </button>
-            </p>
-            <p class="h5"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> </p>
+
+            <p class="h6"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> </p>
             <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
             <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
             <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> </p>
+            <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo $clase->claveAcceso; ?>
+                <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </p>
             <p class="lead text-justify">
                 En la siguiente sección, el profesor puede crear las practicas de laboratorio relacionadas al manual
             </p>
@@ -53,7 +54,7 @@ try {
     </div>
 
     <!-- PESTAÑAS/TABS DEL CONTENIDO QUE VOY A MOSTRAR -->
-    <div class="card border-dark mb-3">
+    <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
         <div class="card-header bg-dark border-dark">
             <ul class="nav nav-tabs justify-content-end card-header-tabs text-white" id="tabsDashboard" role="tablist">
                 <li class="nav-item">
@@ -137,13 +138,13 @@ try {
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCalificarPractica" 
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalCalificarPractica"
                                             data-idpractica="<?php echo $practica->idPractica; ?>"
-                                            data-claveacceso="<?php echo $clase->claveAcceso; ?>"> 
+                                            data-claveacceso="<?php echo $clase->claveAcceso; ?>">
                                                 <i class="fas fa-edit"></i> Calificar
                                             </button>
-                                            
-                                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica" 
+
+                                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica"
                                             data-idpractica="<?php echo $practica->idPractica; ?>"
                                             data-nombre="<?php echo $practica->nombre; ?>"
                                             data-descripcion="<?php echo $practica->descripcion; ?>"
@@ -151,7 +152,7 @@ try {
                                             data-claveacceso="<?php echo $clase->claveAcceso; ?>">
                                                 <i class="fas fa-edit"></i> Editar
                                             </button>
-                                            
+
                                             <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo '\'' . $practica->idPractica . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
                                                 <i class="fas fa-times"></i> Eliminar
                                             </button>
@@ -172,12 +173,12 @@ try {
                         <h3 href="#" class="list-group-item list-group-item-heading">
                             Lista de Alumnos
                         </h3>
-                        <button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
+                        <!--<button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
                             <span class="badge badge-primary badge-pill">1</span>
                         </button>
                         <button type="button" class="list-group-item list-group-item-action">Zamora Alvarez Diego Adrian - 123456789
                             <span class="badge badge-primary badge-pill">2</span>
-                        </button>
+                        </button>-->
                     </div>
                 </div>
             </div>
