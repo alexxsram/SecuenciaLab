@@ -3,6 +3,7 @@ include('../operaciones/conexion.php');
 
 try {
     $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
+    //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array("cost"=>30)); Ejemplo de como convertir la contraseña en un hash
     $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
 
     $aux = substr($claveUsuario, 0, 1);

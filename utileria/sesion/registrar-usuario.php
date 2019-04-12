@@ -10,11 +10,12 @@ try {
   $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
   $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
   $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
+  //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array("cost"=>30)); Ejemplo de como convertir la contraseña en un hash
   $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
-
   $aux = substr($claveUsuario, 0, 1);
   $claveUsuario = substr($claveUsuario, 1); //Código del usaurio
-  //Convertir nombre conpleto del usaurio en mayusculas de usuario a mayusculas
+  
+  //Convertir nombre completo del usaurio en mayusculas de usuario a mayusculas
   $nombrePilaUsuario = strtoupper($nombrePilaUsuario);
   $apellidoPaternoUsuario = strtoupper($apellidoPaternoUsuario);
   $apellidoMaternoUsuario = strtoupper($apellidoMaternoUsuario);

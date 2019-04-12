@@ -17,6 +17,7 @@ try {
         if($numRow != 0) {
             session_start();
             $profesor = $resultado->fetch(PDO::FETCH_OBJ);
+            //if(password_verify($passwordUsuario, $profesor->password)) { Esta linea solo se descomenta y se borra la de abajo, con esto se verifica la contraseña con la del hash
             if($profesor->password == $passwordUsuario) {
                 $_SESSION['codigo'] = $profesor->codigoProfesor;
                 $_SESSION['nombre'] = $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno;
