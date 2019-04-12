@@ -9,4 +9,8 @@
     <script src="js/bootbox/bootbox.min.js"></script>
     <script src="js/bootbox/bootbox.locales.min.js"></script>
     <script src="js/validation-form-plugin/validacion-formularios.js"></script>
+    <script src="js/bootstrap/bootstrap-slider-fixed.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>-->
 </head>
