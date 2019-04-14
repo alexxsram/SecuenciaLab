@@ -11,7 +11,7 @@ class BiblioFuzzy
   /*Función Γ (Gamma, Trapecio Abierto Derecha)
   * Γ: U→[0, 1], Γ(u; α, β)
   * Γ(u; α, β) = { 0 si u<α, (u−α)/(β−α) si α≤u≤β, 1 si u>β }*/
-  function TrapecioAbiertoDerecho($u, $a, $b)
+  public static function TrapecioAbiertoDerecho($u, $a, $b)
   {
     $resultado = -1.0;
     if ($u > $b)
@@ -32,7 +32,7 @@ class BiblioFuzzy
   /*Función L (Trapecio Abierto Izquierda)
   * L: U→[0, 1], L(u; α, β)
   * L(u; α, β) = { 1 si u<α, (β−u)/(β−α) α≤u≤β, 0 si u>β }*/
-  function TrapecioAbiertoIzquierdo($u, $a, $b)
+  public static function TrapecioAbiertoIzquierdo($u, $a, $b)
   {
     $resultado = -1.0;
     if ($u > $b)
@@ -54,7 +54,7 @@ class BiblioFuzzy
   * Λ: U→[0, 1], Λ(α, β, γ)
   * Λ(α, β, γ) = { 0 si u < α, (u−α)/(β−α) si α ≤ u ≤ β,
   * (γ-u)/(γ-β) si β ≤ u ≤ γ, 0 si u > γ }*/
-  function Triangular($u, $a, $b, $c)
+  public static function Triangular($u, $a, $b, $c)
   {
     $resultado = -1.0;
     if ($u < $a || $u > $c)
@@ -76,7 +76,7 @@ class BiblioFuzzy
   * Π: U→[0, 1], Π(α, β, γ, δ)
   * Π(α, β, γ, δ) = { 0 si u < α, (u−α)/(β−α) si α≤u<β, 1 si β≤u≤γ
   * (δ−u)/(δ−γ) si γ<u≤δ, 0 si u > δ }*/
-  function Trapezoidal($u, $a, $b, $c, $d)
+  public static function Trapezoidal($u, $a, $b, $c, $d)
   {
     $resultado = -1.0;
     if ($u < $a || $u > $d)
@@ -101,7 +101,7 @@ class BiblioFuzzy
   /*Función S
   * S: U→[0, 1], S(u; α, β)
   * S(u; α, β) = { 0 si u<α, 0.5*(1+cos(((u-β)/(β-α))*π)) si α≤u≤β, 1 si u>β }*/
-  function Curva_S($u, $a, $b)
+  public static function Curva_S($u, $a, $b)
   {
     $resultado = -1.0;
     if ($u > $b)
@@ -122,7 +122,7 @@ class BiblioFuzzy
   /*Función Z
   * Z: U→[0, 1], Z(u; α, β)
   * Z(u; α, β) = { 1 si u<α, 0.5*(1+cos(((u-α)/(β-α))*π)) si α≤u≤β, 0 si u>β }*/
-  function Curva_Z($u, $a, $b)
+  public static function Curva_Z($u, $a, $b)
   {
     $resultado = -1.0;
     if ($u > $b)
@@ -144,7 +144,7 @@ class BiblioFuzzy
   * SΛ: U→[0, 1], SΛ(α, β, γ)
   * SΛ(α, β, γ) = { 0 si u < α, 0.5*(1+cos(((u-β)/(β-α))*π)) si α ≤ u ≤ β,
   * 0.5*(1+cos(((u-β)/(γ-β))*π)) si β ≤ u ≤ γ, 0 si u > γ }*/
-  function TriangularSuave($u, $a, $b, $c)
+  public static function TriangularSuave($u, $a, $b, $c)
   {
     $resultado = -1.0;
     if ($u < $a || $u > $c)
@@ -167,7 +167,7 @@ class BiblioFuzzy
   * SΠ(α, β, γ, δ) = { 0 si u < α, 0.5*(1+cos(((u-β)/(β-α))*π)) si α ≤ u ≤ β,
   * 1 si β ≤ u ≤ γ, 0.5*(1+cos(((u-γ)/(δ-γ))*π)) si γ ≤ u ≤ δ,
   * 0 si u > δ }*/
-  function TrapezoidalSuave($u, $a, $b, $c, $d)
+  public static function TrapezoidalSuave($u, $a, $b, $c, $d)
   {
     $resultado = -1.0;
     if ($u < $a || $u > $d)
@@ -193,7 +193,7 @@ class BiblioFuzzy
   ************************************** Accesorios de apoyo ***************************************
   **************************************************************************************************/
 
-  function Minimo($a, $b)
+  public static function Minimo($a, $b)
   {
     $resultado = -1.0;
     if ($a < $b)
@@ -207,7 +207,7 @@ class BiblioFuzzy
     return $resultado;
   }
 
-  function Maximo($a, $b)
+  public static function Maximo($a, $b)
   {
     $resultado = -1.0;
     if ($a > $b)
@@ -225,17 +225,17 @@ class BiblioFuzzy
   *********************************** Operadores lógicos Fuzzy *************************************
   **************************************************************************************************/
 
-  function ComparacionAND($ma_u, $mb_u)
+  public static function ComparacionAND($ma_u, $mb_u)
   {
     return Minimo($ma_u, $mb_u);
   }
 
-  function ComparacionOR($ma_u, $mb_u)
+  public static function ComparacionOR($ma_u, $mb_u)
   {
     return Maximo($ma_u, $mb_u);
   }
 
-  function Niega($ma_u)
+  public static function Niega($ma_u)
   {
     return 1.0 - $ma_u;
   }
@@ -244,17 +244,17 @@ class BiblioFuzzy
   *************************************** Implicación Fuzzy ****************************************
   **************************************************************************************************/
 
-  function ImplicaZadeh($ma_x, $mb_y)
+  public static function ImplicaZadeh($ma_x, $mb_y)
   {
     return Maximo(Minimo($ma_x, $mb_y), Niega($ma_x));
   }
 
-  function ImplicaMamdani($ma_x, $mb_y)
+  public static function ImplicaMamdani($ma_x, $mb_y)
   {
     return Minimo($ma_x, $mb_y);
   }
 
-  function ImplicaGodel($ma_x, $mb_y)
+  public static function ImplicaGodel($ma_x, $mb_y)
   {
     $resultado = -1.0;
     if ($ma_x <= $mb_y)
@@ -269,7 +269,7 @@ class BiblioFuzzy
   }
 }
 
-$vegetariano = new BiblioFuzzy();
+/*$vegetariano = new BiblioFuzzy();
 echo $vegetariano->Triangular(4, 0, 5, 10);
-
+echo BiblioFuzzy::Triangular(4, 0, 5, 10);*/
 ?>
