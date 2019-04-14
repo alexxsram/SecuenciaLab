@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-03-2019 a las 05:41:02
+-- Tiempo de generación: 14-04-2019 a las 20:01:55
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.14
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `secuencialab`
 --
-CREATE SCHEMA IF NOT EXISTS `secuencialab` DEFAULT CHARACTER SET utf8 ;
-USE `secuencialab` ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `alumnousuario` (
 --
 
 INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('A987654321', 'Juan Jose', 'L&oacute;pez', 'Serrano', 'perro@cucie.mx', 1, 'nadie', '987654321');
+('A123456789', 'DANIEL SEBASTIAN', 'CASTILLO', 'SERRANO', 'PERRO@hotmail.com', 1, 'Nada', '123456789');
 
 -- --------------------------------------------------------
 
@@ -102,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `clase` (
 --
 
 INSERT INTO `clase` (`claveAcceso`, `nombreMateria`, `nrc`, `claveSeccion`, `nombreClase`, `aula`, `anio`, `CicloEscolar_idCicloEscolar`, `ProfesorUsuario_codigoProfesor`) VALUES
-('Gti5j6OHnn', 'Control secuencial', 56165, 'klm', 'Laboratorio de control secuencial Miercoles', '561561', '2019', 1, 'P215861738');
+('vtdVjgoSc7', 'CONTROL SECUENCIAL', 46259, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'X25', '2019', 2, 'P123456789');
 
 -- --------------------------------------------------------
 
@@ -118,6 +116,13 @@ CREATE TABLE IF NOT EXISTS `clase_has_alumnousuario` (
   KEY `fk_Clase_has_AlumnoUsuario_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`),
   KEY `fk_Clase_has_AlumnoUsuario_Clase1_idx` (`Clase_claveAcceso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `clase_has_alumnousuario`
+--
+
+INSERT INTO `clase_has_alumnousuario` (`Clase_claveAcceso`, `AlumnoUsuario_codigoAlumno`) VALUES
+('vtdVjgoSc7', 'A123456789');
 
 -- --------------------------------------------------------
 
@@ -158,6 +163,29 @@ CREATE TABLE IF NOT EXISTS `evaluacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `evaluaciondifusa`
+--
+
+DROP TABLE IF EXISTS `evaluaciondifusa`;
+CREATE TABLE IF NOT EXISTS `evaluaciondifusa` (
+  `idEvaluacionDifusa` int(11) NOT NULL AUTO_INCREMENT,
+  `dificulSimuNitido` int(11) NOT NULL,
+  `apoyoSimuNitido` int(11) NOT NULL,
+  `CalMatApoNitido` int(11) NOT NULL,
+  `ClarMatApoNitido` int(11) NOT NULL,
+  `CantMatApoNitido` int(11) NOT NULL,
+  `CalContNitido` int(11) NOT NULL,
+  `ClarContNitido` int(11) NOT NULL,
+  `CantContNitido` int(11) NOT NULL,
+  `nivelAprendizajeNitido` int(11) NOT NULL,
+  `calificacionClaseNitido` int(11) NOT NULL,
+  `calificacionClaseDifuso` varchar(20) NOT NULL,
+  PRIMARY KEY (`idEvaluacionDifusa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `practica`
 --
 
@@ -170,7 +198,14 @@ CREATE TABLE IF NOT EXISTS `practica` (
   `Clase_claveAcceso` varchar(10) NOT NULL,
   PRIMARY KEY (`idPractica`),
   KEY `fk_Practica_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `practica`
+--
+
+INSERT INTO `practica` (`idPractica`, `nombre`, `descripcion`, `fechaLimite`, `Clase_claveAcceso`) VALUES
+(1, 'Arrancador de tensi&oacute;n', 'MASKSAL', '2019-04-16', 'vtdVjgoSc7');
 
 -- --------------------------------------------------------
 
@@ -190,9 +225,9 @@ CREATE TABLE IF NOT EXISTS `preguntaseguridad` (
 --
 
 INSERT INTO `preguntaseguridad` (`idPreguntaSeguridad`, `pregunta`) VALUES
-(1, '¿Cual es el nomre de tu mejor amigo de la infacia?'),
-(2, '¿Cúal es el nombre de la ciudad de tu primer viaje?'),
-(3, '¿Cúal es el nombre de tu primera mascota?');
+(1, '¿Cual es nombre de tu mejor amigo de la infancia?'),
+(2, '¿Cual es nombre de tu primer mascota?'),
+(3, '¿Cual es el nombre de tu actor/actriz favorito?');
 
 -- --------------------------------------------------------
 
@@ -219,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `profesorusuario` (
 --
 
 INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('P215861738', 'Cristian', 'Castillo', 'SERRANO', 'articuno0789@yahoo.com.mx', 1, 'SEBASTIAN', '123456789');
+('P123456789', 'CRISTIAN MICHELL', 'CASTILLO', 'SERRANO', 'agua_cristian@hotmail.com', 1, 'Nada', '123456789');
 
 --
 -- Restricciones para tablas volcadas
@@ -235,40 +270,40 @@ ALTER TABLE `alumnousuario`
 -- Filtros para la tabla `clase`
 --
 ALTER TABLE `clase`
-  ADD CONSTRAINT `fk_Clase_CicloEscolar1` FOREIGN KEY (`CicloEscolar_idCicloEscolar`) REFERENCES `cicloescolar` (`idCicloEscolar`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Clase_ProfesorUsuario1` FOREIGN KEY (`ProfesorUsuario_codigoProfesor`) REFERENCES `profesorusuario` (`codigoProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Clase_CicloEscolar1` FOREIGN KEY (`CicloEscolar_idCicloEscolar`) REFERENCES `cicloescolar` (`idCicloEscolar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Clase_ProfesorUsuario1` FOREIGN KEY (`ProfesorUsuario_codigoProfesor`) REFERENCES `profesorusuario` (`codigoProfesor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `clase_has_alumnousuario`
 --
 ALTER TABLE `clase_has_alumnousuario`
   ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  ADD CONSTRAINT `fk_Cuestionario_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Cuestionario_Practica1` FOREIGN KEY (`Practica_idPractica`) REFERENCES `practica` (`idPractica`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Cuestionario_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Cuestionario_Practica1` FOREIGN KEY (`Practica_idPractica`) REFERENCES `practica` (`idPractica`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `evaluacion`
 --
 ALTER TABLE `evaluacion`
-  ADD CONSTRAINT `fk_Evaluacion_Cuestionario1` FOREIGN KEY (`Cuestionario_idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Evaluacion_Cuestionario1` FOREIGN KEY (`Cuestionario_idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `practica`
 --
 ALTER TABLE `practica`
-  ADD CONSTRAINT `fk_Practica_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Practica_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `profesorusuario`
 --
 ALTER TABLE `profesorusuario`
-  ADD CONSTRAINT `fk_ProfesorUsuario_PreguntaSeguridad1` FOREIGN KEY (`PreguntaSeguridad_idPreguntaSeguridad`) REFERENCES `preguntaseguridad` (`idPreguntaSeguridad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ProfesorUsuario_PreguntaSeguridad1` FOREIGN KEY (`PreguntaSeguridad_idPreguntaSeguridad`) REFERENCES `preguntaseguridad` (`idPreguntaSeguridad`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
