@@ -1,4 +1,110 @@
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones que validan los formularios
+// ***************************************** Para dar de alta un usuario
+$("#formEvaluarClase").validate({
+  rules: {
+    evalCalidadCont: {
+      required: true
+    },
+    evalClaridadCont: {
+      required: true
+    },
+    evalCantidadCont: {
+      required: true
+    },
+    evalCalidadMatApoyo: {
+      required: true
+    },
+    evalClaridadMatApoyo: {
+      required: true
+    },
+    evalCantidadMatApoyo: {
+      required: true
+    },
+    evalSimulador: {
+      required: true
+    },
+    evalFacilidadSimulador: {
+      required: true
+    },
+    evalAprendizaje: {
+      required: true
+    }
+  },
+  messages: {
+    evalCalidadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalClaridadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCantidadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCalidadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalClaridadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCantidadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalSimulador: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalFacilidadSimulador: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalAprendizaje: {
+      required: "Ingresa este campo es requerido."
+    }
+  },
+  submitHandler: function(form) {
+    $.ajax({
+      url: "utileria/logica-difusa/Agregar-calificacion-clase.php",
+      type: "POST",
+      dataType: "HTML",
+      data: "evalCalidadCont=" + $("#evalCalidadCont").val()
+      + "&evalClaridadCont=" + $("#evalClaridadCont").val()
+      + "&evalCantidadCont=" + $("#evalCantidadCont").val()
+      + "&evalCalidadMatApoyo=" + $("#evalCalidadMatApoyo").val()
+      + "&evalClaridadMatApoyo=" + $("#evalClaridadMatApoyo").val()
+      + "&evalCantidadMatApoyo=" + $("#evalCantidadMatApoyo").val()
+      + "&evalSimulador=" + $("#evalSimulador").val()
+      + "&evalFacilidadSimulador=" + $("#evalFacilidadSimulador").val()
+      + "&evalAprendizaje=" + $("#evalAprendizaje").val()
+    }).done(function(echo) {
+      if(echo == "success") {
+        limpiarFormulario("#formEvaluarClase");
+        redireccionarPagina("panel-info-alumno.php");
+      }
+      else {
+        var html = "<div class='alert alert-danger' role='alert'>";
+        html += echo;
+        html += "</div>";
+        bootbox.alert(html);
+      }
+    });
+  },
+  errorElement: "em",
+  errorPlacement: function(error, element) {
+    // Add the `help-block` class to the error element
+    error.addClass("invalid-feedback");
+    if(element.prop("type") === "checkbox") {
+      // error.insertAfter(element.parent("label"));
+      error.addClass("invalid-feedback");
+    } else {
+      error.insertAfter(element);
+    }
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-invalid").removeClass("is-valid");
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-valid").removeClass("is-invalid");
+  }
+});
+
 // ***************************************** Para el login de la página
 $("#formLogin").validate({
   rules: {
