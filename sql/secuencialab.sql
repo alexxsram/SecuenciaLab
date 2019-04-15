@@ -24,6 +24,13 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema secuencialab
+-- -----------------------------------------------------
+
+CREATE SCHEMA IF NOT EXISTS `secuencialab` DEFAULT CHARACTER SET utf8 ;
+USE `secuencialab` ;
+
 --
 -- Estructura de tabla para la tabla `alumnousuario`
 --
