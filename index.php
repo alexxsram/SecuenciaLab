@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO')) {
   header('Location: utileria/sesion/sesion.php');
 } else {
