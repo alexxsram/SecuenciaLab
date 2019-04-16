@@ -56,7 +56,12 @@ include('utileria/operaciones/conexion.php');
               $resultado->bindValue(':Clase_claveAcceso', $clase->claveAcceso);
               $resultado->execute();
               $numeroAlumnos = $resultado->rowCount();
-              //$numeroAlumnos = $resultado->fetch(PDO::FETCH_OBJ);
+
+              $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
+              $resultado = $baseDatos->prepare($sql);
+              $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
+              $resultado->execute();
+              $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
 
             ?>
 
@@ -67,7 +72,7 @@ include('utileria/operaciones/conexion.php');
                     <div class="card-body">
                         <h4 class="card-title border-bottom pb-2" style="text-align: center; font-size: 18.5px; font-family: 'Candara';"> <i> <b> <?php echo $clase->nombreClase; ?> </b> </i></h4>
                         <p class="card-text text-center" style="font-size: 12.5px;">
-                            <b>NRC:</b> <?php echo $clase->nrc; ?> <br>
+                            <b>NRC:</b> <?php echo $clase->nrc . " - " . $clase->anio . " " . $ciclo->ciclo; ?> <br>
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
                             <b>Alumnos:</b> <?php echo $numeroAlumnos; ?> <br>
                         </p>
