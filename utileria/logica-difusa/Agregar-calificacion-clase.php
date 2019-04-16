@@ -3,8 +3,8 @@ include('../operaciones/conexion.php');
 include('Evaluacion-clase-fuzzy.php');
 
 try {
-  /*$evalClase = new SistemaFuzzyEvalucionClase();
-  $evalCalidadCont = htmlentities(addslashes($_POST['evalCalidadCont']));
+  $evalClase = new SistemaFuzzyEvalucionClase();
+  /*$evalCalidadCont = htmlentities(addslashes($_POST['evalCalidadCont']));
   $evalClaridadCont = htmlentities(addslashes($_POST['evalClaridadCont']));
   $evalCantidadCont = htmlentities(addslashes($_POST['evalCantidadCont']));
   $evalCalidadMatApoyo = htmlentities(addslashes($_POST['evalCalidadMatApoyo']));
@@ -49,9 +49,25 @@ try {
   echo "CalificacionClaseNitidaFinal: $evalClase->CalificacionClaseNitidaFinal<br/>";
   echo("<script>console.log('PHP: ".$evalClase->CalificacionClaseNitidaFinal."');</script>");
   if($evalClase->calificacionClaseDifuso != "Error"){
-    $sql = 'INSERT INTO difuso (calificacionDifuso, CalificacionNitido) VALUES (:calDifu, :calNiti)';
+    $sql = 'INSERT INTO evaluaciondifusa (dificulSimuNitido, apoyoSimuNitido,
+      CalMatApoNitido,ClarMatApoNitido,CantMatApoNitido,CalContNitido,
+      ClarContNitido,CantContNitido,nivelAprendizajeNitido,
+      calificacionClaseNitido, calificacionClaseDifuso) VALUES
+      (:difiSimuNiti, :apoSimuNiti, :CalMatApoNiti, :ClarMatApoNiti, :CantMatApoNiti,
+      :CalContNiti, :ClarContNiti, :CantContNitido, :nivelAprendiNiti,
+      :califClaseNiti, :califClaseDifi)';
     $resultado = $baseDatos->prepare($sql);
-    $array = array(':calDifu'=>$evalClase->calificacionClaseDifuso, ':calNiti'=>$evalClase->CalificacionClaseNitidaFinal);
+    $array = array(':difiSimuNiti'=>$evalClase->dificulSimuNitido,
+    ':apoSimuNiti'=>$evalClase->apoyoSimuNitido,
+    ':CalMatApoNiti'=>$evalClase->CalMatApoNitido,
+    ':ClarMatApoNiti'=>$evalClase->ClarMatApoNitido,
+    ':CantMatApoNiti'=>$evalClase->CantMatApoNitido,
+    ':CalContNiti'=>$evalClase->CalContNitido,
+    ':ClarContNiti'=>$evalClase->ClarContNitido,
+    ':CantContNitido'=>$evalClase->CantContNitido,
+    ':nivelAprendiNiti'=>$evalClase->nivelAprendizajeNitido,
+    ':califClaseNiti'=>$evalClase->CalificacionClaseNitidaFinal,
+    ':califClaseDifi'=>$evalClase->calificacionClaseDifuso);
     $resultado->execute($array);
     echo 'success';
   }else{
