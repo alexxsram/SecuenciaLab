@@ -1132,7 +1132,7 @@ $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-g
 });
 });*/
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   var myChart = Highcharts.chart('container', {
     chart: {
       type: 'column'
@@ -1170,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }]
   });
 });
-
+*/
 $(document).ready(function() {
   $.ajax({
     type: "POST",
