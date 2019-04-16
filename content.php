@@ -54,7 +54,7 @@ include('utileria/operaciones/conexion.php');
             ?>
 
             <!-- Aqui voy a cargar las clases -->
-            <div class="col-sm-3 py-2">
+            <div class="col-lg-3 col-md-6 col-sm-12 py-2">
                 <div class="card border-success">
                     <img class="card-img" src="images/index/fondo-card.jpg" alt="Card image">
                     <div class="card-body">
@@ -64,9 +64,9 @@ include('utileria/operaciones/conexion.php');
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
                             <!-- 0 alumnos<br> -->
                         </p>
-                        <div class="trans text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . $clase->claveAcceso . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button><br>
+                        <div class="text-center">
+                            <!-- <div class="btn-group"> -->
+                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . $clase->claveAcceso . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button>
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
                                 data-claveacceso="<?php echo $clase->claveAcceso; ?>"
                                 data-nombremateria="<?php echo $clase->nombreMateria; ?>"
@@ -76,9 +76,9 @@ include('utileria/operaciones/conexion.php');
                                 data-aula="<?php echo $clase->aula; ?>"
                                 data-anio="<?php echo $clase->anio; ?>"
                                 data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
-                                data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button> <br>
+                                data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
                                 <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>

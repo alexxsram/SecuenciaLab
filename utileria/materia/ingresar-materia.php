@@ -104,9 +104,6 @@ try {
                         <table class="table table-hover table-stripped cart-wrap">
                             <thead class="text-muted">
                                 <tr>
-                                    <th scope="col" class="text-center">
-                                        No. práctica
-                                    </th>
                                     <th scope="col">
                                         Nombre
                                     </th>
@@ -124,9 +121,6 @@ try {
                             <tbody>
                                 <?php foreach($practicas as $practica) { ?>
                                 <tr>
-                                    <td class="text-center">
-                                        <?php echo $practica->idPractica; ?>
-                                    </td>
                                     <td>
                                         <?php echo $practica->nombre; ?>
                                     </td>
@@ -153,7 +147,7 @@ try {
                                                 <i class="fas fa-edit"></i> Editar
                                             </button>
 
-                                            <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo '\'' . $practica->idPractica . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
+                                            <button type="button" class="btn btn-outline-danger" onclick="confirmarEliminar(<?php echo '\'' . $practica->idPractica . '-' . $practica->nombre . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
                                                 <i class="fas fa-times"></i> Eliminar
                                             </button>
                                         </div>
@@ -169,10 +163,40 @@ try {
                 </div>
 
                 <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
-                  <ul class="list-group" id="listaAlumnos" name="listaAlumnos">
-                    <li class="list-group-item active">Lista de alumnos</li>
-                    <button type="button" class="list-group-item list-group-item-action">Estra al cargar base de datos</button>
-                  </ul>
+                    <div class="list-group list-group-flush" id="listaAlumnos" name="listaAlumnos">
+                        <h3 href="#" class="list-group-item list-group-item-heading">
+                            Lista de Alumnos
+                        </h3>
+                    </div>
+                    <br>
+                    <ul class="list-group">
+                        <?php
+                        $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno, " ", A.apellidoMaterno) AS nombreCompleto ';
+                        $sql .= 'FROM clase_has_alumnousuario AS C ';
+                        $sql .= 'INNER JOIN alumnousuario A ON C.AlumnoUsuario_codigoAlumno = A.codigoAlumno ';
+                        $sql .= 'WHERE C.Clase_claveAcceso = :claveAcceso';
+                        $resultado = $baseDatos->prepare($sql);
+                        $resultado->bindValue(':claveAcceso', $claveAccesoClase);
+                        $resultado->execute();
+
+                        $numRow = $resultado->rowCount();
+                        if($numRow != 0) {
+                            $alumnosClase = $resultado->fetchAll(PDO::FETCH_OBJ);
+
+                            foreach ($alumnosClase as $alumnoClase) {
+                        ?>
+                        <li class="list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-center">
+                            <?php echo $alumnoClase->codigo . ' - ' . $alumnoClase->nombreCompleto; ?>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-success"> Ver gráficas </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary"> Calificar </button>
+                            </div>
+                        </li>
+                        <?php
+                            }
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>

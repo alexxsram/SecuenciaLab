@@ -210,8 +210,13 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
         + "&claveUsuario=" + $("#claveUsuario").val()
       }).done(function(echo) {
         if(echo == "success") {
-          limpiarFormulario("#formCambiarPassword");
-          redireccionarPagina("index.php");
+          bootbox.alert({
+            message: "Contraseña actualizada correctamente.",
+            callback: function() {
+              limpiarFormulario("#formCambiarPassword");
+              redireccionarPagina("index.php");
+            }
+          });
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
@@ -590,10 +595,10 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   var codigoProfesor = button.data("codigoprofesor");
 
   modal.find("#formEditarMateria #editarClaveAccesoClase").val(claveAcceso);
-  modal.find("#formEditarMateria #editarNombreClase").val(nombreMateria);
+  modal.find("#formEditarMateria #editarNombreClase").val(nombreClase);
   modal.find("#formEditarMateria #editarNrcClase").val(nrc);
   modal.find("#formEditarMateria #editarSeccionClase").val(claveSeccion);
-  modal.find("#formEditarMateria #editarMateriaClase").val(nombreClase);
+  modal.find("#formEditarMateria #editarMateriaClase").val(nombreMateria);
   modal.find("#formEditarMateria #editarAulaClase").val(aula);
   modal.find("#formEditarMateria #editarAnoClase").val(fecha);
   modal.find("#formEditarMateria #editarCicloEscolarClase").val(cicloEscolar);
@@ -1000,7 +1005,7 @@ function accionarEliminacionContenido(tipoMetodo, ruta, archivoPHP, tipoDato, da
       });
     },
     error: function(response) {
-      bootbox.alert("Error: " + response);
+      bootbox.alert("Error: " + respose);
     }
   });
 }
@@ -1033,13 +1038,14 @@ function confirmarEliminar(valor, tipo) {
   } else if(tipo == "practica") { //Si elimino una practica
     var vectorValores = valor.split("-");
     var idPractica = vectorValores[0];
-    var claveAcceso = vectorValores[1];
+    var nombre = vectorValores[1];
+    var claveAcceso = vectorValores[2];
     bootbox.confirm({
-      title: "Eliminar practica #" + idPractica,
+      title: "Eliminar practica " + nombre,
       message: "¿Está seguro que desea eliminar la práctica?",
       size: 'small',
       backdrop: true,
-      className: "bounceInLeft animated",
+      className: "swing animated",
       buttons: {
         confirm: {
           label: "Si <i class='fas fa-check-circle'></i>",
