@@ -2,7 +2,6 @@
 include('../operaciones/conexion.php');
 
 try {
-    #NOTA ESTO NO HACE NADA POR EL MOMENTO
     $claveUsuario = htmlentities(addslashes($_POST['claveUsuario']));
     $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
     $nuevoPasswordUsuario = htmlentities(addslashes($_POST['nuevoPasswordUsuario']));
