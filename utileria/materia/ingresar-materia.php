@@ -169,24 +169,10 @@ try {
                 </div>
 
                 <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
-                  <div class="list-group list-group-flush" id="listaAlumnos" name="listaAlumnos">
-                      <h3 href="#" class="list-group-item list-group-item-heading">
-                          Lista de Alumnos
-                      </h3>
-                      <!--<button type="button" class="list-group-item list-group-item-action">Castillo Serrano Cristiran Michell - 215861738
-                          <span class="badge badge-primary badge-pill">1</span>
-                      </button>
-                      <button type="button" class="list-group-item list-group-item-action">Zamora Alvarez Diego Adrian - 123456789
-                          <span class="badge badge-primary badge-pill">2</span>
-                      </button>-->
-                  </div>
-                  <button id="btn2" name="btn2">Append list items</button>
-                  <ol id="lista" name="lista">
-                    <li>List item 1</li>
-                    <li>List item 2</li>
-                    <li>List item 3</li>
-                  </ol>
-
+                  <ul class="list-group" id="listaAlumnos" name="listaAlumnos">
+                    <li class="list-group-item active">Lista de alumnos</li>
+                    <button type="button" class="list-group-item list-group-item-action">Estra al cargar base de datos</button>
+                  </ul>
                 </div>
             </div>
         </div>
