@@ -31,7 +31,7 @@ include('utileria/operaciones/conexion.php');
                 <?php } ?>
             </div>
         </div>
-        
+
         <?php
         } else {
         ?>
@@ -47,10 +47,17 @@ include('utileria/operaciones/conexion.php');
         </div>
 
         <div class="row h-100" style="margin-top: -1%;">
-            
+
             <?php
             $clases = $resultado->fetchAll(PDO::FETCH_OBJ);
             foreach ($clases as $clase) {
+              $sql = "SELECT * FROM clase_has_alumnousuario WHERE Clase_claveAcceso= :Clase_claveAcceso";
+              $resultado = $baseDatos->prepare($sql);
+              $resultado->bindValue(':Clase_claveAcceso', $clase->claveAcceso);
+              $resultado->execute();
+              $numeroAlumnos = $resultado->rowCount();
+              //$numeroAlumnos = $resultado->fetch(PDO::FETCH_OBJ);
+
             ?>
 
             <!-- Aqui voy a cargar las clases -->
@@ -62,7 +69,7 @@ include('utileria/operaciones/conexion.php');
                         <p class="card-text text-center" style="font-size: 12.5px;">
                             <b>NRC:</b> <?php echo $clase->nrc; ?> <br>
                             <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>
-                            <!-- 0 alumnos<br> -->
+                            <b>Alumnos:</b> <?php echo $numeroAlumnos; ?> <br>
                         </p>
                         <div class="text-center">
                             <!-- <div class="btn-group"> -->
@@ -84,13 +91,13 @@ include('utileria/operaciones/conexion.php');
                 </div>
             </div>
             <!--  -->
-            
+
             <?php
             }
             ?>
 
         </div>
-        
+
         <?php
         }
         ?>
