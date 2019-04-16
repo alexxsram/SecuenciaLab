@@ -149,12 +149,12 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 
                     <div class="form-group">
                         <label for="nombreClase">Nombre de la clase *</label>
-                        <input type="text" class="form-control" id="editarNombreClase" name="editarNombreClase"  placeholder="Ej. Laboratorio de Control Secuencial" required="required">
+                        <input type="text" class="form-control" id="editarNombreClase" name="editarNombreClase"  placeholder="Ej. Laboratorios de Sistemas de Control Secuencial" required="required">
                     </div>
 
                     <div class="form-group">
                         <label for="nrcClase">NRC *</label>
-                        <input type="number" class="form-control" id="editarNrcClase" name="editarNrcClase" placeholder="Ej. 46259" min=1 required="required">
+                        <input type="number" class="form-control" id="editarNrcClase" name="editarNrcClase" placeholder="Ej. 126178" min=1 required="required">
                     </div>
 
                     <div class="form-group">
