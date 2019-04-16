@@ -124,7 +124,7 @@ try {
                                         <?php echo $practica->nombre; ?>
                                     </td>
                                     <td>
-                                        <?php 
+                                        <?php
                                         $longitud = strlen($practica->descripcion);
                                         if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO
                                             echo substr($practica->descripcion, 0, 30) . '...';
