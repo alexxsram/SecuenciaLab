@@ -28,7 +28,6 @@ try {
     <div class="jumbotron">
         <div class="container">
             <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
-
             <p class="h6"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> </p>
             <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
             <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
@@ -169,7 +168,7 @@ try {
                         </h3>
                     </div>
                     <br>
-                    <ul class="list-group">
+                    <ul class="list-group" id="listaAlumnos" name="listaAlumnos">
                         <?php
                         $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno, " ", A.apellidoMaterno) AS nombreCompleto ';
                         $sql .= 'FROM clase_has_alumnousuario AS C ';
@@ -185,10 +184,10 @@ try {
 
                             foreach ($alumnosClase as $alumnoClase) {
                         ?>
-                        <li class="list-group-item list-group-item-action list-group-item-dark d-flex justify-content-between align-items-center">
+                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <?php echo $alumnoClase->codigo . ' - ' . $alumnoClase->nombreCompleto; ?>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-success"> Ver gráficas </button>
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="location.href='panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . $clase->claveAcceso . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . $alumnoClase->codigo . '\''; ?> ;"> Ver gráficas </button>
                                 <button type="button" class="btn btn-sm btn-outline-primary"> Calificar </button>
                             </div>
                         </li>
