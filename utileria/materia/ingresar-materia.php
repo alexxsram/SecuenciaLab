@@ -124,7 +124,14 @@ try {
                                         <?php echo $practica->nombre; ?>
                                     </td>
                                     <td>
-                                        <?php echo $practica->descripcion; ?>
+                                        <?php 
+                                        $longitud = strlen($practica->descripcion);
+                                        if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO
+                                            echo substr($practica->descripcion, 0, 30) . '...';
+                                        } else {
+                                            echo $practica->descripcion;
+                                        }
+                                        ?>
                                     </td>
                                     <td>
                                         <?php echo $practica->fechaLimite; ?>
