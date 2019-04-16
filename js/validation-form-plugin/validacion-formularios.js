@@ -964,20 +964,20 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
     data: datos,
     success: function(echo) {
       if(echo =="success"){
-      bootbox.alert({
-        message: "Registro eliminado correctamente!",
-        callback: function () {
-          redireccionarPagina(rutaRedireccionar);
-        }
-      });
-    }else{
-      bootbox.alert({
-        message: echo,
-        callback: function () {
-          redireccionarPagina(rutaRedireccionar);
-        }
-      });
-    }
+        bootbox.alert({
+          message: "Registro eliminado correctamente!",
+          callback: function () {
+            redireccionarPagina(rutaRedireccionar);
+          }
+        });
+      }else{
+        bootbox.alert({
+          message: echo,
+          callback: function () {
+            redireccionarPagina(rutaRedireccionar);
+          }
+        });
+      }
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
@@ -1110,6 +1110,31 @@ $('#modalCrearClase').ready(function() {
     success: function(response)
     {
       $('#editarCicloEscolarClase').html(response).fadeIn();
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
+  });
+});
+
+/*$(document).ready(function(){
+  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
+  $('#btn22').click(function() {
+    comment = $('#comment').val();
+    //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
+    $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
+  });
+});*/
+
+$(document).ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "utileria/materia/cargar-lista-alumnos.php",
+    success: function(response)
+    {
+      //$('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Estra al cargar base de datos ---</button>");
+      $('#listgroup22').append(response);
+      $('#listaAlumnos').append(response);
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
