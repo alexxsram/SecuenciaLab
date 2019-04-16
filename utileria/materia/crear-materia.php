@@ -23,9 +23,9 @@ try {
   $nombreClase = strtoupper($nombreClase);
   $materiaClase = strtoupper($materiaClase);
 
-  $sql = 'SELECT * FROM clase WHERE nrc = :nrc';
+  $sql = 'SELECT * FROM clase WHERE claveAcceso = :claveAcceso';
   $resultado = $baseDatos->prepare($sql);
-  $resultado->bindValue(':nrc', $nrcClase);
+  $resultado->bindValue(':claveAcceso', $claveAccesoClase);
   $resultado->execute();
   $numRow = $resultado->rowCount();
   if($numRow == 0) {
@@ -35,7 +35,7 @@ try {
     $resultado->execute($array);
     echo 'success';
   } else {
-    echo 'Error. La clase con el nrc ' . $nrcClase . ' ya existe.';
+    echo 'Error. La clase no se pudo crear intentelo de nuevo.';
   }
 } catch(Exception $exec) {
   die('Error en la base de datos: ' . $exec->getMessage());
