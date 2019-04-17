@@ -12,7 +12,7 @@ include('utileria/operaciones/conexion.php');
 <div class="masthead">
     <div class="container h-100" id="contenidoClase">
         <?php
-        $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY claveSeccion ASC, anio ASC";
+        $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC";
         $resultado = $baseDatos->prepare($sql);
         $resultado->bindValue(':codigoProfesor', $codigo);
         $resultado->execute();
