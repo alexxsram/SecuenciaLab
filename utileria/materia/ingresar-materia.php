@@ -38,7 +38,7 @@ try {
                 </button>
             </p>
             <p class="lead text-justify">
-                En la siguiente sección, el profesor puede crear las practicas de laboratorio relacionadas al manual
+                En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
             </p>
             <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,11 +86,11 @@ try {
 
                     <div class="col-12 text-center">
                         <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
-                            <h1 class="font-weight-light">La clase no cuenta con practicas que registrar</h1>
-                            <p class="lead">Es necesario que crees una practica para que la puedan visualizar tus alumnos.</p>
+                            <h1 class="font-weight-light">La clase no cuenta con prácticas</h1>
+                            <p class="lead">Es necesario que cree por lo menos una práctica para que la puedan visualizar sus alumnos.</p>
                         <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
                             <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
-                            <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
+                            <p class="lead">Aquí podrás realizar tus prácticas de tu(s) materias.</p>
                         <?php } ?>
                     </div>
 
