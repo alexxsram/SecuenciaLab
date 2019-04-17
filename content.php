@@ -40,7 +40,7 @@ include('utileria/operaciones/conexion.php');
             <div class="container">
                 <h1 class="display-4"> <i class="fas fa-users"></i> Listado de clases</h1>
                 <p class="lead text-justify">
-                    En esta sección al profesor se le permite administrar las clases que imparte, ingresando a sus grupos, editar los datos generales
+                    En esta sección podrá administrar las clases que imparte, ingresando a sus grupos, editar los datos generales
                     de la clase en caso de error y/o eliminarla en el momento que desee.
                 </p>
             </div>
