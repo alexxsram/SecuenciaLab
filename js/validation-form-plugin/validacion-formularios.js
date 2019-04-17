@@ -1,82 +1,98 @@
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones que validan los formularios
 // ***************************************** Para dar de alta un usuario
-$("#formEvaluarClase").validate({
+$("#formNuevoUsuario").validate({
   rules: {
-    evalCalidadCont: {
+    claveUsuario: {
+      required: true,
+      minlength: 9,
+      maxlength: 10
+    },
+    nombrePilaUsuario: {
       required: true
     },
-    evalClaridadCont: {
+    apellidoPaternoUsuario: {
       required: true
     },
-    evalCantidadCont: {
+    apellidoMaternoUsuario: {
       required: true
     },
-    evalCalidadMatApoyo: {
+    emailUsuario: {
+      required: true,
+      email: true
+    },
+    preguntaSeguridad: {
       required: true
     },
-    evalClaridadMatApoyo: {
+    respuestaSeguridad: {
       required: true
     },
-    evalCantidadMatApoyo: {
-      required: true
+    passwordUsuario: {
+      required: true,
+      minlength: 8,
+      maxlength: 45
     },
-    evalSimulador: {
-      required: true
-    },
-    evalFacilidadSimulador: {
-      required: true
-    },
-    evalAprendizaje: {
-      required: true
+    confirmPasswordUsuario: {
+      required: true,
+      minlength: 8,
+      maxlength: 45,
+      equalTo: "#passwordUsuario"
     }
   },
   messages: {
-    evalCalidadCont: {
-      required: "Ingresa este campo es requerido."
+    claveUsuario: {
+      required: "Ingresa tu número de usuario",
+      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
+      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
     },
-    evalClaridadCont: {
-      required: "Ingresa este campo es requerido."
+    nombrePilaUsuario: {
+      required: "Ingrese su nombre"
     },
-    evalCantidadCont: {
-      required: "Ingresa este campo es requerido."
+    apellidoPaternoUsuario: {
+      required: "Ingrese su apellido paterno"
     },
-    evalCalidadMatApoyo: {
-      required: "Ingresa este campo es requerido."
+    apellidoMaternoUsuario: {
+      required: "Ingrese su apellido materno"
     },
-    evalClaridadMatApoyo: {
-      required: "Ingresa este campo es requerido."
+    emailUsuario: {
+      required: "Ingrese un correo electrónico, para poder comunicarnos con usted",
+      email: "Tu correo electrónico debe tener el formato name@domain.com"
     },
-    evalCantidadMatApoyo: {
-      required: "Ingresa este campo es requerido."
+    preguntaSeguridad: {
+      required: "Seleccione una pregunta de seguridad"
     },
-    evalSimulador: {
-      required: "Ingresa este campo es requerido."
+    respuestaSeguridad: {
+      required: "Ingrese una respuesta a la pregunta de seguridad"
     },
-    evalFacilidadSimulador: {
-      required: "Ingresa este campo es requerido."
+    passwordUsuario: {
+      required: "Ingresa la contraseña",
+      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
     },
-    evalAprendizaje: {
-      required: "Ingresa este campo es requerido."
+    confirmPasswordUsuario: {
+      required: "Ingresa la contraseña",
+      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
+      equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
     }
   },
   submitHandler: function(form) {
     $.ajax({
-      url: "utileria/logica-difusa/Agregar-calificacion-clase.php",
+      url: "utileria/sesion/registrar-usuario.php",
       type: "POST",
       dataType: "HTML",
-      data: "evalCalidadCont=" + $("#evalCalidadCont").val()
-      + "&evalClaridadCont=" + $("#evalClaridadCont").val()
-      + "&evalCantidadCont=" + $("#evalCantidadCont").val()
-      + "&evalCalidadMatApoyo=" + $("#evalCalidadMatApoyo").val()
-      + "&evalClaridadMatApoyo=" + $("#evalClaridadMatApoyo").val()
-      + "&evalCantidadMatApoyo=" + $("#evalCantidadMatApoyo").val()
-      + "&evalSimulador=" + $("#evalSimulador").val()
-      + "&evalFacilidadSimulador=" + $("#evalFacilidadSimulador").val()
-      + "&evalAprendizaje=" + $("#evalAprendizaje").val()
+      data: "claveUsuario=" + $("#claveUsuario").val()
+      + "&nombrePilaUsuario=" + $("#nombrePilaUsuario").val()
+      + "&apellidoPaternoUsuario=" + $("#apellidoPaternoUsuario").val()
+      + "&apellidoMaternoUsuario=" + $("#apellidoMaternoUsuario").val()
+      + "&emailUsuario=" + $("#emailUsuario").val()
+      + "&preguntaSeguridad=" + $("#preguntaSeguridad").val()
+      + "&respuestaSeguridad=" + $("#respuestaSeguridad").val()
+      + "&passwordUsuario=" + $("#passwordUsuario").val()
+      + "&confirmPasswordUsuario=" + $("#confirmPasswordUsuario").val()
     }).done(function(echo) {
       if(echo == "success") {
-        limpiarFormulario("#formEvaluarClase");
-        redireccionarPagina("panel-info-alumno.php");
+        limpiarFormulario("#formNuevoUsuario");
+        redireccionarPagina("login.php");
       }
       else {
         var html = "<div class='alert alert-danger' role='alert'>";
@@ -257,128 +273,6 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
   });
 });
 
-// ***************************************** Para dar de alta un usuario
-$("#formNuevoUsuario").validate({
-  rules: {
-    claveUsuario: {
-      required: true,
-      minlength: 9,
-      maxlength: 10
-    },
-    nombrePilaUsuario: {
-      required: true
-    },
-    apellidoPaternoUsuario: {
-      required: true
-    },
-    apellidoMaternoUsuario: {
-      required: true
-    },
-    emailUsuario: {
-      required: true,
-      email: true
-    },
-    preguntaSeguridad: {
-      required: true
-    },
-    respuestaSeguridad: {
-      required: true
-    },
-    passwordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45
-    },
-    confirmPasswordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45,
-      equalTo: "#passwordUsuario"
-    }
-  },
-  messages: {
-    claveUsuario: {
-      required: "Ingresa tu número de usuario",
-      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
-      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
-    },
-    nombrePilaUsuario: {
-      required: "Ingrese su nombre"
-    },
-    apellidoPaternoUsuario: {
-      required: "Ingrese su apellido paterno"
-    },
-    apellidoMaternoUsuario: {
-      required: "Ingrese su apellido materno"
-    },
-    emailUsuario: {
-      required: "Ingrese un correo electrónico, para poder comunicarnos con usted",
-      email: "Tu correo electrónico debe tener el formato name@domain.com"
-    },
-    preguntaSeguridad: {
-      required: "Seleccione una pregunta de seguridad"
-    },
-    respuestaSeguridad: {
-      required: "Ingrese una respuesta a la pregunta de seguridad"
-    },
-    passwordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
-    },
-    confirmPasswordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
-      equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
-    }
-  },
-  submitHandler: function(form) {
-    $.ajax({
-      url: "utileria/sesion/registrar-usuario.php",
-      type: "POST",
-      dataType: "HTML",
-      data: "claveUsuario=" + $("#claveUsuario").val()
-      + "&nombrePilaUsuario=" + $("#nombrePilaUsuario").val()
-      + "&apellidoPaternoUsuario=" + $("#apellidoPaternoUsuario").val()
-      + "&apellidoMaternoUsuario=" + $("#apellidoMaternoUsuario").val()
-      + "&emailUsuario=" + $("#emailUsuario").val()
-      + "&preguntaSeguridad=" + $("#preguntaSeguridad").val()
-      + "&respuestaSeguridad=" + $("#respuestaSeguridad").val()
-      + "&passwordUsuario=" + $("#passwordUsuario").val()
-      + "&confirmPasswordUsuario=" + $("#confirmPasswordUsuario").val()
-    }).done(function(echo) {
-      if(echo == "success") {
-        limpiarFormulario("#formNuevoUsuario");
-        redireccionarPagina("login.php");
-      }
-      else {
-        var html = "<div class='alert alert-danger' role='alert'>";
-        html += echo;
-        html += "</div>";
-        bootbox.alert(html);
-      }
-    });
-  },
-  errorElement: "em",
-  errorPlacement: function(error, element) {
-    // Add the `help-block` class to the error element
-    error.addClass("invalid-feedback");
-    if(element.prop("type") === "checkbox") {
-      // error.insertAfter(element.parent("label"));
-      error.addClass("invalid-feedback");
-    } else {
-      error.insertAfter(element);
-    }
-  },
-  highlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-invalid").removeClass("is-valid");
-  },
-  unhighlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-valid").removeClass("is-invalid");
-  }
-});
-
 // ***************************************** Para restablecer contraseña de usuario
 $("#formRestablecerContrasena").validate({
   rules: {
@@ -463,6 +357,8 @@ $("#formRestablecerContrasena").validate({
 
 // ***************************************** Para el creación de clase
 $("#modalCrearClase").on("show.bs.modal", function (event) {
+  insercionPorAjax("POST", "utileria/materia/selector-cicloEscolar.php", "#cicloEscolarClase");
+
   $("#formCrearMateria").validate({
     rules: {
       nombreClase: {
@@ -595,14 +491,6 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
     mes = "0" + mes;
   }
   fecha = anio + "-" + mes + "-" + dia;
-  var cicloEscolar = button.data("cicloescolar");
-  if(cicloEscolar == "A") {
-    cicloEscolar = "cicloA";
-  } else if(cicloEscolar == "B") {
-    cicloEscolar = "cicloB";
-  } else if(cicloEscolar == "V") {
-    cicloEscolar = "cicloV";
-  }
   var codigoProfesor = button.data("codigoprofesor");
 
   modal.find("#formEditarMateria #editarClaveAccesoClase").val(claveAcceso);
@@ -612,8 +500,9 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   modal.find("#formEditarMateria #editarMateriaClase").val(nombreMateria);
   modal.find("#formEditarMateria #editarAulaClase").val(aula);
   modal.find("#formEditarMateria #editarAnoClase").val(fecha);
-  modal.find("#formEditarMateria #editarCicloEscolarClase").val(cicloEscolar);
+  insercionPorAjax("POST", "utileria/materia/selector-cicloEscolar.php", "#editarCicloEscolarClase");
   modal.find("#formEditarMateria #editarCodigoProfesorClase").val(codigoProfesor);
+
 
   $("#formEditarMateria").validate({
     rules: {
@@ -769,7 +658,7 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
     },
     submitHandler: function(form) {
       $.ajax({
-        url: "utileria/practica/crear-practica.php",
+        url: "../../utileria/practica/crear-practica.php",
         type: "POST",
         dataType: "HTML",
         data: "nombrePractica=" + $("#nombrePractica").val()
@@ -780,7 +669,7 @@ $("#modalCrearPractica").on("show.bs.modal", function (event) {
         if(echo == "success") {
           limpiarFormulario("#formCrearPractica");
           cerrarModal("#modalCrearPractica", "hide");
-          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + claveAcceso);
+          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
@@ -861,7 +750,7 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
     },
     submitHandler: function(form) {
       $.ajax({
-        url: "utileria/practica/editar-practica.php",
+        url: "../../utileria/practica/editar-practica.php",
         type: "POST",
         dataType: "HTML",
         data: "idPractica=" + $("#editarIdPractica").val()
@@ -872,7 +761,7 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
         if(echo == "success") {
           limpiarFormulario("#formEditarPractica");
           cerrarModal("#modalEditarPractica", "hide");
-          cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + claveAcceso);
+          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
@@ -959,6 +848,112 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
+// ***************************************** Para dar de alta un usuario
+$("#formEvaluarClase").validate({
+  rules: {
+    evalCalidadCont: {
+      required: true
+    },
+    evalClaridadCont: {
+      required: true
+    },
+    evalCantidadCont: {
+      required: true
+    },
+    evalCalidadMatApoyo: {
+      required: true
+    },
+    evalClaridadMatApoyo: {
+      required: true
+    },
+    evalCantidadMatApoyo: {
+      required: true
+    },
+    evalSimulador: {
+      required: true
+    },
+    evalFacilidadSimulador: {
+      required: true
+    },
+    evalAprendizaje: {
+      required: true
+    }
+  },
+  messages: {
+    evalCalidadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalClaridadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCantidadCont: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCalidadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalClaridadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalCantidadMatApoyo: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalSimulador: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalFacilidadSimulador: {
+      required: "Ingresa este campo es requerido."
+    },
+    evalAprendizaje: {
+      required: "Ingresa este campo es requerido."
+    }
+  },
+  submitHandler: function(form) {
+    $.ajax({
+      url: "utileria/logica-difusa/Agregar-calificacion-clase.php",
+      type: "POST",
+      dataType: "HTML",
+      data: "evalCalidadCont=" + $("#evalCalidadCont").val()
+      + "&evalClaridadCont=" + $("#evalClaridadCont").val()
+      + "&evalCantidadCont=" + $("#evalCantidadCont").val()
+      + "&evalCalidadMatApoyo=" + $("#evalCalidadMatApoyo").val()
+      + "&evalClaridadMatApoyo=" + $("#evalClaridadMatApoyo").val()
+      + "&evalCantidadMatApoyo=" + $("#evalCantidadMatApoyo").val()
+      + "&evalSimulador=" + $("#evalSimulador").val()
+      + "&evalFacilidadSimulador=" + $("#evalFacilidadSimulador").val()
+      + "&evalAprendizaje=" + $("#evalAprendizaje").val()
+    }).done(function(echo) {
+      if(echo == "success") {
+        limpiarFormulario("#formEvaluarClase");
+        redireccionarPagina("panel-info-alumno.php");
+      }
+      else {
+        var html = "<div class='alert alert-danger' role='alert'>";
+        html += echo;
+        html += "</div>";
+        bootbox.alert(html);
+      }
+    });
+  },
+  errorElement: "em",
+  errorPlacement: function(error, element) {
+    // Add the `help-block` class to the error element
+    error.addClass("invalid-feedback");
+    if(element.prop("type") === "checkbox") {
+      // error.insertAfter(element.parent("label"));
+      error.addClass("invalid-feedback");
+    } else {
+      error.insertAfter(element);
+    }
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-invalid").removeClass("is-valid");
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-valid").removeClass("is-invalid");
+  }
+});
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();
@@ -968,8 +963,10 @@ function redireccionarPagina(ruta) {
   setTimeout(window.location = ruta, 5000);
 }
 
-function cargarContenido(idEtiqueta, ruta, archivoPHP, datos) {
-  $("#" + idEtiqueta).load(ruta + archivoPHP + "?" + datos);
+function cargarContenido(ruta, archivoPHP, datos) {
+  var url = ruta + archivoPHP + "?" + datos;
+  // $("#" + idEtiqueta).load(url);
+  window.open(url, "_blank");
 }
 
 function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {
@@ -979,14 +976,14 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
     dataType: tipoDato,
     data: datos,
     success: function(echo) {
-      if(echo =="success"){
+      if(echo == "success") {
         bootbox.alert({
           message: "Registro eliminado correctamente!",
           callback: function () {
             redireccionarPagina(rutaRedireccionar);
           }
         });
-      }else{
+      } else {
         bootbox.alert({
           message: echo,
           callback: function () {
@@ -997,26 +994,6 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
-    }
-  });
-}
-
-function accionarEliminacionContenido(tipoMetodo, ruta, archivoPHP, tipoDato, datos, idEtiqueta, rutaRecargar, archivoPHP, datos) { //esta función sirve para eliminar todo lo relacionado a una clase como practicas, alumnos y/o calificaciones de alumnos
-  $.ajax({
-    type: tipoMetodo,
-    url: ruta + archivoPHP,
-    dataType: tipoDato,
-    data: datos,
-    success: function(response) {
-      bootbox.alert({
-        message: "Registro eliminado correctamente!",
-        callback: function () {
-          cargarContenido(idEtiqueta, rutaRecargar, archivoPHP, datos);
-        }
-      });
-    },
-    error: function(response) {
-      bootbox.alert("Error: " + respose);
     }
   });
 }
@@ -1069,7 +1046,7 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          accionarEliminacionContenido("POST", "utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + idPractica, "contenidoClase", "utileria/materia/", "ingresar-materia.php", "claveAccesoClase=" + claveAcceso);
+          accionarEliminacion("POST", "../../utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + idPractica, "../materia/ingresar-materia.php?claveAccesoClase=" + btoa(claveAcceso));
         }
       }
     });
@@ -1092,58 +1069,32 @@ function cerrarModal(idEtiqueta, tipoAccion) {
   $(idEtiqueta).modal(tipoAccion);
 }
 
-$('#formNuevoUsuario').ready(function() {
+// ESTA FUNCION SOLO TRABAJA CON MODALS, EN ALGUNAS TAL VEZ
+function insercionPorAjax(metodo, ruta, idEtiqueta) {
   $.ajax({
-    type: "POST",
-    url: "utileria/sesion/selector-seguridad.php",
-    success: function(response)
-    {
-      $('#preguntaSeguridad').html(response).fadeIn();
+    type: metodo,
+    url: ruta,
+    success: function(response) {
+      $(idEtiqueta).html(response).fadeIn();
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
     }
   });
-});
+}
 
-$('#modalCrearClase').ready(function() {
-  $.ajax({
-    type: "POST",
-    url: "utileria/materia/selector-cicloEscolar.php",
-    success: function(response)
-    {
-      $('#cicloEscolarClase').html(response).fadeIn();
-    },
-    error: function(response) {
-      bootbox.alert("Error: " + response);
-    }
+// ESTO PODEMOS ADAPTARLO EN OTRO ARCHIVO JS PARA NO CAUSAR CONFLICTOS CON LOS QUE USAN DOCUMENT.READY DENTRO DE LA PESTAÑA INGRESAR-MATERIA.PHP YA QUE AHÍ CON LA NUEVA ADAPTACIÓN TUVE PROBLEMAS
+/*
+$(document).ready(function(){
+  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
+  $('#btn22').click(function() {
+    comment = $('#comment').val();
+    //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
+    $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
   });
 });
 
-$('#modalCrearClase').ready(function() {
-  $.ajax({
-    type: "POST",
-    url: "utileria/materia/selector-cicloEscolar.php",
-    success: function(response)
-    {
-      $('#editarCicloEscolarClase').html(response).fadeIn();
-    },
-    error: function(response) {
-      bootbox.alert("Error: " + response);
-    }
-  });
-});
-
-/*$(document).ready(function(){
-$('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
-$('#btn22').click(function() {
-comment = $('#comment').val();
-//$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
-$('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
-});
-});*/
-
-/*document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   var myChart = Highcharts.chart('container', {
     chart: {
       type: 'column'
@@ -1180,9 +1131,9 @@ $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-g
       data: [85]
     }]
   });
-});
-*/
-$(document).ready(function() {
+});*/
+
+/*$(document).ready(function() {
   $.ajax({
     type: "POST",
     url: "utileria/materia/cargar-lista-alumnos.php",
@@ -1317,4 +1268,4 @@ function cargarGraficaDePractica(idpractica, nombrePractica, codigoAlumno) {
 
 
   //redireccionarPagina("index.php");
-}
+}*/

@@ -52,7 +52,7 @@ include('utileria/operaciones/conexion.php');
                 </div>
             </li>
             <li class="form-inline">
-                <button onclick="window.location = 'utileria/sesion/cerrar-sesion.php';" class="btn btn-outline-danger btn-sm" type="button">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
+                <button onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');" class="btn btn-outline-danger btn-sm" type="button">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
             </li>
             </ul>
         </div>
@@ -102,17 +102,17 @@ include('utileria/operaciones/conexion.php');
                 <?php
                 $clases = $resultado->fetchAll(PDO::FETCH_OBJ);
                 foreach ($clases as $clase) {
-                $sql = "SELECT * FROM clase_has_alumnousuario WHERE Clase_claveAcceso= :Clase_claveAcceso";
-                $resultado = $baseDatos->prepare($sql);
-                $resultado->bindValue(':Clase_claveAcceso', $clase->claveAcceso);
-                $resultado->execute();
-                $numeroAlumnos = $resultado->rowCount();
+                    $sql = "SELECT * FROM clase_has_alumnousuario WHERE Clase_claveAcceso= :Clase_claveAcceso";
+                    $resultado = $baseDatos->prepare($sql);
+                    $resultado->bindValue(':Clase_claveAcceso', $clase->claveAcceso);
+                    $resultado->execute();
+                    $numeroAlumnos = $resultado->rowCount();
 
-                $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
-                $resultado = $baseDatos->prepare($sql);
-                $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
-                $resultado->execute();
-                $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
+                    $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
+                    $resultado = $baseDatos->prepare($sql);
+                    $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
+                    $resultado->execute();
+                    $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
 
                 ?>
 
@@ -129,7 +129,7 @@ include('utileria/operaciones/conexion.php');
                             </p>
                             <div class="text-center">
                                 <!-- <div class="btn-group"> -->
-                                    <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('contenidoClase', 'utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . $clase->claveAcceso . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button>
+                                    <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button>
                                     <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
                                     data-claveacceso="<?php echo $clase->claveAcceso; ?>"
                                     data-nombremateria="<?php echo $clase->nombreMateria; ?>"
@@ -138,7 +138,6 @@ include('utileria/operaciones/conexion.php');
                                     data-nombreclase="<?php echo $clase->nombreClase; ?>"
                                     data-aula="<?php echo $clase->aula; ?>"
                                     data-anio="<?php echo $clase->anio; ?>"
-                                    data-cicloescolar="<?php echo $clase->CicloEscolar_idCicloEscolar; ?>"
                                     data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
                                 <!-- </div> -->

@@ -127,5 +127,8 @@
   </footer>
   <!-- Footer -->
   <?php include('utileria/encabezados/encabezado-js.php'); ?>
+  <script>
+    insercionPorAjax("POST", "utileria/sesion/selector-seguridad.php", "#preguntaSeguridad");
+  </script>
 </body>
 </html>

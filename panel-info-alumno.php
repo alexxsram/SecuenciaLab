@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
 include('utileria/operaciones/conexion.php');
-$claveAccesoClase = $_GET['claveAccesoClase'];
-$claveUsuario = $_GET['claveUsuario'];
+$claveAccesoClase =   base64_decode($_GET['claveAccesoClase']);
+$claveUsuario = base64_decode($_GET['claveUsuario']);
 /*//Estraer datos de una clase
 $sql = "SELECT * FROM clase WHERE claveAcceso = :claveAcceso";
 $resultado = $baseDatos->prepare($sql);
