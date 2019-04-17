@@ -32,6 +32,11 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     </div>
 
                     <div class="form-group">
+                        <label for="passwordUsuarioActual">Contraseña actual *</label>
+                        <input type="password" class="form-control" id="passwordUsuarioActual" name="passwordUsuarioActual"  required="required">
+                    </div>
+
+                    <div class="form-group">
                         <label for="nuevaContrasenaUsuario">Nueva contraseña *</label>
                         <input type="password" class="form-control" id="nuevaPasswordUsuario" name="nuevaPasswordUsuario"  required="required">
                     </div>

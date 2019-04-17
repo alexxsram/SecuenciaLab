@@ -176,6 +176,11 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
 
   $("#formCambiarPassword").validate({
     rules: {
+      passwordUsuarioActual: {
+        required: true,
+        minlength: 8,
+        maxlength: 45
+      },
       nuevaPasswordUsuario: {
         required: true,
         minlength: 8,
@@ -189,13 +194,18 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
       }
     },
     messages: {
+      passwordUsuarioActual: {
+        required: "Ingresa la contraseña actual",
+        minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+        maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
+      },
       nuevaPasswordUsuario: {
-        required: "Ingresa la contraseña",
+        required: "Ingresa la nueva contraseña",
         minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
         maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
       },
       confirmarNuevaPasswordUsuario: {
-        required: "Ingresa la contraseña",
+        required: "Ingresa otra vez la nueva contraseña",
         minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
         maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
         equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
@@ -206,7 +216,8 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
         url: "utileria/sesion/cambiar-contrasena.php",
         type: "POST",
         dataType: "HTML",
-        data: "passwordUsuario=" + $("#nuevaPasswordUsuario").val()
+        data: "nuevoPasswordUsuario=" + $("#nuevaPasswordUsuario").val()
+        + "&actualPasswordUsuario=" + $("#passwordUsuarioActual").val()
         + "&claveUsuario=" + $("#claveUsuario").val()
       }).done(function(echo) {
         if(echo == "success") {
