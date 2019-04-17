@@ -233,5 +233,7 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
 </form>
 </div>-->
 </div>
+
+<script src="js/validation-form-plugin/panel-info-alumno.js"></script>
 </body>
 </html>

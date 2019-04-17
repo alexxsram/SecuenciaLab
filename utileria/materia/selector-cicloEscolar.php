@@ -6,7 +6,7 @@ try {
   foreach ($data as $row) {
     $idCiclo = $row['idCicloEscolar'];
     $cilo = $row['ciclo'];
-    echo "<option value='{$idCiclo}'>{$cilo}</option>";
+    echo "<option value='{$idCiclo}'> {$cilo} </option>";
   }
   // Cerrar la conexión
   mysql_close($baseDatos);
