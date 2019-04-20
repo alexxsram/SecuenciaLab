@@ -48,7 +48,7 @@ try {
                     <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
                     <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
                     <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo $clase->claveAcceso; ?>
+                    <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo base64_encode($clase->claveAcceso); ?>
                         <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
                             <i class="fas fa-sign-in-alt"></i>
                         </button>
@@ -135,7 +135,11 @@ try {
                                                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                                     <div class="h6 dropdown-header">Configuración</div>
-                                                    <a class="dropdown-item" href="#"> <i class="fas fa-edit"></i> Editar</a>
+                                                    <a class="dropdown-item" data-toggle="modal"  href="#modalEditarAnuncio" data-idanuncio="<?php echo $anuncio->idAnuncio; ?>"
+                                                    data-titulo="<?php echo $anuncio->titulo; ?>"
+                                                    data-contenido="<?php echo $anuncio->contenido; ?>"
+                                                    data-fechapublicacion="<?php echo $anuncio->fechaPublicacion; ?>"
+                                                    data-claveacceso="<?php echo $anuncio->Clase_claveAcceso; ?>"> <i class="fas fa-edit"></i> Editar</a>
                                                     <a class="dropdown-item" href="#"> <i class="fas fa-trash"></i> Eliminar</a>
                                                 </div>
                                                 <?php } ?>

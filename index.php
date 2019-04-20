@@ -48,10 +48,9 @@ include('utileria/operaciones/conexion.php');
                 <i class="fas fa-user-alt"></i> <?php echo $nombre . " - " . $codigo; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" data-toggle="modal" href="#modalCambiarPassword" data-codigo="<?php echo $codigo; ?>"><i class="fas fa-key"></i> Cambiar contraseña</a>
+                    <a class="dropdown-item" data-toggle="modal" href="#modalCambiarPassword" data-codigo="<?php echo $codigo; ?>"><i class="fas fa-key"></i> Cambiar contraseña</a>
                 </div>
             </li>
-            <li class="form-inline">
                 <button onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');" class="btn btn-outline-danger btn-sm" type="button">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
             </li>
             </ul>

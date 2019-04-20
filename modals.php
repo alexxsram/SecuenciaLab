@@ -259,6 +259,55 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     </div>
 </div>
 
+<!-- El modal para editar un anuncio -->
+<div class="modal fade" id="modalEditarAnuncio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title text-white">Editar anuncio</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="formEditarAnuncio" name="formCrearAnuncio" method="POST">
+                <div class="modal-body">
+                    <div class="alert alert-info text-justify" role="alert">
+                        Este apartado permite al profesor editar el anuncio en caso de error.
+                        Todos los campos con (*) son obligatorios.
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="editarIdAnuncio" name="editarIdAnuncio" required="required" disabled="disabled">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tituloAnuncio">Nuevo título del anuncio *</label>
+                        <input type="text" class="form-control" id="editarTituloAnuncio" name="editarTituloAnuncio"  placeholder="Ej. Realizar práctica #1 Tratamiento de un motor" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcionAnuncio">Nuevo contenido *</label>
+                        <textarea class="form-control" id="editarContenidoAnuncio" name="editarContenidoAnuncio" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaLimitePractica">Nueva fecha de creación *</label>
+                        <input type="date" class="form-control" id="editarFechaCreacionAnuncio" name="editarFechaCreacionAnuncio" required="required">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+                    <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-save"></i> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- El modal para crear una practica -->
 <div class="modal fade" id="modalCrearPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

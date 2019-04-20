@@ -694,6 +694,90 @@ $("#modalCrearAnuncio").on("show.bs.modal", function (event) {
   });
 });
 
+// ***************************************** Para la creación de anuncios
+$("#modalEditarAnuncio").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var idAnuncio = button.data("idanuncio");
+  var titulo = button.data("titulo");
+  var contenido = button.data("contenido");
+  var fechaPublicacion = button.data("fechapublicacion");
+  var claveAcceso = button.data("claveacceso");
+
+  modal.find("#formEditarAnuncio #editarIdAnuncio").val(idAnuncio);
+  modal.find("#formEditarAnuncio #editarTituloAnuncio").val(titulo);
+  modal.find("#formEditarAnuncio #editarContenidoAnuncio").val(contenido);
+  modal.find("#formEditarAnuncio #editarFechaCreacionAnuncio").val(fechaPublicacion);
+
+  $("#formEditarAnuncio").validate({
+    rules: {
+      editarTituloAnuncio: {
+        required: true
+      },
+      editarContenidoAnuncio: {
+        required: true
+      },
+      editarFechaCreacionAnuncio: {
+        required: true,
+        date: true
+      }
+    },
+    messages: {
+      editarTituloAnuncio: {
+        required: "Ingresa el nuevo título del anuncio"
+      },
+      editarContenidoAnuncio: {
+        required: "Ingresa un contenido o descripición nuevo al anuncio"
+      },
+      editarFechaCreacionAnuncio: {
+        required: "Ingresa la nueva fecha de creación",
+        date: ""
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "../../utileria/materia/editar-anuncio.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "idAnuncio=" + $("#editarIdAnuncio").val()
+        + "&tituloAnuncio=" + $("#editarTituloAnuncio").val()
+        + "&contenidoAnuncio=" + $("#editarContenidoAnuncio").val()
+        + "&fechaCreacionAnuncio=" + $("#editarFechaCreacionAnuncio").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formEditarAnuncio");
+          cerrarModal("#modalEditarAnuncio", "hide");
+          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
 // ***************************************** Para el creación de la práctica
 $("#modalCrearPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
