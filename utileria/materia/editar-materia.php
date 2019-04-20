@@ -12,6 +12,10 @@ try {
     $cicloEscolarClase = $_POST['cicloEscolarClase'];
     $codigoProfesorClase = $_POST['codigoProfesorClase'];
 
+    //Convertir dinformación de cadena a mayusculas
+    $nombreClase = strtoupper($nombreClase);
+    $materiaClase = strtoupper($materiaClase);
+
     $sql = "UPDATE clase SET nombreMateria = :nm, nrc = :n, claveSeccion = :cs, nombreClase = :nc, aula = :a, anio = :y, CicloEscolar_idCicloEscolar = :ce WHERE claveAcceso = :ca AND ProfesorUsuario_codigoProfesor = :pucp";
     $resultado = $baseDatos->prepare($sql);
     $array = array(':nm'=>$materiaClase, ':n'=>$nrcClase, ':cs'=>$seccionClase, ':nc'=>$nombreClase, ':a'=>$aulaClase, ':y'=>$anoClase, ':ce'=>$cicloEscolarClase, ':ca'=>$claveAccesoClase, ':pucp'=>$codigoProfesorClase);

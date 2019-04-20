@@ -56,14 +56,17 @@ try {
                     <p class="lead text-justify">
                         En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
                     </p>
+                    <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acciones de la clase
                         </button>
                         <div class="dropdown-menu">
+                            <a class="dropdown-item" data-toggle="modal" href="#modalCrearAnuncio" data-codigoprofesor="<?php echo $codigo; ?>" data-claveacceso="<?php echo $clase->claveAcceso; ?>"><i class="fas fa-info-circle"></i> Agregar anuncio</a>
                             <a class="dropdown-item" data-toggle="modal" href="#modalCrearPractica" data-claveacceso="<?php echo $clase->claveAcceso; ?>"><i class="fas fa-clipboard"></i> Agregar práctica</a>
                         </div>
                     </div>
+                    <?php } ?>
                     <button type="button" class="btn btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
@@ -76,17 +79,90 @@ try {
                             <a class="nav-link active" id="tablero-tab" data-toggle="tab" href="#tablero" role="tab" aria-controls="tablero" aria-selected="true">Tablero</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="practica-tab" data-toggle="tab" href="#practica" role="tab" aria-controls="practica" aria-selected="false">Práctica</a>
+                            <a class="nav-link" id="practica-tab" data-toggle="tab" href="#practica" role="tab" aria-controls="practica" aria-selected="true">Práctica</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="alumnos-tab" data-toggle="tab" href="#alumnos" role="tab" aria-controls="alumnos" aria-selected="false">Alumnos</a>
+                            <a class="nav-link" id="alumnos-tab" data-toggle="tab" href="#alumnos" role="tab" aria-controls="alumnos" aria-selected="true">Alumnos</a>
                         </li>
                     </ul>
                 </div>
+
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
-                            sdasdasdasdad
+                            <?php
+                                $sql = 'SELECT * FROM anuncio WHERE ProfesorUsuario_codigoProfesor = :codigo AND Clase_claveAcceso = :claveAcceso';
+                                $resultado = $baseDatos->prepare($sql);
+                                $array = array(':codigo'=>$codigo, ':claveAcceso'=>$claveAccesoClase);
+                                $resultado->execute($array);
+
+                                $numRow = $resultado->rowCount();
+                                if($numRow == 0) {
+                            ?>
+
+                            <div class="col-12 text-center">
+                                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                                    <h1 class="font-weight-light">La clase no tiene anuncios</h1>
+                                    <p class="lead">Se debe crear uno, para revisión de trabajo pendiente.</p>
+                                <?php } ?>
+                            </div>
+
+                            <?php 
+                                } else {
+                                    $anuncios = $resultado->fetchAll(PDO::FETCH_OBJ);
+
+                                    foreach ($anuncios as $anuncio) {
+                            ?>
+
+                            <!-- Ejemplo de card para anuncios -->
+                            <div class="card gedf-card" style="margin-bottom: 15px;">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="mr-2">
+                                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                                            </div>
+                                            <div class="ml-2">
+                                                <div class="h5 m-0 text-muted"> <?php echo $nombre; ?> </div>
+                                                <div class="h7 text-muted"> a <?php echo $clase->nombreClase; ?> </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-cog"></i>
+                                                </button>
+                                                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                                    <div class="h6 dropdown-header">Configuración</div>
+                                                    <a class="dropdown-item" href="#"> <i class="fas fa-edit"></i> Editar</a>
+                                                    <a class="dropdown-item" href="#"> <i class="fas fa-trash"></i> Eliminar</a>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-muted h7 mb-2"> <i class="fas fa-calendar"></i> <?php $fecha = date_create($anuncio->fechaPublicacion); echo date_format($fecha, 'l jS F Y'); ?> </div>
+                                    <a class="card-link" href="#">
+                                        <h5 class="card-title"> <?php echo $anuncio->titulo; ?> </h5>
+                                    </a>
+                                    <p class="card-text">
+                                        <?php echo $anuncio->contenido; ?>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="#" class="card-link float-right"><i class="fa fa-comment"></i> Comentarios</a>
+                                </div>
+                            </div>
+                            <!-- Post /////-->
+
+                            <?php 
+                                    }    
+                                }
+                            ?>
                         </div>
 
                         <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
@@ -104,9 +180,6 @@ try {
                                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                     <h1 class="font-weight-light">La clase no cuenta con prácticas</h1>
                                     <p class="lead">Es necesario que cree por lo menos una práctica para que la puedan visualizar sus alumnos.</p>
-                                <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
-                                    <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
-                                    <p class="lead">Aquí podrás realizar tus prácticas de tu(s) materias.</p>
                                 <?php } ?>
                             </div>
 

@@ -206,6 +206,59 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     </div>
 </div>
 
+<!-- El modal para crear un anuncio -->
+<div class="modal fade" id="modalCrearAnuncio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title text-white">Crear anuncio</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="formCrearAnuncio" name="formCrearAnuncio" method="POST">
+                <div class="modal-body">
+                    <div class="alert alert-info text-justify" role="alert">
+                        El profesor puede crear anuncios para informar a los alumnos de los pendientes que existan en la clase.
+                        Todos los campos con (*) son obligatorios.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tituloAnuncio">Titulo del anuncio *</label>
+                        <input type="text" class="form-control" id="tituloAnuncio" name="tituloAnuncio"  placeholder="Ej. Realizar práctica #1 Tratamiento de un motor" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcionAnuncio">Contenido *</label>
+                        <textarea class="form-control" id="contenidoAnuncio" name="contenidoAnuncio" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaLimitePractica">Fecha de creación *</label>
+                        <input type="date" class="form-control" id="fechaCreacionAnuncio" name="fechaCreacionAnuncio" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="codigoProfesor" name="codigoProfesor" required="required" disabled="disabled">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="claveAccesoClase" name="claveAccesoClase" required="required" disabled="disabled">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+                    <button type="submit" class="btn btn-primary">Crear <i class="fas fa-check-circle"></i> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- El modal para crear una practica -->
 <div class="modal fade" id="modalCrearPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

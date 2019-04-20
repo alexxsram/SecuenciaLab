@@ -503,7 +503,6 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
   insercionPorAjax("POST", "utileria/materia/selector-cicloEscolar.php", "#editarCicloEscolarClase");
   modal.find("#formEditarMateria #editarCodigoProfesorClase").val(codigoProfesor);
 
-
   $("#formEditarMateria").validate({
     rules: {
       editarNombreClase: {
@@ -586,6 +585,86 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       }).done(function(echo) {
         if(echo == "success") {
           redireccionarPagina("index.php");
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
+// ***************************************** Para la creación de anuncios
+$("#modalCrearAnuncio").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var codigoProfesor = button.data("codigoprofesor");
+  var claveAcceso = button.data("claveacceso");
+
+  modal.find("#formCrearAnuncio #codigoProfesor").val(codigoProfesor);
+  modal.find("#formCrearAnuncio #claveAccesoClase").val(claveAcceso);
+
+  $("#formCrearAnuncio").validate({
+    rules: {
+      tituloAnuncio: {
+        required: true
+      },
+      contenidoAnuncio: {
+        required: true
+      },
+      fechaCreacionAnuncio: {
+        required: true,
+        date: true
+      }
+    },
+    messages: {
+      tituloAnuncio: {
+        required: "Ingresa el título del anuncio"
+      },
+      contenidoAnuncio: {
+        required: "Ingresa un contenido o descripición al anuncio"
+      },
+      fechaCreacionAnuncio: {
+        required: "Ingresa la fecha de creación",
+        date: ""
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "../../utileria/materia/crear-anuncio.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "tituloAnuncio=" + $("#tituloAnuncio").val()
+        + "&contenidoAnuncio=" + $("#contenidoAnuncio").val()
+        + "&fechaCreacionAnuncio=" + $("#fechaCreacionAnuncio").val()
+        + "&codigoProfesor=" + $("#codigoProfesor").val()
+        + "&claveAccesoClase=" + $("#claveAccesoClase").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formCrearAnuncio");
+          cerrarModal("#modalCrearAnuncio", "hide");
+          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";

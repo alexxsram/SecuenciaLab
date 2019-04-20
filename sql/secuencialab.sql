@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-04-2019 a las 20:01:55
--- Versión del servidor: 5.7.24
--- Versión de PHP: 7.2.14
+-- Tiempo de generación: 20-04-2019 a las 07:24:26
+-- Versión del servidor: 5.7.23
+-- Versión de PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -23,13 +23,6 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
--- -----------------------------------------------------
--- Schema secuencialab
--- -----------------------------------------------------
-
-CREATE SCHEMA IF NOT EXISTS `secuencialab` DEFAULT CHARACTER SET utf8 ;
-USE `secuencialab` ;
 
 --
 -- Estructura de tabla para la tabla `alumnousuario`
@@ -49,12 +42,32 @@ CREATE TABLE IF NOT EXISTS `alumnousuario` (
   KEY `fk_AlumnoUsuario_PreguntaSeguridad1_idx` (`PreguntaSeguridad_idPreguntaSeguridad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `alumnousuario`
+-- Estructura de tabla para la tabla `anuncio`
 --
 
-INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('A123456789', 'DANIEL SEBASTIAN', 'CASTILLO', 'SERRANO', 'PERRO@hotmail.com', 1, 'Nada', '123456789');
+DROP TABLE IF EXISTS `anuncio`;
+CREATE TABLE IF NOT EXISTS `anuncio` (
+  `idAnuncio` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) NOT NULL,
+  `contenido` longtext NOT NULL,
+  `fechaPublicacion` date NOT NULL,
+  `ProfesorUsuario_codigoProfesor` varchar(15) NOT NULL,
+  `Clase_claveAcceso` varchar(10) NOT NULL,
+  PRIMARY KEY (`idAnuncio`),
+  KEY `fk_Anuncio_ProfesorUsuario1_idx` (`ProfesorUsuario_codigoProfesor`),
+  KEY `fk_Anuncio_Clase1_idx` (`Clase_claveAcceso`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `anuncio`
+--
+
+INSERT INTO `anuncio` (`idAnuncio`, `titulo`, `contenido`, `fechaPublicacion`, `ProfesorUsuario_codigoProfesor`, `Clase_claveAcceso`) VALUES
+(1, 'Ejemplo de algo en la base de datos', 'Esto es una prueba', '2019-04-19', 'P123456789', 'TQYsUySRXm'),
+(23, 'Ejemplo de algo en la base de datos', 'FKJGNKJGKJDFGDF', '2019-04-20', 'P123456789', 'TQYsUySRXm');
 
 -- --------------------------------------------------------
 
@@ -107,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `clase` (
 --
 
 INSERT INTO `clase` (`claveAcceso`, `nombreMateria`, `nrc`, `claveSeccion`, `nombreClase`, `aula`, `anio`, `CicloEscolar_idCicloEscolar`, `ProfesorUsuario_codigoProfesor`) VALUES
-('vtdVjgoSc7', 'CONTROL SECUENCIAL', 46259, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'X25', '2019', 2, 'P123456789');
+('TQYsUySRXm', 'SISTEMAS DE CONTROL SECUENCIAL', 123456, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'P10', '2019', 1, 'P123456789');
 
 -- --------------------------------------------------------
 
@@ -124,12 +137,20 @@ CREATE TABLE IF NOT EXISTS `clase_has_alumnousuario` (
   KEY `fk_Clase_has_AlumnoUsuario_Clase1_idx` (`Clase_claveAcceso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `clase_has_alumnousuario`
+-- Estructura de tabla para la tabla `comentario`
 --
 
-INSERT INTO `clase_has_alumnousuario` (`Clase_claveAcceso`, `AlumnoUsuario_codigoAlumno`) VALUES
-('vtdVjgoSc7', 'A123456789');
+DROP TABLE IF EXISTS `comentario`;
+CREATE TABLE IF NOT EXISTS `comentario` (
+  `idComentario` int(11) NOT NULL AUTO_INCREMENT,
+  `comentario` longtext NOT NULL,
+  `Anuncio_idAnuncio` int(11) NOT NULL,
+  PRIMARY KEY (`idComentario`),
+  KEY `fk_Comentario_Anuncio1_idx` (`Anuncio_idAnuncio`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -200,19 +221,12 @@ DROP TABLE IF EXISTS `practica`;
 CREATE TABLE IF NOT EXISTS `practica` (
   `idPractica` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
+  `descripcion` longtext NOT NULL,
   `fechaLimite` date NOT NULL,
   `Clase_claveAcceso` varchar(10) NOT NULL,
   PRIMARY KEY (`idPractica`),
   KEY `fk_Practica_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `practica`
---
-
-INSERT INTO `practica` (`idPractica`, `nombre`, `descripcion`, `fechaLimite`, `Clase_claveAcceso`) VALUES
-(1, 'Arrancador de tensi&oacute;n', 'MASKSAL', '2019-04-16', 'vtdVjgoSc7');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -261,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `profesorusuario` (
 --
 
 INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('P123456789', 'CRISTIAN MICHELL', 'CASTILLO', 'SERRANO', 'agua_cristian@hotmail.com', 1, 'Nada', '123456789');
+('P123456789', 'MIGUEL ALEJANDRO', 'SALGADO', 'RAM&IACUTE;REZ', 'alejandrosram@outlook.com', 2, 'mailo', '123456789');
 
 --
 -- Restricciones para tablas volcadas
@@ -272,6 +286,13 @@ INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`
 --
 ALTER TABLE `alumnousuario`
   ADD CONSTRAINT `fk_AlumnoUsuario_PreguntaSeguridad1` FOREIGN KEY (`PreguntaSeguridad_idPreguntaSeguridad`) REFERENCES `preguntaseguridad` (`idPreguntaSeguridad`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  ADD CONSTRAINT `fk_Anuncio_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Anuncio_ProfesorUsuario1` FOREIGN KEY (`ProfesorUsuario_codigoProfesor`) REFERENCES `profesorusuario` (`codigoProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `clase`
@@ -286,6 +307,12 @@ ALTER TABLE `clase`
 ALTER TABLE `clase_has_alumnousuario`
   ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_AlumnoUsuario1` FOREIGN KEY (`AlumnoUsuario_codigoAlumno`) REFERENCES `alumnousuario` (`codigoAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Clase_has_AlumnoUsuario_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `fk_Comentario_Anuncio1` FOREIGN KEY (`Anuncio_idAnuncio`) REFERENCES `anuncio` (`idAnuncio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `cuestionario`
