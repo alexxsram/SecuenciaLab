@@ -48,7 +48,7 @@ try {
                     <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
                     <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
                     <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo base64_encode($clase->claveAcceso); ?>
+                    <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo $clase->claveAcceso; ?>
                         <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
                             <i class="fas fa-sign-in-alt"></i>
                         </button>
@@ -107,7 +107,7 @@ try {
                                 <?php } ?>
                             </div>
 
-                            <?php 
+                            <?php
                                 } else {
                                     $anuncios = $resultado->fetchAll(PDO::FETCH_OBJ);
 
@@ -163,8 +163,8 @@ try {
                             </div>
                             <!-- Post /////-->
 
-                            <?php 
-                                    }    
+                            <?php
+                                    }
                                 }
                             ?>
                         </div>
