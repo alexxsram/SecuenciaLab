@@ -12,8 +12,23 @@ try {
   $numRow = $resultado->rowCount();
   if($numRow != 0){
     echo "<li class=\"list-group-item active disabled\">Lista de prácticas</li>";
-    echo "<button type=\"button\" class=\"list-group-item list-group-item-action\">Promedio</button>";
-    echo "<button type=\"button\" class=\"list-group-item list-group-item-action\">Todas las prácticas</button>";
+    //echo "<button type=\"button\" class=\"list-group-item list-group-item-action\">Promedio</button>";
+    //echo "<button type=\"button\" class=\"list-group-item list-group-item-action\"></button>";
+
+    echo "<button id=\"info-alumno-btn-promedio-calificacion\"
+    name=\"info-alumno-btn-promedio-calificacion\" type=\"button\"
+    class=\"list-group-item list-group-item-action\"
+    value=-1
+    onclick=\"cargarGraficaDePractica('-2', 'Promedio', '$claveUsuario');\">
+    Promedio</button>";
+
+    echo "<button id=\"info-alumno-btn-todas-practica\"
+    name=\"info-alumno-btn-todas-practica\" type=\"button\"
+    class=\"list-group-item list-group-item-action\"
+    value=-1
+    onclick=\"cargarGraficaDePractica('-1', 'Todas las prácticas', '$claveUsuario');\">
+    Todas las prácticas</button>";
+
     $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);
     foreach ($practicasClase as $practica) {
       echo "<button id=\"info-alumno-btn-practica\"
@@ -24,7 +39,7 @@ try {
       $practica->nombre</button>";
     }
   }else{
-    echo "<p class=\"card-text\" id=\"info-alumno-promedio-alumno\" name=\"info-alumno-promedio-alumno\"><b>No hay prácticas relacionadas con la clase:</b></p>";
+    echo "<p class=\"card-text\" id=\"info-alumno-promedio-alumno\" name=\"info-alumno-promedio-alumno\"><b>No hay prácticas relacionadas con la clase.</b></p>";
   }
 
 

@@ -1,14 +1,4 @@
-
-$(document).ready(function(){
-  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
-  $('#btn22').click(function() {
-    comment = $('#comment').val();
-    //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
-    $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
   var myChart = Highcharts.chart('container', {
     chart: {
       type: 'column'
@@ -45,8 +35,19 @@ document.addEventListener('DOMContentLoaded', function () {
       data: [85]
     }]
   });
+});*/
+
+//Prueba de función. Luego la elimino Cristian
+$(document).ready(function(){
+  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
+  $('#btn22').click(function() {
+    comment = $('#comment').val();
+    //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
+    $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
+  });
 });
 
+//Función para cargar la lista de alumnos sin tener que utilizar php directamente en el html
 $(document).ready(function() {
   $.ajax({
     type: "POST",
@@ -63,6 +64,7 @@ $(document).ready(function() {
   });
 });
 
+//Función para cargar la información de la clase
 $('#graficas-informativas-alumno').ready(function() {
   $.ajax({
     type: "POST",
@@ -81,6 +83,7 @@ $('#graficas-informativas-alumno').ready(function() {
   });
 });
 
+//Función para cargar la información del alumno
 $('#graficas-informativas-alumno').ready(function() {
   $.ajax({
     type: "POST",
@@ -99,6 +102,7 @@ $('#graficas-informativas-alumno').ready(function() {
   });
 });
 
+//Función para cargar la lista de prácticas
 $('#graficas-informativas-alumno').ready(function() {
   $.ajax({
     type: "POST",
@@ -117,69 +121,108 @@ $('#graficas-informativas-alumno').ready(function() {
   });
 });
 
-$('#graficas-informativas-alumno').ready(function(){
-  $('#btn22').click(function() {
-    comment = $('#comment').val();
-    //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
-    $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
-  });
-});
+//Variables de opciones apra la prácticas.
+var optionsPracticaIndividual = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Título por defecto'
+  },
+  credits: false,
+  xAxis: {
+    type: 'category',
+    categories: ['Categorias']
+  },
+  yAxis: {
+    title: {
+      text: 'Puntuación'
+    }
+  },
+};
 
-function cargarGraficaDePractica(idpractica, nombrePractica, codigoAlumno) {
+//Función para crear las series para las graficas
+function crearSeriesCaliPrac(json) {
+  var series = [];
+  json.forEach(function(serie) {
+    console.log(serie);
+    series.push({
+      name: serie.categoria,
+      data: [
+        ["Categorias", serie["calificacion"]]
+      ]
+    });
+  });
+  return series;
+}
+
+//Función para cargar las descripciones de las prácticas
+function cargarDescripcionPractica(idPractica, nombrePractica, codigoAlumno) {
   $.ajax({
     type: "POST",
-    url: "utileria/materia/cargar-info-grafica-graficacion.php",
-    //type: "POST",
-    //dataType: "HTML",
-    //data: "claveAcceso=" + $("#info-alumno-claveAcceso").val()
-    //+ "&claveUsuario=" + $("#info-alumno-codigo-alumno").val(),
+    url: "utileria/materia/cargar-info-grafica-descripcion.php",
+    type: "POST",
+    async: true,
+    dataType: "HTML",
+    data: "claveAcceso=" + $("#info-alumno-claveAcceso").val()
+    + "&claveUsuario=" + $("#info-alumno-codigo-alumno").val()
+    + "&idPractica=" + idPractica
+    + "&nombrePractica=" + nombrePractica
+    + "&codigoAlumno=" + codigoAlumno,
     success: function(response)
     {
-      var myChart = Highcharts.chart('container', {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Practica #1: TRatmiento de un motor '
-        },
-        xAxis: {
-          categories: ['Categorias']
-        },
-        yAxis: {
-          title: {
-            text: 'Puntuación'
-          }
-        },
-        credits: false,
-        series: [{
-          name: 'Alumno',
-          data: [100]
-        }, {
-          name: 'Mínimo',
-          data: [20]
-        }, {
-          name: 'Máximo',
-          data: [100]
-        }, {
-          name: 'Promedio',
-          data: [59]
-        }, {
-          name: 'Media',
-          data: [45]
-        }, {
-          name: "Moda",
-          data: [30]
-        }]
-      });
-      $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">"+response+"</button>");
-      myChart.reflow();
-
+      $('#info-alumno-descripcion-practica').html(response).fadeIn();
     },
     error: function(response) {
       bootbox.alert("Error: " + response);
     }
   });
+}
+
+//Función para cargar las gráficas de las prácticas
+function cargarGraficaDePractica(idPractica, nombrePractica, codigoAlumno) {
+  $.ajax({
+    type: "POST",
+    url: "utileria/materia/cargar-info-grafica-graficacion.php",
+    type: "POST",
+    async: true,
+    dataType: "HTML",
+    data: "claveAcceso=" + $("#info-alumno-claveAcceso").val()
+    + "&claveUsuario=" + $("#info-alumno-codigo-alumno").val()
+    + "&idPractica=" + idPractica
+    + "&nombrePractica=" + nombrePractica
+    + "&codigoAlumno=" + codigoAlumno,
+    success: function(data)
+    {
+      if(idPractica == -1){
+        $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa de todas las prácticas hasta el momento.").fadeIn();
+        $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a todas las practicas</button>");
+      }else if(idPractica == -2){
+        $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a promedio prácticas</button>");
+        $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa entre el promedio del alumno y los datos de promedio del resto de la clase.").fadeIn();
+      }else{
+        cargarDescripcionPractica(idPractica, nombrePractica, codigoAlumno);
+        optionsPracticaIndividual.title.text = nombrePractica;
+        optionsPracticaIndividual.series=crearSeriesCaliPrac(jQuery.parseJSON( data ));
+        //Highcharts.Chart('#container', optionsPracticaIndividual);
+        $('#container').highcharts(optionsPracticaIndividual);
+        /*$('#container').highcharts({
+        chart: {
+        type: 'column'
+      },
+      xAxis: {
+      type: 'category'
+    },
+    series: optionsPracticaIndividual.series
+  });*/
+  $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">"+data+"</button>");
+}
+},
+error: function(response) {
+  bootbox.alert("Error: " + response);
+}
+});
 
 
-  //redireccionarPagina("index.php");
+//redireccionarPagina("index.php");
 }
