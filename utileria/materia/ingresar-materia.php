@@ -140,7 +140,7 @@ try {
                                                     data-contenido="<?php echo $anuncio->contenido; ?>"
                                                     data-fechapublicacion="<?php echo $anuncio->fechaPublicacion; ?>"
                                                     data-claveacceso="<?php echo $anuncio->Clase_claveAcceso; ?>"> <i class="fas fa-edit"></i> Editar</a>
-                                                    <a class="dropdown-item" href="#"> <i class="fas fa-trash"></i> Eliminar</a>
+                                                    <button type="button" class="dropdown-item" onclick="confirmarEliminar(<?php echo '\'' . $anuncio->idAnuncio . '-' . $anuncio->titulo . '-' . $clase->claveAcceso . '\'';?>, 'anuncio');"> <i class="fas fa-trash"></i> Eliminar</button>
                                                 </div>
                                                 <?php } ?>
                                             </div>

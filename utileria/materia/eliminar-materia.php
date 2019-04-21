@@ -7,19 +7,19 @@ try {
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':claveAcceso', $claveAcceso);
     $resultado->execute();
-    if($resultado->execute()){
+    if($resultado->execute()) {
       $numRow = $resultado->rowCount();
-      if($numRow == 1){
+      if($numRow == 1) {
         $sql = 'DELETE FROM clase WHERE claveAcceso = :claveAcceso';
         $resultado = $baseDatos->prepare($sql);
         $resultado->bindValue(':claveAcceso', $claveAcceso);
         $resultado->execute();
-        echo "success";
-      }else{
-        echo "Error. No existe la clase.";
+        echo 'success';
+      } else {
+        echo 'Error. No existe la clase.';
       }
-    }else{
-      echo "Error. No se pudo comprobar la clase que se desea eliminar.";
+    } else {
+      echo 'Error. No se pudo comprobar la clase que se desea eliminar.';
     }
 
 

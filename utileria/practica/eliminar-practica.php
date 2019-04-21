@@ -17,7 +17,7 @@ try {
     } else {
       echo 'Error. No existe el ID de la práctica.';
     }
-  } else{
+  } else {
     echo 'Error. No se pudo comprobar la práctica que se desea eliminar.';
   }
 } catch(Exception $exec) {
