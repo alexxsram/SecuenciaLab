@@ -236,11 +236,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
                     </div>
 
                     <div class="form-group">
-                        <label for="fechaLimitePractica">Fecha de creación *</label>
-                        <input type="date" class="form-control" id="fechaCreacionAnuncio" name="fechaCreacionAnuncio" required="required">
-                    </div>
-
-                    <div class="form-group">
                         <input type="hidden" class="form-control" id="codigoProfesor" name="codigoProfesor" required="required" disabled="disabled">
                     </div>
 

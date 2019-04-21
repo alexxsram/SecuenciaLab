@@ -4,7 +4,7 @@ include('../operaciones/conexion.php');
 try {
     $tituloAnuncio = htmlentities(addslashes($_POST['tituloAnuncio']));
     $contenidoAnuncio = htmlentities(addslashes($_POST['contenidoAnuncio']));
-    $fechaCreacionAnuncio = htmlentities(addslashes($_POST['fechaCreacionAnuncio']));
+    $fechaCreacionAnuncio = date('Y-m-d');
     $codigoProfesor = htmlentities(addslashes($_POST['codigoProfesor']));
     $claveAccesoClase = htmlentities(addslashes($_POST['claveAccesoClase']));
 

@@ -632,10 +632,6 @@ $("#modalCrearAnuncio").on("show.bs.modal", function (event) {
       },
       contenidoAnuncio: {
         required: true
-      },
-      fechaCreacionAnuncio: {
-        required: true,
-        date: true
       }
     },
     messages: {
@@ -644,10 +640,6 @@ $("#modalCrearAnuncio").on("show.bs.modal", function (event) {
       },
       contenidoAnuncio: {
         required: "Ingresa un contenido o descripición al anuncio"
-      },
-      fechaCreacionAnuncio: {
-        required: "Ingresa la fecha de creación",
-        date: ""
       }
     },
     submitHandler: function(form) {
@@ -657,7 +649,6 @@ $("#modalCrearAnuncio").on("show.bs.modal", function (event) {
         dataType: "HTML",
         data: "tituloAnuncio=" + $("#tituloAnuncio").val()
         + "&contenidoAnuncio=" + $("#contenidoAnuncio").val()
-        + "&fechaCreacionAnuncio=" + $("#fechaCreacionAnuncio").val()
         + "&codigoProfesor=" + $("#codigoProfesor").val()
         + "&claveAccesoClase=" + $("#claveAccesoClase").val()
       }).done(function(echo) {
