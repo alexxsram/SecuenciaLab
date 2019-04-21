@@ -3,7 +3,7 @@ include('../operaciones/conexion.php');
 try {
     $idAnuncio = htmlentities(addslashes($_POST['idAnuncio']));
 
-    $sql = 'SELECT * FROM anuncio WHERE idAnuncio= :idAnuncio';
+    $sql = 'SELECT * FROM anuncio WHERE idAnuncio = :idAnuncio';
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':idAnuncio', $idAnuncio);
     $resultado->execute();
