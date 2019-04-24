@@ -129,7 +129,7 @@ try {
                                         </div>
                                         <div>
                                             <div class="dropdown">
-                                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-cog"></i>
                                                 </button>
                                                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
@@ -158,7 +158,73 @@ try {
                                     </p>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="#" class="card-link float-right"><i class="fa fa-comment"></i> Comentarios</a>
+                                    <!-- <a href="#" class="card-link float-right"><i class="fa fa-comment"></i> Comentarios</a> -->
+                                    <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse" data-target="#collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>" aria-expanded="false" aria-controls="collapseComentarios">
+                                        <i class="fas fa-comment"></i> Comentarios
+                                    </button>
+                                </div>
+                                <div class="collapse" id="collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>">
+                                    <div class="card card-body">
+                                        <!-- Aquí van a ir los comentarios y un form para hacer un comentario -->
+                                        <?php 
+                                            $sql = "SELECT * FROM comentario WHERE Anuncio_idAnuncio = :aia";
+                                            $resultado = $baseDatos->prepare($sql);
+                                            $resultado->bindValue(':aia', $anuncio->idAnuncio);
+                                            $resultado->execute();
+
+                                            $numRow = $resultado->rowCount();
+
+                                            if($numRow == 0) {
+                                        ?>
+                                        
+                                        No hay comentarios
+                                        
+                                        <?php
+                                            } else {
+                                                $comentarios = $resultado->fetchAll(PDO::FETCH_OBJ);
+
+                                                foreach ($comentarios as $comentario) {   
+                                        ?>
+                                        
+                                        <div class="alert alert-secondary" role="alert">
+                                            <?php 
+                                                $pos = strpos($comentario->comentario, ': ');
+                                                $nombreComentario = substr($comentario->comentario, 0, $pos);
+                                                $mensajeComentario = substr($comentario->comentario, $pos, strlen($comentario->comentario) - 1);
+                                            ?>
+                                            <strong> <?php echo $nombreComentario; ?></strong><?php echo $mensajeComentario; ?>
+                                            <button type="button" class="close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <?php
+                                                }
+                                            }
+                                        ?>
+
+                                        <form id="formComentarAnuncio" name="formComentarAnuncio" method="POST">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="claveAccesoClase" name="claveAccesoClase" value="<?php echo $clase->claveAcceso; ?>" disabled="disabled">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="comentarioIdAnuncio" name="comentarioIdAnuncio" value="<?php echo $anuncio->idAnuncio; ?>" disabled="disabled">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="comentarioNombre" name="comentarioNombre" value="<?php echo $nombre; ?>" disabled="disabled">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="comentario" name="comentario" placeholder="Haz un comentario" required="required"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-sm btn-primary float-right">Guardar <i class="fas fa-comment"></i> </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Post /////-->
