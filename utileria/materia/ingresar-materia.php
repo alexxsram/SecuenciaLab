@@ -58,13 +58,16 @@ try {
                 </p>
                 <p class="h6"> 
                     <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> 
-                </p>         
-                <p class="h6"> <small class="text-muted"> 
-                    Clave de acceso: <?php echo $clase->claveAcceso; ?>
-                    <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </button>
                 </p>
+                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>         
+                    <p class="h6"> <small class="text-muted"> 
+                        Clave de acceso: <?php echo $clase->claveAcceso; ?>
+                        
+                            <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </button>
+                    </p>
+                <?php } ?>
                 <p class="lead text-justify">
                     En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
                 </p>
@@ -401,7 +404,7 @@ try {
                                 </li>
                                 <?php } ?>
                             </ul>
-                            
+
                             <?php
                             }
                             ?>
