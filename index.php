@@ -51,7 +51,7 @@ include('utileria/operaciones/conexion.php');
                     <a class="dropdown-item" data-toggle="modal" href="#modalCambiarPassword" data-codigo="<?php echo $codigo; ?>"><i class="fas fa-key"></i> Cambiar contraseña</a>
                 </div>
             </li>
-                <button onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');" class="btn btn-outline-danger btn-sm" type="button">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
+                <button class="btn btn-sm btn-outline-danger" type="button" onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
             </li>
             </ul>
         </div>
@@ -62,10 +62,17 @@ include('utileria/operaciones/conexion.php');
     <div class="masthead">
         <div class="container h-100" id="contenidoClase">
             <?php
-            $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :codigoProfesor ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC";
-            $resultado = $baseDatos->prepare($sql);
-            $resultado->bindValue(':codigoProfesor', $codigo);
+            if($estado == 'INICIO_SESION_PROFESOR') {
+                $sql = "SELECT * FROM clase WHERE ProfesorUsuario_codigoProfesor = :pucp ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC";
+                $resultado = $baseDatos->prepare($sql);
+                $resultado->bindValue(':pucp', $codigo);
+            } else if($estado == 'INICIO_SESION_ALUMNO') {
+                $sql = "SELECT * FROM clase WHERE claveAcceso IN (SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE AlumnoUsuario_codigoAlumno = :auca) ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC";
+                $resultado = $baseDatos->prepare($sql);
+                $resultado->bindValue(':auca', $codigo);
+            }
             $resultado->execute();
+            
             $numRow = $resultado->rowCount();
             if($numRow == 0) {
             ?>
@@ -77,7 +84,7 @@ include('utileria/operaciones/conexion.php');
                         <p class="lead">Aquí podrás realizar todo lo necesario para llevar un control de tu(s) clase(s).</p>
                     <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
                         <h1 class="font-weight-light">Bienvenido a la página del alumno.</h1>
-                        <p class="lead">Aquí podrás realizar tus practicas de tu(s) materias.</p>
+                        <p class="lead">Aquí podrás acceder de la(s) clase(s) en la(s) que te inscribiste.</p>
                     <?php } ?>
                 </div>
             </div>
@@ -89,15 +96,21 @@ include('utileria/operaciones/conexion.php');
             <div class="jumbotron">
                 <div class="container">
                     <h1 class="display-4"> <i class="fas fa-users"></i> Listado de clases</h1>
-                    <p class="lead text-justify">
-                        En esta sección podrá administrar las clases que imparte, ingresando a sus grupos, editar los datos generales
-                        de la clase en caso de error y/o eliminarla en el momento que desee.
-                    </p>
+                    <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                        <p class="lead text-justify">
+                            En esta sección el profesor podrá administrar las clases que imparte, ingresando a sus grupos, editar los datos generales
+                            de la clase en caso de error y/o eliminarla en el momento que desee.
+                        </p>
+                    <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
+                        <p class="lead text-justify">
+                            En esta sección el alumno podrá acceder a las clases que lleva, lo cual le permite revisar anuncios, subir sus prácticas contestadas
+                            y ser evaluado por el profesor.
+                        </p>
+                    <?php } ?>
                 </div>
             </div>
 
             <div class="row h-100" style="margin-top: -1%;">
-
                 <?php
                 $clases = $resultado->fetchAll(PDO::FETCH_OBJ);
                 foreach ($clases as $clase) {
@@ -112,7 +125,6 @@ include('utileria/operaciones/conexion.php');
                     $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
                     $resultado->execute();
                     $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
-
                 ?>
 
                 <!-- Aqui voy a cargar las clases -->
@@ -127,19 +139,15 @@ include('utileria/operaciones/conexion.php');
                                 <b>Alumnos:</b> <?php echo $numeroAlumnos; ?> <br>
                             </p>
                             <div class="text-center">
-                                <!-- <div class="btn-group"> -->
-                                    <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button>
+                                <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('utileria/materia/', 'ingresar-materia.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">Entrar <i class="fas fa-door-open"></i></button>
+                                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                     <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalEditarClase"
-                                    data-claveacceso="<?php echo $clase->claveAcceso; ?>"
-                                    data-nombremateria="<?php echo $clase->nombreMateria; ?>"
-                                    data-nrc="<?php echo $clase->nrc; ?>"
-                                    data-claveseccion="<?php echo $clase->claveSeccion; ?>"
-                                    data-nombreclase="<?php echo $clase->nombreClase; ?>"
-                                    data-aula="<?php echo $clase->aula; ?>"
-                                    data-anio="<?php echo $clase->anio; ?>"
-                                    data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
-                                <!-- </div> -->
+                                    data-claveacceso="<?php echo $clase->claveAcceso; ?>" data-nombremateria="<?php echo $clase->nombreMateria; ?>"
+                                    data-nrc="<?php echo $clase->nrc; ?>" data-claveseccion="<?php echo $clase->claveSeccion; ?>"
+                                    data-nombreclase="<?php echo $clase->nombreClase; ?>" data-aula="<?php echo $clase->aula; ?>"
+                                    data-anio="<?php echo $clase->anio; ?>" data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
+                                <?php } ?>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
@@ -149,13 +157,11 @@ include('utileria/operaciones/conexion.php');
                 <?php
                 }
                 ?>
-
             </div>
 
             <?php
             }
             ?>
-
         </div>
     </div>
 

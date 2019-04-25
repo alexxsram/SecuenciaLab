@@ -100,10 +100,10 @@
 
           <div class="float-right">
             <div class="input-group">
-              <button class="btn btn-outline-primary" type="button" onclick="location.href='login.php';">
+              <button class="btn btn-sm btn-outline-primary" type="button" onclick="location.href='login.php';">
                 Regresar <i class="fas fa-arrow-left"></i>
               </button>
-              <button class="btn btn-outline-success" type="submit">
+              <button class="btn btn-sm btn-outline-success" type="submit">
                 Registrarse <i class="fas fa-user-check"></i>
               </button>
             </div>

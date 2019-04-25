@@ -1,25 +1,25 @@
 <?php
 include('../operaciones/conexion.php');
 try {
-    $idAnuncio = htmlentities(addslashes($_POST['idAnuncio']));
+    $idComentario = htmlentities(addslashes($_POST['idComentario']));
 
-    $sql = 'SELECT * FROM anuncio WHERE idAnuncio = :ia';
+    $sql = 'SELECT * FROM comentario WHERE idComentario = :ic';
     $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':ia', $idAnuncio);
+    $resultado->bindValue(':ic', $idComentario);
     $resultado->execute();
     if($resultado->execute()) {
         $numRow = $resultado->rowCount();
         if($numRow == 1) {
-            $sql = 'DELETE FROM anuncio WHERE idAnuncio = :ia';
+            $sql = 'DELETE FROM comentario WHERE idComentario = :ic';
             $resultado = $baseDatos->prepare($sql);
-            $resultado->bindValue(':ia', $idAnuncio);
+            $resultado->bindValue(':ic', $idComentario);
             $resultado->execute();
             echo 'success';
         } else {
-            echo 'Error. No existe el ID del anuncio.';
+            echo 'Error. No existe el ID del comentario.';
         }
     } else {
-        echo 'Error. No se pudo comprobar el anuncio que se desea eliminar.';
+        echo 'Error. No se pudo comprobar el comentario que se desea eliminar.';
     }
 } catch(Exception $exec) {
     die('Error en la base de datos: ' . $exec->getMessage());

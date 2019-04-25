@@ -33,33 +33,44 @@ try {
 </head>
 <body>
     <div class="container">
-      <input type="hidden" class="form-control" id="ingresar-materia-claveAcceso" name="ingresar-materia-claveAcceso" disabled="disabled" value=<?php echo $claveAccesoClase;?>>
         <?php
-            $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
-            $resultado = $baseDatos->prepare($sql);
-            $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
-            $resultado->execute();
-            $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
+        $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
+        $resultado = $baseDatos->prepare($sql);
+        $resultado->bindValue(':idCicloEscolar', $clase->CicloEscolar_idCicloEscolar);
+        $resultado->execute();
+        $ciclo = $resultado->fetch(PDO::FETCH_OBJ);
         ?>
-            <!-- JUMBOTRON DONDE MUESTRO LOS DATOS DE LA CLASE -->
-            <div class="jumbotron">
-                <div class="container">
-                    <blockquote class="blockquote text-center"> <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1></blockquote>
-                    <p class="h6"> <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> </p>
-                    <p class="h6"> <small class="text-muted"> Clave de acceso: <?php echo $clase->claveAcceso; ?>
-                        <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </button>
-                    </p>
-                    <p class="lead text-justify">
-                        En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
-                    </p>
-                    <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+
+        <!-- JUMBOTRON DONDE MUESTRO LOS DATOS DE LA CLASE -->
+        <div class="jumbotron">
+            <div class="container">
+                <blockquote class="blockquote text-center"> 
+                    <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1>
+                </blockquote>
+                <p class="h6"> 
+                    <small class="text-muted"> Materia: <?php echo $clase->nombreMateria; ?> </small> 
+                </p>
+                <p class="h6"> 
+                    <small class="text-muted"> Sección: <?php echo $clase->claveSeccion; ?> </small> 
+                </p>
+                <p class="h6"> 
+                    <small class="text-muted"> Aula: <?php echo $clase->aula; ?> </small> 
+                </p>
+                <p class="h6"> 
+                    <small class="text-muted"> Ciclo: <?php echo $clase->anio . " " . $ciclo->ciclo; ?> </small> 
+                </p>         
+                <p class="h6"> <small class="text-muted"> 
+                    Clave de acceso: <?php echo $clase->claveAcceso; ?>
+                    <button class="btn " style="background-color:transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </p>
+                <p class="lead text-justify">
+                    En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
+                </p>
+                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acciones de la clase
                         </button>
                         <div class="dropdown-menu">
@@ -67,8 +78,8 @@ try {
                             <a class="dropdown-item" data-toggle="modal" href="#modalCrearPractica" data-claveacceso="<?php echo $clase->claveAcceso; ?>"><i class="fas fa-clipboard"></i> Agregar práctica</a>
                         </div>
                     </div>
-                    <?php } ?>
-                    <button type="button" class="btn btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
+                <?php } ?>
+                <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
                 </div>
             </div>
 
@@ -90,29 +101,39 @@ try {
 
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
+                        <!-- TAB DEL TABLERO/ANUNCIOS -->
                         <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
                             <?php
-                                $sql = 'SELECT * FROM anuncio WHERE ProfesorUsuario_codigoProfesor = :codigo AND Clase_claveAcceso = :claveAcceso';
+                            if($estado == 'INICIO_SESION_PROFESOR') {
+                                $sql = 'SELECT * FROM anuncio WHERE ProfesorUsuario_codigoProfesor = :pucp AND Clase_claveAcceso = :cca';
                                 $resultado = $baseDatos->prepare($sql);
-                                $array = array(':codigo'=>$codigo, ':claveAcceso'=>$claveAccesoClase);
+                                $array = array(':pucp'=>$codigo, ':cca'=>$claveAccesoClase);
                                 $resultado->execute($array);
+                            } else if($estado == 'INICIO_SESION_ALUMNO') {
+                                $sql = 'SELECT * FROM anuncio WHERE Clase_claveAcceso IN (SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca)';
+                                $resultado = $baseDatos->prepare($sql);
+                                $resultado->bindValue(':cca', $claveAccesoClase);
+                                $resultado->execute();
+                            }
 
-                                $numRow = $resultado->rowCount();
-                                if($numRow == 0) {
+                            $numRow = $resultado->rowCount();
+                            if($numRow == 0) {
                             ?>
 
                             <div class="col-12 text-center">
                                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                     <h1 class="font-weight-light">La clase no tiene anuncios</h1>
                                     <p class="lead">Se debe crear uno, para revisión de trabajo pendiente.</p>
+                                <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
+                                    <h1 class="font-weight-light">La clase no tiene anuncios</h1>
+                                    <p class="lead">Esperar anuncios.</p>
                                 <?php } ?>
                             </div>
 
                             <?php
-                                } else {
-                                    $anuncios = $resultado->fetchAll(PDO::FETCH_OBJ);
-
-                                    foreach ($anuncios as $anuncio) {
+                            } else {
+                                $anuncios = $resultado->fetchAll(PDO::FETCH_OBJ);
+                                foreach ($anuncios as $anuncio) {
                             ?>
 
                             <!-- Ejemplo de card para anuncios -->
@@ -124,16 +145,15 @@ try {
                                                 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                             </div>
                                             <div class="ml-2">
-                                                <div class="h5 m-0 text-muted"> <?php echo $nombre; ?> </div>
+                                                <div class="h6 m-0 text-muted"> <?php echo $nombre; ?> </div>
                                                 <div class="h7 text-muted"> a <?php echo $clase->nombreClase; ?> </div>
                                             </div>
                                         </div>
-                                        <div>
+                                        <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                             <div class="dropdown">
                                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-cog"></i>
                                                 </button>
-                                                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                                     <div class="h6 dropdown-header">Configuración</div>
                                                     <a class="dropdown-item" data-toggle="modal"  href="#modalEditarAnuncio" data-idanuncio="<?php echo $anuncio->idAnuncio; ?>"
@@ -143,65 +163,70 @@ try {
                                                     data-claveacceso="<?php echo $anuncio->Clase_claveAcceso; ?>"> <i class="fas fa-edit"></i> Editar</a>
                                                     <button type="button" class="dropdown-item" onclick="confirmarEliminar(<?php echo '\'' . $anuncio->idAnuncio . '-' . $anuncio->titulo . '-' . $clase->claveAcceso . '\'';?>, 'anuncio');"> <i class="fas fa-trash"></i> Eliminar</button>
                                                 </div>
-                                                <?php } ?>
                                             </div>
-                                        </div>
+                                        <?php } ?>
                                     </div>
-
                                 </div>
+
                                 <div class="card-body">
                                     <div class="text-muted h7 mb-2"> <i class="fas fa-calendar"></i> <?php $fecha = date_create($anuncio->fechaPublicacion); echo date_format($fecha, 'l jS F Y'); ?> </div>
                                     <a class="card-link" href="#">
                                         <h5 class="card-title"> <?php echo $anuncio->titulo; ?> </h5>
                                     </a>
-                                    <p class="card-text">
+                                    <p class="card-text text-muted">
                                         <?php echo $anuncio->contenido; ?>
                                     </p>
                                 </div>
+
                                 <div class="card-footer">
                                     <!-- <a href="#" class="card-link float-right"><i class="fa fa-comment"></i> Comentarios</a> -->
                                     <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse" data-target="#collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>" aria-expanded="false" aria-controls="collapseComentarios">
                                         <i class="fas fa-comment"></i> Comentarios
                                     </button>
                                 </div>
+
                                 <div class="collapse" id="collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>">
                                     <div class="card card-body">
                                         <!-- Aquí van a ir los comentarios y un form para hacer un comentario -->
                                         <?php
-                                            $sql = "SELECT * FROM comentario WHERE Anuncio_idAnuncio = :aia";
-                                            $resultado = $baseDatos->prepare($sql);
-                                            $resultado->bindValue(':aia', $anuncio->idAnuncio);
-                                            $resultado->execute();
+                                        $sql = "SELECT * FROM comentario WHERE Anuncio_idAnuncio = :aia";
+                                        $resultado = $baseDatos->prepare($sql);
+                                        $resultado->bindValue(':aia', $anuncio->idAnuncio);
+                                        $resultado->execute();
 
-                                            $numRow = $resultado->rowCount();
-
-                                            if($numRow == 0) {
+                                        $numRow = $resultado->rowCount();
+                                        if($numRow == 0) {
                                         ?>
 
-                                        No hay comentarios
-
-                                        <?php
-                                            } else {
-                                                $comentarios = $resultado->fetchAll(PDO::FETCH_OBJ);
-
-                                                foreach ($comentarios as $comentario) {
-                                        ?>
-
-                                        <div class="alert alert-secondary" role="alert">
-                                            <?php
-                                                $pos = strpos($comentario->comentario, ': ');
-                                                $nombreComentario = substr($comentario->comentario, 0, $pos);
-                                                $mensajeComentario = substr($comentario->comentario, $pos, strlen($comentario->comentario) - 1);
-                                            ?>
-                                            <strong> <?php echo $nombreComentario; ?></strong><?php echo $mensajeComentario; ?>
-                                            <button type="button" class="close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                        <div class="col-12">
+                                            <p class="lead" style="font-size: 12.5px;">
+                                                Sin comentarios disponibles, comentar algo al anuncio.
+                                            </p>
                                         </div>
 
                                         <?php
-                                                }
+                                        } else {
+                                            $comentarios = $resultado->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($comentarios as $comentario) {
+                                        ?>
+
+                                        <div class="alert alert-secondary" role="alert" style="margin-bottom: 2px;">
+                                            <?php
+                                            $pos = strpos($comentario->comentario, ': ');
+                                            $nombreComentario = substr($comentario->comentario, 0, $pos);
+                                            $mensajeComentario = substr($comentario->comentario, $pos, strlen($comentario->comentario) - 1);
+                                            ?>
+                                            <strong><?php echo $nombreComentario; ?></strong><?php echo $mensajeComentario; ?>
+                                            <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                                                <button type="button" class="close" onclick="confirmarEliminar(<?php echo '\'' . $comentario->idComentario . '-' . $clase->claveAcceso . '\'';?>, 'comentario');">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+
+                                        <?php
                                             }
+                                        }
                                         ?>
 
                                         <form id="formComentarAnuncio" name="formComentarAnuncio" method="POST">
@@ -228,14 +253,14 @@ try {
                                     </div>
                                 </div>
                             </div>
-                            <!-- Post /////-->
 
                             <?php
-                                    }
                                 }
+                            }
                             ?>
                         </div>
 
+                        <!-- TAB DE LAS PRACTICAS -->
                         <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
                             <?php
                                 $sql = "SELECT * FROM practica WHERE Clase_claveAcceso LIKE :claveAcceso";
@@ -250,7 +275,10 @@ try {
                             <div class="col-12 text-center">
                                 <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                     <h1 class="font-weight-light">La clase no cuenta con prácticas</h1>
-                                    <p class="lead">Es necesario que cree por lo menos una práctica para que la puedan visualizar sus alumnos.</p>
+                                    <p class="lead">Es necesario crear las prácticas para que los alumnos las puedan realizar.</p>
+                                <?php } if($estado == 'INICIO_SESION_ALUMNO') { ?>
+                                    <h1 class="font-weight-light">La clase no cuenta con prácticas</h1>
+                                    <p class="lead">Esperar a una práctica.</p>
                                 <?php } ?>
                             </div>
 
@@ -328,7 +356,32 @@ try {
                             ?>
                         </div>
 
+                        <!-- TAB DE LA LISTA DE ALUMNOS -->
                         <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
+                            <?php
+                            $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno, " ", A.apellidoMaterno) AS nombreCompleto ';
+                            $sql .= 'FROM clase_has_alumnousuario AS C ';
+                            $sql .= 'INNER JOIN alumnousuario A ON C.AlumnoUsuario_codigoAlumno = A.codigoAlumno ';
+                            $sql .= 'WHERE C.Clase_claveAcceso = :claveAcceso';
+                            $resultado = $baseDatos->prepare($sql);
+                            $resultado->bindValue(':claveAcceso', $claveAccesoClase);
+                            $resultado->execute();
+
+                            $numRow = $resultado->rowCount();
+                            if($numRow == 0) {
+                            ?>
+
+                            <div class="col-12 text-center">
+                                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                                    <h1 class="font-weight-light">La clase no tiene alumnos inscritos</h1>
+                                    <p class="lead">Es necesario proporcionar a los alumnos el código de acceso para ingresar a la clase.</p>
+                                <?php } ?>
+                            </div>
+
+                            <?php } else {
+                                $alumnosClase = $resultado->fetchAll(PDO::FETCH_OBJ);
+                            ?>
+
                             <div class="list-group list-group-flush" id="listaAlumnos" name="listaAlumnos">
                                 <h3 href="#" class="list-group-item list-group-item-heading">
                                     Lista de Alumnos
@@ -336,37 +389,29 @@ try {
                             </div>
                             <br>
                             <ul class="list-group" id="listaAlumnos-lista" name="listaAlumnos-lista">
-                                <?php
-                                $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno, " ", A.apellidoMaterno) AS nombreCompleto ';
-                                $sql .= 'FROM clase_has_alumnousuario AS C ';
-                                $sql .= 'INNER JOIN alumnousuario A ON C.AlumnoUsuario_codigoAlumno = A.codigoAlumno ';
-                                $sql .= 'WHERE C.Clase_claveAcceso = :claveAcceso';
-                                $resultado = $baseDatos->prepare($sql);
-                                $resultado->bindValue(':claveAcceso', $claveAccesoClase);
-                                $resultado->execute();
-
-                                $numRow = $resultado->rowCount();
-                                if($numRow != 0) {
-                                    $alumnosClase = $resultado->fetchAll(PDO::FETCH_OBJ);
-
-                                    foreach ($alumnosClase as $alumnoClase) {
-                                ?>
+                                <?php foreach ($alumnosClase as $alumnoClase) { ?>
                                 <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                     <?php echo $alumnoClase->codigo . ' - ' . $alumnoClase->nombreCompleto; ?>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="redireccionarPagina('../../panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>);"> Ver gráficas <i class="fas fa-chart-bar"></i> </button>
-                                        <button type="button" class="btn btn-sm btn-outline-primary"> Calificar <i class="fas fa-clipboard-check"></i> </button>
-                                    </div>
+                                    <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="redireccionarPagina('../../panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>);"> Ver gráficas <i class="fas fa-chart-bar"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary"> Calificar <i class="fas fa-clipboard-check"></i> </button>
+                                        </div>
+                                    <?php } ?>
                                 </li>
-                                <?php
-                                    }
-                                }
-                                ?>
+                                <?php } ?>
                             </ul>
+                            
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- TERMINA LA SECCIÓN DE LOS TAB -->
+        </div>
+        
         <?php
         } catch(Exception $exec) {
             die('Error en la base de datos: ' . $exec->getMessage());

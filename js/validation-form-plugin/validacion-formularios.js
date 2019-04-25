@@ -1205,7 +1205,7 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
 }
 
 function confirmarEliminar(valor, tipo) {
-  if(tipo == "clase") { //Si elimino una clase
+  if(tipo == "clase") { // Si elimino una clase
     var claveAcceso = valor;
     bootbox.confirm({
       title: "Eliminar clase",
@@ -1229,7 +1229,7 @@ function confirmarEliminar(valor, tipo) {
         }
       }
     });
-  }  else if(tipo == "anuncio") {
+  } else if(tipo == "anuncio") { // Si elimino un anuncio
     var vectorValores = valor.split("-");
     var idAnuncio = vectorValores[0];
     var titulo = vectorValores[1];
@@ -1256,7 +1256,35 @@ function confirmarEliminar(valor, tipo) {
         }
       }
     });
-  } else if(tipo == "practica") { //Si elimino una practica
+  } else if(tipo == "comentario") { // Si elimino un comentario
+    var vectorValores = valor.split("-");
+    var idComentario = vectorValores[0];
+    var claveAcceso = vectorValores[1];
+    title: "Eliminar comentario",
+    bootbox.confirm({
+      title: "Eliminar comentario",
+      message: "¿Está seguro que desea eliminar el comentario?",
+      size: "small",
+      backdrop: true,
+      className: "swing animated",
+      buttons: {
+        confirm: {
+          label: "Si <i class='fas fa-check-circle'></i>",
+          className: "btn-success"
+        },
+        cancel: {
+          label: "No <i class='fas fa-times-circle'></i>",
+          className: "btn-danger"
+        }
+      },
+      callback: function(result) {
+        if(result == true) {
+          accionarEliminacion("POST", "../../utileria/materia/", "eliminar-comentario.php", "HTML", "idComentario=" + idComentario, "../materia/ingresar-materia.php?claveAccesoClase=" + btoa(claveAcceso));
+        }
+      }
+    });
+
+  } else if(tipo == "practica") { // Si elimino una practica
     var vectorValores = valor.split("-");
     var idPractica = vectorValores[0];
     var nombre = vectorValores[1];
