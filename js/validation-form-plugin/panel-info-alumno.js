@@ -36,14 +36,37 @@
     }]
   });
 });*/
-
+$('#listgroup22').append("<li class=\"list-group-item active disabled\"////////////////////Lista----- de alumnos</li>");
+$('#listgroup22').html("<li class=\"list-group-item active disabled\">*******************ñññññññññññññññññLista de alumnos con el de html chido</li>").fadeIn();
+$('#listgroup666').append("<li class=\"list-group-item active disabled\">*******************Lista de alumnos con el de html</li>");
+$('#listgroup666').html("<li class=\"list-group-item active disabled\">*******************Lista de alumnos con el de html</li>").fadeIn();
+$('ul').html("<li class=\"list-group-item active disabled\">+++++++++++++++++++Lista de alumnos con el de html</li>").fadeIn();
 //Prueba de función. Luego la elimino Cristian
 $(document).ready(function(){
-  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Entra a la primera</button>");
+  $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">-Entra a la primera</button>");
+  $('#listaAlumnos-lista').append("<li class=\"list-group-item active disabled\">Lista de alumnos</li>");
+  $('#listaAlumnos-lista').html("<li class=\"list-group-item active disabled\">Lista de alumnos</li>---").fadeIn();
   $('#btn22').click(function() {
     comment = $('#comment').val();
     //$('#listgroup22').append("<li class='list-group-item'>"+comment+"</li>");
     $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">---Morbi leo risus</button>");
+  });
+});
+
+$(document).ready(function() {
+  $.ajax({
+    type: "POST",
+    url: "utileria/materia/cargar-lista-alumnos.php",
+    dataType: "HTML",
+    data: "claveAcceso=" + $("#info-alumno-claveAcceso").val(),
+    success: function(response)
+    {
+      $('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Esto lo acabo de modificar Estra al cargar base de datos ---</button>");
+      $('#listgroup22').append(response);
+    },
+    error: function(response) {
+      bootbox.alert("Error: " + response);
+    }
   });
 });
 
@@ -52,11 +75,13 @@ $(document).ready(function() {
   $.ajax({
     type: "POST",
     url: "utileria/materia/cargar-lista-alumnos.php",
+    dataType: "HTML",
+    data: "claveAcceso=" + $("#ingresar-materia-claveAcceso").val(),
     success: function(response)
     {
       //$('#listgroup22').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">Estra al cargar base de datos ---</button>");
-      $('#listgroup22').append(response);
-      $('#listaAlumnos').append(response);
+      //$('#listgroup22').append(response);
+      //$('#listaAlumnos').append(response);
     },
     error: function(response) {
       bootbox.alert("Error: " + response);

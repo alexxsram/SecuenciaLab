@@ -2,10 +2,10 @@
 include('../operaciones/conexion.php');
 
 try {
-  //$claveAccesoClase = $_POST['claveAccesoClase'];
+  $claveAcceso= $_POST['claveAcceso'];
   $data = $baseDatos->query("SELECT * FROM alumnousuario WHERE codigoAlumno IN
     (SELECT AlumnoUsuario_codigoAlumno FROM clase_has_alumnousuario WHERE
-      Clase_claveAcceso = 'vtdVjgoSc7') ORDER BY apellidoPaterno ASC, apellidoMaterno ASC, nombrePila ASC;")->fetchAll();
+      Clase_claveAcceso = '$claveAcceso') ORDER BY apellidoPaterno ASC, apellidoMaterno ASC, nombrePila ASC;")->fetchAll();
   foreach ($data as $row) {
     $codAlumno = $row['codigoAlumno'];
     $apellidoPaterno = $row['apellidoPaterno'];

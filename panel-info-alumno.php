@@ -54,7 +54,7 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
     <div class="form-group">
       <input type="hidden" class="form-control" id="info-alumno-claveAcceso" name="info-alumno-claveAcceso" disabled="disabled" value=<?php echo $claveAccesoClase;?>>
       <input type="hidden" class="form-control" id="info-alumno-codigo-alumno" name="info-alumno-codigo-alumno" disabled="disabled" value=<?php echo $claveUsuario;?>>
-      <!--    </div>
+      <!--    </div>-->
       <ul class="list-group" id="listgroup22" name="listgroup22">
       <li class="list-group-item active disabled">Lista de alumnos</li>
       <button type="button" class="list-group-item list-group-item-action">DATOS GENERALES</button>
@@ -63,7 +63,7 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
     Evaluar materia <i class="fas fa-edit"></i>
   </button>
   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalEvaluarClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
--->
+
 
 <blockquote class="blockquote text-center"> <h1 class="display-4">Gráficas informativas</h1></blockquote>
 <div class="card" id="info-alumno-datos-clase" name="info-alumno-datos-clase">

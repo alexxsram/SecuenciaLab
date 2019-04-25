@@ -33,6 +33,7 @@ try {
 </head>
 <body>
     <div class="container">
+      <input type="hidden" class="form-control" id="ingresar-materia-claveAcceso" name="ingresar-materia-claveAcceso" disabled="disabled" value=<?php echo $claveAccesoClase;?>>
         <?php
             $sql = "SELECT * FROM cicloescolar WHERE idCicloEscolar = :idCicloEscolar";
             $resultado = $baseDatos->prepare($sql);
@@ -166,7 +167,7 @@ try {
                                 <div class="collapse" id="collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>">
                                     <div class="card card-body">
                                         <!-- Aquí van a ir los comentarios y un form para hacer un comentario -->
-                                        <?php 
+                                        <?php
                                             $sql = "SELECT * FROM comentario WHERE Anuncio_idAnuncio = :aia";
                                             $resultado = $baseDatos->prepare($sql);
                                             $resultado->bindValue(':aia', $anuncio->idAnuncio);
@@ -176,18 +177,18 @@ try {
 
                                             if($numRow == 0) {
                                         ?>
-                                        
+
                                         No hay comentarios
-                                        
+
                                         <?php
                                             } else {
                                                 $comentarios = $resultado->fetchAll(PDO::FETCH_OBJ);
 
-                                                foreach ($comentarios as $comentario) {   
+                                                foreach ($comentarios as $comentario) {
                                         ?>
-                                        
+
                                         <div class="alert alert-secondary" role="alert">
-                                            <?php 
+                                            <?php
                                                 $pos = strpos($comentario->comentario, ': ');
                                                 $nombreComentario = substr($comentario->comentario, 0, $pos);
                                                 $mensajeComentario = substr($comentario->comentario, $pos, strlen($comentario->comentario) - 1);
@@ -207,7 +208,7 @@ try {
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="claveAccesoClase" name="claveAccesoClase" value="<?php echo $clase->claveAcceso; ?>" disabled="disabled">
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="comentarioIdAnuncio" name="comentarioIdAnuncio" value="<?php echo $anuncio->idAnuncio; ?>" disabled="disabled">
                                             </div>
@@ -334,7 +335,7 @@ try {
                                 </h3>
                             </div>
                             <br>
-                            <ul class="list-group" id="listaAlumnos" name="listaAlumnos">
+                            <ul class="list-group" id="listaAlumnos-lista" name="listaAlumnos-lista">
                                 <?php
                                 $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno, " ", A.apellidoMaterno) AS nombreCompleto ';
                                 $sql .= 'FROM clase_has_alumnousuario AS C ';
