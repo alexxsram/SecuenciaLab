@@ -49,7 +49,7 @@ session_start();
 
           <div class="float-right">
             <div class="input-group">
-              <button class="btn btn-sm btn-outline-primary" type="button" onclick="location.href='registrar-usuario.php';">
+              <button class="btn btn-sm btn-outline-primary" type="button" onclick="redireccionarPagina('registrar-usuario.php');">
                 Registrar <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-sm btn-outline-success" type="submit">

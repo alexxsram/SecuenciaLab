@@ -181,6 +181,88 @@ $("#formLogin").validate({
   }
 });
 
+// ***************************************** Para restablecer contraseña de usuario
+$("#formRestablecerContrasena").validate({
+  rules: {
+    claveUsuario: {
+      required: true,
+      minlength: 9,
+      maxlength: 10
+    },
+    respuestaSeguridad: {
+      required: true
+    },
+    nuevoPasswordUsuario: {
+      required: true,
+      minlength: 8,
+      maxlength: 45
+    },
+    confirmNuevoPasswordUsuario: {
+      required: true,
+      minlength: 8,
+      maxlength: 45,
+      equalTo: "#nuevoPasswordUsuario"
+    }
+  },
+  messages: {
+    claveUsuario: {
+      required: "Ingresa tu número de usuario",
+      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
+      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
+    },
+    respuestaSeguridad: {
+      required: "Ingresa la contraseña"
+    },
+    nuevoPasswordUsuario: {
+      required: "Ingresa la contraseña",
+      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
+    },
+    confirmNuevoPasswordUsuario: {
+      required: "Ingresa la contraseña",
+      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
+      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
+      equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
+    }
+  },
+  submitHandler: function(form) {
+    $.ajax({
+      url: "utileria/sesion/restablecer-contrasena-sesion.php",
+      type: "POST",
+      dataType: "HTML",
+      data: "claveUsuario=" + $("#claveUsuario").val() + "&respuestaSeguridad=" + $("#respuestaSeguridad").val() + "&nuevoPasswordUsuario=" + $("#nuevoPasswordUsuario").val() + "&confirmNuevoPasswordUsuario=" + $("#confirmNuevoPasswordUsuario").val()
+    }).done(function(echo) {
+      if(echo == "success") {
+        limpiarFormulario("#formRestablecerContrasena");
+        redireccionarPagina("login.php");
+      }
+      else {
+        var html = "<div class='alert alert-danger' role='alert'>";
+        html += echo;
+        html += "</div>";
+        bootbox.alert(html);
+      }
+    });
+  },
+  errorElement: "em",
+  errorPlacement: function(error, element) {
+    // Add the `help-block` class to the error element
+    error.addClass("invalid-feedback");
+    if(element.prop("type") === "checkbox") {
+      // error.insertAfter(element.parent("label"));
+      error.addClass("invalid-feedback");
+    } else {
+      error.insertAfter(element);
+    }
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-invalid").removeClass("is-valid");
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-valid").removeClass("is-invalid");
+  }
+});
+
 // ***************************************** Para cambiar la contraseña de un usuario
 $("#modalCambiarPassword").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
@@ -273,91 +355,16 @@ $("#modalCambiarPassword").on("show.bs.modal", function (event) {
   });
 });
 
-// ***************************************** Para restablecer contraseña de usuario
-$("#formRestablecerContrasena").validate({
-  rules: {
-    claveUsuario: {
-      required: true,
-      minlength: 9,
-      maxlength: 10
-    },
-    respuestaSeguridad: {
-      required: true
-    },
-    nuevoPasswordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45
-    },
-    confirmNuevoPasswordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45,
-      equalTo: "#nuevoPasswordUsuario"
-    }
-  },
-  messages: {
-    claveUsuario: {
-      required: "Ingresa tu número de usuario",
-      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
-      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
-    },
-    respuestaSeguridad: {
-      required: "Ingresa la contraseña"
-    },
-    nuevoPasswordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres")
-    },
-    confirmNuevoPasswordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de  {0} caracteres"),
-      equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
-    }
-  },
-  submitHandler: function(form) {
-    $.ajax({
-      url: "utileria/sesion/restablecer-contrasena-sesion.php",
-      type: "POST",
-      dataType: "HTML",
-      data: "claveUsuario=" + $("#claveUsuario").val() + "&respuestaSeguridad=" + $("#respuestaSeguridad").val() + "&nuevoPasswordUsuario=" + $("#nuevoPasswordUsuario").val() + "&confirmNuevoPasswordUsuario=" + $("#confirmNuevoPasswordUsuario").val()
-    }).done(function(echo) {
-      if(echo == "success") {
-        limpiarFormulario("#formRestablecerContrasena");
-        redireccionarPagina("login.php");
-      }
-      else {
-        var html = "<div class='alert alert-danger' role='alert'>";
-        html += echo;
-        html += "</div>";
-        bootbox.alert(html);
-      }
-    });
-  },
-  errorElement: "em",
-  errorPlacement: function(error, element) {
-    // Add the `help-block` class to the error element
-    error.addClass("invalid-feedback");
-    if(element.prop("type") === "checkbox") {
-      // error.insertAfter(element.parent("label"));
-      error.addClass("invalid-feedback");
-    } else {
-      error.insertAfter(element);
-    }
-  },
-  highlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-invalid").removeClass("is-valid");
-  },
-  unhighlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-valid").removeClass("is-invalid");
-  }
-});
-
 // ***************************************** Para el creación de clase
 $("#modalCrearClase").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var codigoProfesor = button.data("codigoprofesor");
+
   insercionPorAjax("POST", "utileria/materia/selector-cicloEscolar.php", "#cicloEscolarClase");
+
+  modal.find("#formCrearMateria #codigoProfesorClase").val(codigoProfesor);
 
   $("#formCrearMateria").validate({
     rules: {
@@ -999,6 +1006,13 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
 
 // ***************************************** Para unir estudiante a una clase
 $("#modalUnirseClase").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var codigoAlumno = button.data("codigoalumno");
+
+  modal.find("#formUnirseClase #codigoAlumnoUnirse").val(codigoAlumno);
+
   $("#formUnirseClase").validate({
     rules: {
       unirseClaveAcceso: {
@@ -1062,12 +1076,14 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   var nombre = button.data("nombre");
   var descripcion = button.data("descripcion");
   var fechaLimite = button.data("fechalimite");
+  var codigoAlumno = button.data("codigoalumno");
   var claveAcceso = button.data("claveacceso");
 
   modal.find("#titulo").text(nombre);
   modal.find("#descripcion").text(descripcion);
   modal.find("#fechaLimite").text("Fecha límite de entrega: " + fechaLimite);
   modal.find("#formEntregaPractica #idPractica").val(idPractica);
+  modal.find("#formEntregaPractica #codigoAlumno").val(codigoAlumno);
 
   $("#formEntregaPractica").validate({
     rules: {
@@ -1108,7 +1124,7 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
     },
     submitHandler: function(form) {
       $.ajax({
-        url: "",
+        url: "../../utileria/practica/enviar-practica-cuestionario.php",
         type: "POST",
         dataType: "HTML",
         data: "respuestaPregunta1=" + $("#respuestaPregunta1").val()
@@ -1116,10 +1132,16 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
         + "&respuestaPregunta3=" + $("#respuestaPregunta3").val()
         + "&conclusion=" + $("#conclusion").val()
         + "&idPractica=" + $("#idPractica").val()
+        + "&codigoAlumno=" + $("#codigoAlumno").val()
       }).done(function(echo) {
         if(echo == "success") {
-          limpiarFormulario("#formEntregaPractica");
-          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
+          bootbox.alert({
+            message: "Actividad entregada correctamente!",
+            callback: function () {
+              limpiarFormulario("#formEntregaPractica");
+              redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
+            }
+          });
         }
         else {
           var html = "<div class='alert alert-danger' role='alert'>";
@@ -1406,7 +1428,7 @@ function confirmarEliminar(valor, tipo) {
         }
       }
     });
-  }else if(tipo == "abandonarClase") { // El alumno abandona una clase
+  } else if(tipo == "abandonarClase") { // El alumno abandona una clase
     bootbox.confirm({
       title: "Abandonar clase",
       message: "¿Está seguro que desea abandonar la clase? TODOS sus trabajos serán eliminados de manera permanente.",

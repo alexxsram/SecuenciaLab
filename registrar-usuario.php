@@ -100,7 +100,7 @@
 
           <div class="float-right">
             <div class="input-group">
-              <button class="btn btn-sm btn-outline-primary" type="button" onclick="location.href='login.php';">
+              <button class="btn btn-sm btn-outline-primary" type="button" onclick="redireccionarPagina('login.php');">
                 Regresar <i class="fas fa-arrow-left"></i>
               </button>
               <button class="btn btn-sm btn-outline-success" type="submit">

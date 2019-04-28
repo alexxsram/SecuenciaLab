@@ -116,7 +116,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <input type="hidden" class="form-control" id="codigoProfesorClase" name="codigoProfesorClase" value="<?php echo $codigo; ?>" disabled="disabled">
+            <input type="hidden" class="form-control" id="codigoProfesorClase" name="codigoProfesorClase" disabled="disabled">
           </div>
         </div>
 
@@ -467,16 +467,12 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <input type="hidden" class="form-control" id="unirseClaveAccesoClase" name="unirseClaveAccesoClase" disabled="disabled">
-          </div>
-
-          <div class="form-group">
             <label for="unirseClaveAcceso">Clave de acceso *</label>
             <input type="text" class="form-control" id="unirseClaveAcceso" name="unirseClaveAcceso"  placeholder="Ej. 3qoxi0NApW" required="required">
           </div>
 
           <div class="form-group">
-            <input type="hidden" class="form-control" id="codigoAlumnoUnirse" name="codigoAlumnoUnirse" value="<?php echo $codigo; ?>" disabled="disabled">
+            <input type="hidden" class="form-control" id="codigoAlumnoUnirse" name="codigoAlumnoUnirse" disabled="disabled">
           </div>
         </div>
         <!-- Modal footer -->
@@ -546,28 +542,23 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           <div class="form-group">
             <label for="rutaArchivo">Archivo *</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" lang="es" id="rutaArchivo" name="rutaArchivo" required>
-              <label class="custom-file-label" for="rutaArchivo">Selecccione el diagrama secuencial adecuado...</label>
+              <input type="file" class="custom-file-input" id="rutaArchivo" name="rutaArchivo" onchange="$(this).next('.custom-file-label').html($(this).val().replace('C:\\fakepath\\', ' '));" required>
+              <label class="custom-file-label" for="rutaArchivo" data-browse="Buscar">Selecccione el diagrama secuencial adecuado...</label>
             </div>
           </div>
-          <!--<div class="form-group">
-            <label for="rutaArchivo">Archivo *</label>
-            <input type="file" class="form-control-file" id="rutaArchivo" name="rutaArchivo" required="required">
-          </div>-->
 
-          <!-- Este campo deberia ser hidden o solo es para pruebas?-->
           <div class="form-group">
-            <input type="text" class="form-control" id="idPractica" name="idPractica" disabled="disabled">
+            <input type="hidden" class="form-control" id="idPractica" name="idPractica" disabled="disabled">
           </div>
 
           <div class="form-group">
-            <input type="hidden" class="form-control" id="codigoAlumnoUnirse" name="codigoAlumnoUnirse" value="<?php echo $codigo; ?>" disabled="disabled">
+            <input type="hidden" class="form-control" id="codigoAlumno" name="codigoAlumno" disabled="disabled">
           </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
-          <button type="submit" class="btn btn-primary">Unirse <i class="fas fa-sign-in-alt"></i> </button>
+          <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-check-circle"></i> </button>
         </div>
       </form>
     </div>

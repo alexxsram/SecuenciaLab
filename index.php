@@ -37,9 +37,9 @@ include('utileria/operaciones/conexion.php');
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCrearClase"> <i class="fas fa-users"></i> Crear una clase</a>
+                <button class="dropdown-item" data-toggle="modal" data-target="#modalCrearClase" data-codigoprofesor="<?php echo $codigo; ?>"> <i class="fas fa-users"></i> Crear una clase</button>
               <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalUnirseClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
+                <button class="dropdown-item" data-toggle="modal" data-target="#modalUnirseClase" data-codigoalumno="<?php echo $codigo; ?>"> <i class="fas fa-users"></i> Unirse a una clase</button>
               <?php } ?>
             </div>
           </li>
@@ -150,9 +150,9 @@ include('utileria/operaciones/conexion.php');
                     data-nombreclase="<?php echo $clase->nombreClase; ?>" data-aula="<?php echo $clase->aula; ?>"
                     data-anio="<?php echo $clase->anio; ?>" data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
-                  <?php }else if($estado == 'INICIO_SESION_ALUMNO'){ ?>
+                  <?php } else if($estado == 'INICIO_SESION_ALUMNO'){ ?>
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'abandonarClase');">Abandonar <i class="fas fa-trash"></i></button>
-                    <?php } ?>
+                  <?php } ?>
                 </div>
               </div>
             </div>
