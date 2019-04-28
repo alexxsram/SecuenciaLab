@@ -66,11 +66,9 @@ try {
                             <i class="fas fa-sign-in-alt"></i>
                         </button>
                     </p>
-                <?php } ?>
-                <p class="lead text-justify">
-                    En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
-                </p>
-                <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
+                    <p class="lead text-justify">
+                        En la siguiente sección, el profesor puede crear las prácticas de laboratorio relacionadas al manual
+                    </p>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Acciones de la clase
@@ -136,6 +134,11 @@ try {
                             } else {
                                 $anuncios = $resultado->fetchAll(PDO::FETCH_OBJ);
                                 foreach ($anuncios as $anuncio) {
+                                    $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :cp';
+                                    $resultado = $baseDatos->prepare($sql);
+                                    $resultado->bindValue(':cp', $anuncio->ProfesorUsuario_codigoProfesor);
+                                    $resultado->execute();
+                                    $profesorAnuncio = $resultado->fetch(PDO::FETCH_OBJ);
                             ?>
 
                             <!-- Ejemplo de card para anuncios -->
@@ -147,7 +150,7 @@ try {
                                                 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                             </div>
                                             <div class="ml-2">
-                                                <div class="h6 m-0 text-muted"> <?php echo $nombre; ?> </div>
+                                                <div class="h6 m-0 text-muted"> <?php echo $profesorAnuncio->nombrePila . ' ' . $profesorAnuncio->apellidoPaterno . ' ' . $profesorAnuncio->apellidoMaterno; ?> </div>
                                                 <div class="h7 text-muted"> a <?php echo $clase->nombreClase; ?> </div>
                                             </div>
                                         </div>
@@ -183,7 +186,7 @@ try {
                                 <div class="card-footer">
                                     <!-- <a href="#" class="card-link float-right"><i class="fa fa-comment"></i> Comentarios</a> -->
                                     <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse" data-target="#collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>" aria-expanded="false" aria-controls="collapseComentarios">
-                                        <i class="fas fa-comment"></i> Comentarios
+                                        Comentarios <i class="fas fa-comment"></i>
                                     </button>
                                 </div>
 
@@ -225,7 +228,7 @@ try {
                                                 </button>
                                             <?php } ?>
                                         </div>
-
+                                        
                                         <?php
                                             }
                                         }
@@ -287,6 +290,7 @@ try {
                             <?php
                                 } else {
                                     $practicas = $resultado->fetchAll(PDO::FETCH_OBJ);
+                                    if($estado == 'INICIO_SESION_PROFESOR') {
                             ?>
 
                             <div class="card" style="border-radius: 5px;">
@@ -316,7 +320,7 @@ try {
                                             <td>
                                                 <?php
                                                 $longitud = strlen($practica->descripcion);
-                                                if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO
+                                                if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO QUE EXCEDE MAS DE 30 CARACTERES
                                                     echo substr($practica->descripcion, 0, 30) . '...';
                                                 } else {
                                                     echo $practica->descripcion;
@@ -353,7 +357,44 @@ try {
                                     </tbody>
                                 </table>
                             </div>
+
                             <?php
+                                    } else if($estado == 'INICIO_SESION_ALUMNO') {
+                            ?>
+
+                            <div class="card-columns">
+                                <?php foreach ($practicas as $practica) { ?>
+                                    <div class="card border-dark">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> <?php echo $practica->nombre; ?></h5>
+                                            <p class="card-text">
+                                                <?php
+                                                $longitud = strlen($practica->descripcion);
+                                                if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO QUE EXCEDE MAS DE 30 CARACTERES
+                                                    echo substr($practica->descripcion, 0, 30) . '...';
+                                                } else {
+                                                    echo $practica->descripcion;
+                                                }
+                                                ?>
+                                            </p>
+                                            <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#modalEntregaPractica"
+                                            data-idpractica="<?php echo $practica->idPractica; ?>"
+                                            data-nombre="<?php echo $practica->nombre; ?>"
+                                            data-descripcion="<?php echo $practica->descripcion; ?>"
+                                            data-fechalimite="<?php echo $practica->fechaLimite; ?>"
+                                            data-claveacceso="<?php echo $clase->claveAcceso; ?>">
+                                                Entregar <i class="fas fa-check-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="card-footer border-dark">
+                                            <small class="text-muted"><i class="fas fa-calendar"></i> Fecha de entrega: <?php echo $practica->fechaLimite; ?> </small>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+                            <?php
+                                    }
                                 }
                             ?>
                         </div>

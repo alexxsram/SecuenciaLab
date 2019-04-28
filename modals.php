@@ -488,3 +488,80 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
         </div>
     </div>
 </div>
+
+<!-- El modal para visualizar una actividad y entregarla por parte del alumno -->
+<div class="modal fade" id="modalEntregaPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title text-white">Entrega de práctica</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="formEntregaPractica" name="formEntregaPractica" method="POST">
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h1 class="display-4" id="titulo"></h1>
+                    </div>
+
+                    <div class="text-justify">
+                        <div class="alert alert-secondary" role="alert" >
+                            <h4 class="alert-heading">Descripción de la práctica</h4>
+                            <p id="descripcion"></p>
+                            <hr>
+                            <p class="mb-0" id="fechaLimite"></p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="alert alert-info text-justify" role="alert">
+                        Contesta a las preguntas de la actividad.
+                        Todos los campos con (*) son obligatorios.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="respuestaPregunta1">Respuesta de la pregunta #1 *</label>
+                        <textarea class="form-control" id="respuestaPregunta1" name="respuestaPregunta1" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="respuestaPregunta2">Respuesta de la pregunta #2 *</label>
+                        <textarea class="form-control" id="respuestaPregunta2" name="respuestaPregunta2" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="respuestaPregunta3">Respuesta de la pregunta #3 *</label>
+                        <textarea class="form-control" id="respuestaPregunta3" name="respuestaPregunta3" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conclusion">Conclusión *</label>
+                        <textarea class="form-control" id="conclusion" name="conclusion" required="required"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rutaArchivo">Archivo *</label>
+                        <input type="file" class="form-control-file" id="rutaArchivo" name="rutaArchivo" required="required">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="idPractica" name="idPractica" disabled="disabled">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="codigoAlumnoUnirse" name="codigoAlumnoUnirse" value="<?php echo $codigo; ?>" disabled="disabled">
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+                    <button type="submit" class="btn btn-primary">Unirse <i class="fas fa-sign-in-alt"></i> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

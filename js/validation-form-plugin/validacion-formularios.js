@@ -1054,6 +1054,101 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
+$("#modalEntregaPractica").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var idPractica = button.data("idpractica");
+  var nombre = button.data("nombre");
+  var descripcion = button.data("descripcion");
+  var fechaLimite = button.data("fechalimite");
+  var claveAcceso = button.data("claveacceso");
+
+  modal.find("#titulo").text(nombre);
+  modal.find("#descripcion").text(descripcion);
+  modal.find("#fechaLimite").text("Fecha límite de entrega: " + fechaLimite);
+  modal.find("#formEntregaPractica #idPractica").val(idPractica);
+
+  $("#formEntregaPractica").validate({
+    rules: {
+      respuestaPregunta1: {
+        required: true
+      },
+      respuestaPregunta2: {
+        required: true
+      },
+      respuestaPregunta3: {
+        required: true
+      },
+      conclusion: {
+        required: true
+      },
+      rutaArchivo: {
+        required: true,
+        accept: "jpg,png,jpeg,gif"
+      }
+    },
+    messages: {
+      respuestaPregunta1: {
+        required: "Llenar la respuesta a la pregunta #1"
+      },
+      respuestaPregunta2: {
+        required: "Llenar la respuesta a la pregunta #2"
+      },
+      respuestaPregunta3: {
+        required: "Llenar la respuesta a la pregunta #3"
+      },
+      conclusion: {
+        required: "Llenar con alguna conclusión"
+      },
+      rutaArchivo: {
+        required: "Seleccionar un archivo",
+        accept: "Solo se admiten archivos con formato jpg/jpeg/png/gif/pdf"
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "",
+        type: "POST",
+        dataType: "HTML",
+        data: "respuestaPregunta1=" + $("#respuestaPregunta1").val()
+        + "&respuestaPregunta2=" + $("#respuestaPregunta2").val()
+        + "&respuestaPregunta3=" + $("#respuestaPregunta3").val()
+        + "&conclusion=" + $("#conclusion").val()
+        + "&idPractica=" + $("#idPractica").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario("#formEntregaPractica");
+          redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
 // ***************************************** Para dar de alta un usuario
 $("#formEvaluarClase").validate({
   rules: {
