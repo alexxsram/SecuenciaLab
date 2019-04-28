@@ -1406,6 +1406,30 @@ function confirmarEliminar(valor, tipo) {
         }
       }
     });
+  }else if(tipo == "abandonarClase") { // El alumno abandona una clase
+    bootbox.confirm({
+      title: "Abandonar clase",
+      message: "¿Está seguro que desea abandonar la clase? TODOS sus trabajos serán eliminados de manera permanente.",
+      size: 'small',
+      backdrop: true,
+      className: "swing animated",
+      buttons: {
+        confirm: {
+          label: "Si <i class='fas fa-check-circle'></i>",
+          className: "btn-success"
+        },
+        cancel: {
+          label: "No <i class='fas fa-times-circle'></i>",
+          className: "btn-danger"
+        }
+      },
+      callback: function (result) {
+        if(result == true) {
+          //Todavia no tiene una acción
+          //accionarEliminacion("POST", "../../utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + idPractica, "../materia/ingresar-materia.php?claveAccesoClase=" + btoa(claveAcceso));
+        }
+      }
+    });
   }
 }
 

@@ -10,15 +10,25 @@ try {
   $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
   $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
   $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
-  //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array("cost"=>30)); Ejemplo de como convertir la contraseña en un hash
-  $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
-  $aux = substr($claveUsuario, 0, 1);
-  $claveUsuario = substr($claveUsuario, 1); //Código del usaurio
-  
+
+  //Convertir elementos de texto en codificación UTF-8
+  $nombrePilaUsuario = html_entity_decode($nombrePilaUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $apellidoPaternoUsuario = html_entity_decode($apellidoPaternoUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $apellidoMaternoUsuario = html_entity_decode($apellidoMaternoUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $respuestaSeguridad = html_entity_decode($respuestaSeguridad, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $passwordUsuario = html_entity_decode($passwordUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $emailUsuario = html_entity_decode($emailUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+
   //Convertir nombre completo del usaurio en mayusculas de usuario a mayusculas
   $nombrePilaUsuario = strtoupper($nombrePilaUsuario);
   $apellidoPaternoUsuario = strtoupper($apellidoPaternoUsuario);
   $apellidoMaternoUsuario = strtoupper($apellidoMaternoUsuario);
+  $claveUsuario = strtoupper($claveUsuario);
+
+  //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array("cost"=>30)); Ejemplo de como convertir la contraseña en un hash
+  $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
+  $aux = substr($claveUsuario, 0, 1);
+  $claveUsuario = substr($claveUsuario, 1); //Código del usaurio
 
   if(is_numeric($claveUsuario)) { //Validar codigo profesor y alumno
     $sql = 'SELECT email FROM (SELECT email FROM alumnousuario UNION SELECT email FROM profesorusuario) as unionEmail WHERE email = :email';
