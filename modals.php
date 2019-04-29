@@ -497,7 +497,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
       </div>
 
       <!-- Modal body -->
-      <form id="formEntregaPractica" name="formEntregaPractica" method="POST">
+      <form id="formEntregaPractica" name="formEntregaPractica" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="text-center">
             <h1 class="display-4" id="titulo"></h1>
@@ -540,10 +540,10 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <label for="rutaArchivo">Archivo *</label>
+            <label for="nomnbreArchivo">Archivo *</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="rutaArchivo" name="rutaArchivo" onchange="$(this).next('.custom-file-label').html($(this).val().replace('C:\\fakepath\\', ' '));" required>
-              <label class="custom-file-label" for="rutaArchivo" data-browse="Buscar">Selecccione el diagrama secuencial adecuado...</label>
+              <input type="file" class="custom-file-input" id="nombreArchivo" name="nombreArchivo" onchange="$(this).next('.custom-file-label').html($(this).val().replace('C:\\fakepath\\', ' '));" required>
+              <label class="custom-file-label" for="nombreArchivo" data-browse="Buscar">Selecccione el diagrama secuencial adecuado...</label>
             </div>
           </div>
 

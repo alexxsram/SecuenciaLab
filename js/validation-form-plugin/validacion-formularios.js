@@ -1068,6 +1068,7 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
+// ***************************************** Para entregar una practica
 $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var modal = $(this);
@@ -1131,6 +1132,7 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
         + "&respuestaPregunta2=" + $("#respuestaPregunta2").val()
         + "&respuestaPregunta3=" + $("#respuestaPregunta3").val()
         + "&conclusion=" + $("#conclusion").val()
+        + "&nombreArchivo=" + $("#nombreArchivo").val()
         + "&idPractica=" + $("#idPractica").val()
         + "&codigoAlumno=" + $("#codigoAlumno").val()
       }).done(function(echo) {
