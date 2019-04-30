@@ -98,7 +98,7 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
   <h5 class="card-header">Datos y estadísticas de la práctica</h5>
   <div class="card-body" id="info-alumno-cuerpo-tarjeta-estadisticas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
     <p class="card-text" id="info-alumno-descripcion-practica" name="info-alumno-descripcion-practica"><b>Sección de graficación.</b></p>
-    <div id="container" style="width:100%; height:400px;"></div>
+    <div id="container" name="container" style="width:100%; height:400px;"></div>
   </div>
 </div>
 

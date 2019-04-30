@@ -8,6 +8,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   $estado = $_SESSION['estado'];
 }
 include('utileria/operaciones/conexion.php');
+$maxLongNomClase = 45;
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +133,14 @@ include('utileria/operaciones/conexion.php');
             <div class="card border-success">
               <img class="card-img" src="images/index/fondo-card.jpg" alt="Card image">
               <div class="card-body text-center">
-                <h4 class="card-title border-bottom pb-2" style="font-size: 18.5px; font-family: 'Candara';"> <i> <b> <?php echo $clase->nombreClase; ?> </b> </i></h4>
+                <h4 class="card-title border-bottom pb-2" style="font-size: 18.5px; font-family: 'Candara';"> <i> <b> <?php
+                $longNombreClase = strlen($clase->nombreClase);
+                $longRelleno = $maxLongNomClase - $longNombreClase;
+                echo $clase->nombreClase;
+                $auxiliar="";
+                for($i=0; $i<$longRelleno; $i++) {$auxiliar .= "_";}
+                echo $auxiliar;
+                ?> </b> </i></h4>
                 <p class="card-text text-center" style="font-size: 12.5px;">
                   <b>NRC:</b> <?php echo $clase->nrc . " - " . $clase->anio . " " . $ciclo->ciclo; ?> <br>
                   <b>Sección:</b> <?php echo $clase->claveSeccion; ?> <br>

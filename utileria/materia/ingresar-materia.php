@@ -44,7 +44,7 @@ try {
         ?>
 
         <!-- JUMBOTRON DE LOS DATOS DE LA CLASE -->
-        <div class="jumbotron">
+        <div class="jumbotron col-12">
             <div class="container">
                 <blockquote class="blockquote text-center">
                     <h1 class="display-4"> <?php echo $clase->nombreClase; ?> </h1>
@@ -114,7 +114,7 @@ try {
                 </ul>
             </div>
             <!-- FIN DEL HEADER DE LOS TAB -->
-            
+
             <!-- CUERPO DE LOS TAB -->
             <div class="card-body">
                 <!-- CONTENIDO DEL TAB -->
@@ -123,12 +123,12 @@ try {
                     <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
                         <?php
                         if($estado == 'INICIO_SESION_PROFESOR') {
-                            $sql = 'SELECT * FROM anuncio WHERE ProfesorUsuario_codigoProfesor = :pucp AND Clase_claveAcceso = :cca';
+                            $sql = 'SELECT * FROM anuncio WHERE ProfesorUsuario_codigoProfesor = :pucp AND Clase_claveAcceso = :cca ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
                             $array = array(':pucp'=>$codigo, ':cca'=>$claveAccesoClase);
                             $resultado->execute($array);
                         } else if($estado == 'INICIO_SESION_ALUMNO') {
-                            $sql = 'SELECT * FROM anuncio WHERE Clase_claveAcceso IN (SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca)';
+                            $sql = 'SELECT * FROM anuncio WHERE Clase_claveAcceso IN (SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca) ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
                             $resultado->bindValue(':cca', $claveAccesoClase);
                             $resultado->execute();
@@ -183,7 +183,7 @@ try {
                                                 data-titulo="<?php echo $anuncio->titulo; ?>"
                                                 data-contenido="<?php echo $anuncio->contenido; ?>"
                                                 data-fechapublicacion="<?php echo $anuncio->fechaPublicacion; ?>"
-                                                data-claveacceso="<?php echo $anuncio->Clase_claveAcceso; ?>"> 
+                                                data-claveacceso="<?php echo $anuncio->Clase_claveAcceso; ?>">
                                                     <i class="fas fa-edit"></i> Editar
                                                 </button>
                                                 <button type="button" class="dropdown-item" onclick="confirmarEliminar(<?php echo '\'' . $anuncio->idAnuncio . '-' . $anuncio->titulo . '-' . $clase->claveAcceso . '\'';?>, 'anuncio');"> <i class="fas fa-trash"></i> Eliminar</button>
@@ -194,10 +194,10 @@ try {
                             </div>
 
                             <div class="card-body">
-                                <div class="text-muted h7 mb-2"> 
-                                    <i class="fas fa-calendar"></i> <?php $fecha = date_create($anuncio->fechaPublicacion); echo date_format($fecha, 'l jS F Y'); ?> 
+                                <div class="text-muted h7 mb-2">
+                                    <i class="fas fa-calendar"></i> <?php $fecha = date_create($anuncio->fechaPublicacion); echo date_format($fecha, 'l jS F Y'); ?>
                                 </div>
-                                
+
                                 <p class="card-link">
                                     <h5 class="card-title"> <?php echo $anuncio->titulo; ?> </h5>
                                 </p>
@@ -216,7 +216,7 @@ try {
                                 $numRow = $resultado->rowCount();
                                 ?>
                                 <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse" data-target="#collapseComentariosAnuncio<?php echo $anuncio->idAnuncio; ?>" aria-expanded="false" aria-controls="collapseComentarios">
-                                    <i class="fas fa-comment"></i> Comentarios <span class="badge badge-light"><?php echo $numRow; ?></span> 
+                                    <i class="fas fa-comment"></i> Comentarios <span class="badge badge-light"><?php echo $numRow; ?></span>
                                 </button>
                             </div>
 
@@ -251,9 +251,9 @@ try {
                                         $nombreComentario = substr($comentario->comentario, 0, $pos);
                                         $mensajeComentario = substr($comentario->comentario, $pos, strlen($comentario->comentario) - 1);
                                         ?>
-                                        
+
                                         <strong><?php echo $nombreComentario; ?></strong><?php echo $mensajeComentario; ?>
-                                        
+
                                         <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                             <button type="button" class="close" onclick="confirmarEliminar(<?php echo '\'' . $comentario->idComentario . '-' . $clase->claveAcceso . '\'';?>, 'comentario');">
                                                 <span aria-hidden="true">&times;</span>
@@ -301,7 +301,7 @@ try {
                     <!-- TAB DE LAS PRACTICAS -->
                     <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
                         <?php
-                        $sql = "SELECT * FROM practica WHERE Clase_claveAcceso LIKE :claveAcceso";
+                        $sql = "SELECT * FROM practica WHERE Clase_claveAcceso LIKE :claveAcceso ORDER BY fechaLimite ASC";
                         $resultado = $baseDatos->prepare($sql);
                         $resultado->bindValue(':claveAcceso', $clase->claveAcceso);
                         $resultado->execute();
@@ -344,7 +344,7 @@ try {
                                         </th>
                                     </tr>
                                 </thead>
-                                
+
                                 <tbody>
                                     <?php foreach($practicas as $practica) { ?>
                                         <tr>
@@ -389,7 +389,7 @@ try {
                                                     </button>
                                                 </div>
                                             </td>
-                                            
+
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -402,17 +402,18 @@ try {
 
                         <div class="card-columns">
                             <?php foreach ($practicas as $practica) { ?>
-                                <div class="card border-success">
+                                <div class="card border-success mb-3">
+                                  <div class="card-header bg-transparent border-success">
+                                    <div class="form-group">
+                                        <span class="badge badge-success" style="text-align: center;">Entregada - finalizada</span>
+                                        <span class="badge badge-warning" style="text-align: center;">Entregada - editable</span>
+                                        <span class="badge badge-danger" style="text-align: center;">No entregada</span>
+                                        <span class="badge badge-primary" style="text-align: center;">Cálificada: 100</span>
+                                        <span class="badge badge-dark" style="text-align: center;">Deshabilitada</span>
+                                    </div>
+                                  </div>
                                     <div class="card-body text-center">
-                                        <div class="form-group">
-                                            <span class="badge badge-success" style="text-align: center;">Entregada - finalizada</span>
-                                            <span class="badge badge-warning" style="text-align: center;">Entregada - editable</span>
-                                            <span class="badge badge-danger" style="text-align: center;">No entregada</span>
-                                            <span class="badge badge-primary" style="text-align: center;">Cálificada: 100</span>
-                                            <span class="badge badge-dark" style="text-align: center;">Deshabilitada</span>
-                                        </div>
-
-                                        <h5 class="card-title text-center"> 
+                                        <h5 class="card-title text-center">
                                             <?php echo $practica->nombre; ?>
                                         </h5>
 
@@ -477,7 +478,7 @@ try {
                             <?php } ?>
                         </div>
 
-                        <?php 
+                        <?php
                         } else {
                             $alumnosClase = $resultado->fetchAll(PDO::FETCH_OBJ);
                         ?>
@@ -487,7 +488,7 @@ try {
                                 Lista de Alumnos
                             </h3>
                         </div>
-                        
+
                         <br>
 
                         <ul class="list-group" id="listaAlumnos-lista" name="listaAlumnos-lista">
@@ -507,10 +508,10 @@ try {
                         <?php
                         }
                         ?>
-                        
+
                     </div>
                     <!-- FIN DEL TAB DE LA LISTA DE ALUMNOS -->
-                </div> 
+                </div>
                 <!-- FIN DEL CONTENIDO DEL TAB -->
             </div>
             <!-- FIN DEL CUERPO DE LOS TAB  -->

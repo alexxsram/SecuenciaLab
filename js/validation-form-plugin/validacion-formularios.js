@@ -371,7 +371,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       nombreClase: {
         required: true,
         minlength: 4,
-        maxlength: 80
+        maxlength: 45
       },
       seccionClase: {
         required: true,
@@ -384,7 +384,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       materiaClase: {
         required: true,
         minlength: 3,
-        maxlength: 80
+        maxlength: 45
       },
       aulaClase: {
         required: true,
@@ -515,7 +515,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarNombreClase: {
         required: true,
         minlength: 4,
-        maxlength: 80
+        maxlength: 45
       },
       editarSeccionClase: {
         required: true,
@@ -528,7 +528,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarEateriaClase: {
         required: true,
         minlength: 3,
-        maxlength: 80
+        maxlength: 45
       },
       editarAulaClase: {
         required: true,
