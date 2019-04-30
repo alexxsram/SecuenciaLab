@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-04-2019 a las 07:24:26
+-- Tiempo de generación: 29-04-2019 a las 05:17:00
 -- Versión del servidor: 5.7.23
 -- Versión de PHP: 7.2.10
 
@@ -42,6 +42,13 @@ CREATE TABLE IF NOT EXISTS `alumnousuario` (
   KEY `fk_AlumnoUsuario_PreguntaSeguridad1_idx` (`PreguntaSeguridad_idPreguntaSeguridad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `alumnousuario`
+--
+
+INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
+('A123456789', 'ALEJANDRO', 'SANCHEZ', 'PEREZ', 'alexio1815@gmail.com', 2, 'firulais', '123456789');
+
 -- --------------------------------------------------------
 
 --
@@ -59,15 +66,14 @@ CREATE TABLE IF NOT EXISTS `anuncio` (
   PRIMARY KEY (`idAnuncio`),
   KEY `fk_Anuncio_ProfesorUsuario1_idx` (`ProfesorUsuario_codigoProfesor`),
   KEY `fk_Anuncio_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `anuncio`
 --
 
 INSERT INTO `anuncio` (`idAnuncio`, `titulo`, `contenido`, `fechaPublicacion`, `ProfesorUsuario_codigoProfesor`, `Clase_claveAcceso`) VALUES
-(1, 'Ejemplo de algo en la base de datos', 'Esto es una prueba', '2019-04-19', 'P123456789', 'TQYsUySRXm'),
-(23, 'Ejemplo de algo en la base de datos', 'FKJGNKJGKJDFGDF', '2019-04-20', 'P123456789', 'TQYsUySRXm');
+(2, 'Ejemplo', 'sfsdfsdfsdf', '2019-04-29', 'P123456789', 'M8evmaEJIr');
 
 -- --------------------------------------------------------
 
@@ -120,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `clase` (
 --
 
 INSERT INTO `clase` (`claveAcceso`, `nombreMateria`, `nrc`, `claveSeccion`, `nombreClase`, `aula`, `anio`, `CicloEscolar_idCicloEscolar`, `ProfesorUsuario_codigoProfesor`) VALUES
-('TQYsUySRXm', 'SISTEMAS DE CONTROL SECUENCIAL', 123456, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'P10', '2019', 1, 'P123456789');
+('M8evmaEJIr', 'SISTEMAS DE CONTROL SECUENCIAL', 123456, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'P10', '2019', 1, 'P123456789');
 
 -- --------------------------------------------------------
 
@@ -166,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `cuestionario` (
   `respuestaPregunta3` text,
   `conclusion` text,
   `fechaFinalizacion` date DEFAULT NULL,
+  `rutaArchivo` varchar(100) NOT NULL,
   `Practica_idPractica` int(10) UNSIGNED NOT NULL,
   `AlumnoUsuario_codigoAlumno` varchar(15) NOT NULL,
   PRIMARY KEY (`idCuestionario`),
@@ -226,7 +233,14 @@ CREATE TABLE IF NOT EXISTS `practica` (
   `Clase_claveAcceso` varchar(10) NOT NULL,
   PRIMARY KEY (`idPractica`),
   KEY `fk_Practica_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `practica`
+--
+
+INSERT INTO `practica` (`idPractica`, `nombre`, `descripcion`, `fechaLimite`, `Clase_claveAcceso`) VALUES
+(2, 'Arrancador a tensi&oacute;n reducida', 'Ejemplo', '2019-04-29', 'M8evmaEJIr');
 
 -- --------------------------------------------------------
 
@@ -275,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `profesorusuario` (
 --
 
 INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('P123456789', 'MIGUEL ALEJANDRO', 'SALGADO', 'RAM&IACUTE;REZ', 'alejandrosram@outlook.com', 2, 'mailo', '123456789');
+('P123456789', 'MIGUEL ALEJANDRO', 'SALGADO', 'RAMIREZ', 'alejandrosram@outlook.com', 2, 'mailo', '123456789');
 
 --
 -- Restricciones para tablas volcadas
@@ -291,7 +305,7 @@ ALTER TABLE `alumnousuario`
 -- Filtros para la tabla `anuncio`
 --
 ALTER TABLE `anuncio`
-  ADD CONSTRAINT `fk_Anuncio_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Anuncio_Clase1` FOREIGN KEY (`Clase_claveAcceso`) REFERENCES `clase` (`claveAcceso`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Anuncio_ProfesorUsuario1` FOREIGN KEY (`ProfesorUsuario_codigoProfesor`) REFERENCES `profesorusuario` (`codigoProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

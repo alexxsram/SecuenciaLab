@@ -159,7 +159,7 @@ $maxLongNomClase = 45;
                     data-anio="<?php echo $clase->anio; ?>" data-codigoprofesor="<?php echo $clase->ProfesorUsuario_codigoProfesor; ?>">Editar <i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'clase');">Eliminar <i class="fas fa-trash"></i></button>
                   <?php } else if($estado == 'INICIO_SESION_ALUMNO'){ ?>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'abandonarClase');">Abandonar <i class="fas fa-trash"></i></button>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmarEliminar(<?php echo '\'' . $clase->claveAcceso . '-' . $codigo . '\''; ?>, 'abandonarClase');">Abandonar <i class="fas fa-trash"></i></button>
                   <?php } ?>
                 </div>
               </div>

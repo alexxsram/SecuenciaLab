@@ -1068,7 +1068,7 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
-// ***************************************** Para entregar una practica
+// ***************************************** Para entregar una practica ESTE FALTA DE REVISAR BIEN PARA QUE FUNCIONE CON FILES
 $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var modal = $(this);
@@ -1317,8 +1317,8 @@ function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, ruta
         });
       }
     },
-    error: function(response) {
-      bootbox.alert("Error: " + response);
+    error: function(xhr, textStatus, errorThrown) {
+      bootbox.alert("Error: " + xhr.responseText);
     }
   });
 }
@@ -1431,6 +1431,9 @@ function confirmarEliminar(valor, tipo) {
       }
     });
   } else if(tipo == "abandonarClase") { // El alumno abandona una clase
+    var vectorValores = valor.split("-");
+    var claveAcceso = vectorValores[0];
+    var codigoAlumno = vectorValores[1];
     bootbox.confirm({
       title: "Abandonar clase",
       message: "¿Está seguro que desea abandonar la clase? TODOS sus trabajos serán eliminados de manera permanente.",
@@ -1449,8 +1452,7 @@ function confirmarEliminar(valor, tipo) {
       },
       callback: function (result) {
         if(result == true) {
-          //Todavia no tiene una acción
-          //accionarEliminacion("POST", "../../utileria/practica/", "eliminar-practica.php", "HTML", "idPractica=" + idPractica, "../materia/ingresar-materia.php?claveAccesoClase=" + btoa(claveAcceso));
+          accionarEliminacion("POST", "utileria/materia/", "abandonar-materia.php", "HTML", "claveAcceso=" + claveAcceso + "&codigoAlumno=" + codigoAlumno, "index.php");
         }
       }
     });

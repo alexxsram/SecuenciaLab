@@ -7,7 +7,7 @@ try {
     $respuestaPregunta3 = htmlentities(addslashes($_POST['respuestaPregunta3']));
     $conclusion = htmlentities(addslashes($_POST['conclusion']));
     $fechaFinalizacion = date('Y-m-d');
-    $nombreArchivo = htmlentities(addslashes($_FILES['nombreArchivo']));
+    $nombreArchivo = htmlentities(addslashes($_POST['nombreArchivo'])); // ESTE DEBE SER $_FILES PARA AGARRAR LOS ARCHIVOS
     $idPractica = htmlentities(addslashes($_POST['idPractica']));
     $codigoAlumno = htmlentities(addslashes($_POST['codigoAlumno']));
 
@@ -31,6 +31,8 @@ try {
         if(!file_exists($directorio)) {
             mkdir($directorio, 0777, true);
         }
+
+        // FALTA HACER QUE MUEVA LOS ARCHIVOS AL DIRECTORIO CREADO
 
         // $sql = 'INSERT INTO cuestionario (respuestaPregunta1, respuestaPregunta2, respuestaPregunta3, conclusion, fechaFinalizacion, rutaArchivo, Practica_idPractica, AlumnoUsuario_codigoAlumno) VALUES (:rp1, :rp2, :rp3, :c, :ff, :ra, :pip, :auca)';
         // $resultado = $baseDatos->prepare($sql);
