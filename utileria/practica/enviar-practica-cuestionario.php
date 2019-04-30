@@ -11,6 +11,12 @@ try {
     $idPractica = htmlentities(addslashes($_POST['idPractica']));
     $codigoAlumno = htmlentities(addslashes($_POST['codigoAlumno']));
 
+    //Convertir elementos de texto en codificación UTF-8
+    $respuestaPregunta1 = html_entity_decode($respuestaPregunta1, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $respuestaPregunta2 = html_entity_decode($respuestaPregunta2, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $respuestaPregunta3 = html_entity_decode($respuestaPregunta3, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $conclusion = html_entity_decode($conclusion, ENT_QUOTES | ENT_HTML401, "UTF-8");
+
     $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :ca';
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':ca', $codigoAlumno);

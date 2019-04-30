@@ -7,6 +7,9 @@ try {
     $aux = htmlentities(addslashes($_POST['comentario']));
     $comentario = $nombre . ': ' . $aux;
 
+    //Convertir elementos de texto en codificación UTF-8
+    $comentario = html_entity_decode($comentario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+
     $sql = 'INSERT INTO comentario (comentario, Anuncio_idAnuncio) VALUES (:c, :aia)';
     $resultado = $baseDatos->prepare($sql);
     $array = array(':c'=>$comentario, ':aia'=>$idAnuncio);

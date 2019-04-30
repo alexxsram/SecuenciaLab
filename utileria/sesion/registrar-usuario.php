@@ -20,10 +20,10 @@ try {
   $emailUsuario = html_entity_decode($emailUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
 
   //Convertir nombre completo del usaurio en mayusculas de usuario a mayusculas
-  $nombrePilaUsuario = strtoupper($nombrePilaUsuario);
-  $apellidoPaternoUsuario = strtoupper($apellidoPaternoUsuario);
-  $apellidoMaternoUsuario = strtoupper($apellidoMaternoUsuario);
-  $claveUsuario = strtoupper($claveUsuario);
+  $nombrePilaUsuario = mb_strtoupper($nombrePilaUsuario,'UTF-8');
+  $apellidoPaternoUsuario = mb_strtoupper($apellidoPaternoUsuario,'UTF-8');
+  $apellidoMaternoUsuario = mb_strtoupper($apellidoMaternoUsuario,'UTF-8');
+  $claveUsuario = mb_strtoupper($claveUsuario,'UTF-8');
 
   //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array("cost"=>30)); Ejemplo de como convertir la contraseña en un hash
   $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
@@ -36,12 +36,11 @@ try {
     $resultado->bindValue(':email', $emailUsuario);
     $resultado->execute();
     $numRow = $resultado->rowCount();
-
     if($numRow == 0) {
       if($aux == 'P' || $aux == 'p') { //Comprobar profesor
         $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor';
         $resultado = $baseDatos->prepare($sql);
-        $resultado->bindValue(':codigoProfesor', $claveUsuario);
+        $resultado->bindValue(':codigoProfesor', $aux.$claveUsuario);
         $resultado->execute();
         $numRow = $resultado->rowCount();
         if($numRow == 0) {
@@ -56,10 +55,9 @@ try {
       } else if($aux == 'A' || $aux == 'a') { //Comprobar Alumno
         $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno';
         $resultado = $baseDatos->prepare($sql);
-        $resultado->bindValue(':codigoAlumno', $claveUsuario);
+        $resultado->bindValue(':codigoAlumno', $aux.$claveUsuario);
         $resultado->execute();
         $numRow = $resultado->rowCount();
-
         if($numRow == 0) {
           $sql = 'INSERT INTO alumnousuario (codigoAlumno, nombrePila, apellidoPaterno, apellidoMaterno, email, PreguntaSeguridad_idPreguntaSeguridad, respuestaSeguridad, password) VALUES (:cp, :np, :ap, :am, :e, :psidps, :rs, :p)';
           $resultado = $baseDatos->prepare($sql);
@@ -67,7 +65,7 @@ try {
           $resultado->execute($array);
           echo 'success';
         } else {
-          echo 'Error. El código del profesor ya se encuentra registrado en el sistema';
+          echo 'Error. El código del alumno ya se encuentra registrado en el sistema.';
         }
       } else {
         echo "Error. Si es un alumno debe anteponer a su código de estudiante la letra A. Ej. A215861738.";

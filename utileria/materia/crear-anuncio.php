@@ -8,6 +8,10 @@ try {
     $codigoProfesor = htmlentities(addslashes($_POST['codigoProfesor']));
     $claveAccesoClase = htmlentities(addslashes($_POST['claveAccesoClase']));
 
+    //Convertir elementos de texto en codificación UTF-8
+    $tituloAnuncio = html_entity_decode($tituloAnuncio, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $contenidoAnuncio = html_entity_decode($contenidoAnuncio, ENT_QUOTES | ENT_HTML401, "UTF-8");
+
     $sql = "SELECT * FROM anuncio WHERE titulo = :t";
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':t', $tituloAnuncio);

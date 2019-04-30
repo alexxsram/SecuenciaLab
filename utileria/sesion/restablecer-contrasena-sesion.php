@@ -7,8 +7,17 @@ try {
     $nuevoPasswordUsuario = htmlentities(addslashes($_POST['nuevoPasswordUsuario']));
     $confirmNuevoPasswordUsuario = htmlentities(addslashes($_POST['confirmNuevoPasswordUsuario']));
 
-    $aux = substr($claveUsuario, 0, 1);
+    //Convertir elementos de texto en codificación UTF-8
+    $claveUsuario = html_entity_decode($claveUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $respuestaSeguridad = html_entity_decode($respuestaSeguridad, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $nuevoPasswordUsuario = html_entity_decode($nuevoPasswordUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
+    $confirmNuevoPasswordUsuario = html_entity_decode($confirmNuevoPasswordUsuario, ENT_QUOTES | ENT_HTML401, "UTF-8");
 
+    //Convertir nombre completo del usaurio en mayusculas de usuario a mayusculas
+    $claveUsuario = mb_strtoupper($claveUsuario,'UTF-8');
+    $respuestaSeguridad = mb_strtoupper($respuestaSeguridad,'UTF-8');
+
+    $aux = substr($claveUsuario, 0, 1);
     if($aux == 'A' || $aux == 'a') {
         $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno AND respuestaSeguridad = :respuestaSeguridad';
         $resultado = $baseDatos->prepare($sql);
