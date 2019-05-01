@@ -26,7 +26,7 @@ $maxLongNomClase = 45;
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="">SecuenciaLab</a>
+            <button class="btn btn-sm btn-outline-light navbar-brand" onclick="redireccionarPagina('index.php');">SecuenciaLab</button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,8 +53,10 @@ $maxLongNomClase = 45;
                             <button class="dropdown-item" data-toggle="modal" data-target="#modalCambiarPassword" data-codigo="<?php echo $codigo; ?>"><i class="fas fa-key"></i> Cambiar contraseña</button>
                         </div>
                     </li>
-                    
-                    <button class="btn btn-sm btn-outline-danger" type="button" onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
+
+                    <li class="form-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="button" onclick="redireccionarPagina('utileria/sesion/cerrar-sesion.php');">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button>
+                    </li>
                 </ul>
             </div>
         </div>
