@@ -400,51 +400,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   </div>
 </div>
 
-<!-- El modal para calificar una practica -->
-<div class="modal fade" id="modalCalificarPractica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h4 class="modal-title text-white">Calificar práctica</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form id="formCalificarPractica" name="formCalificarPractica" method="POST">
-        <div class="modal-body">
-          <div class="alert alert-info text-justify" role="alert">
-            En este apartado el profesor puede verificar los alumnos que han entregado su practica correspondiente y así calificarla.
-            Todos los campos con (*) son obligatorios.
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="calificarIdPractica" name="calificarIdPractica" disabled="disabled">
-          </div>
-
-          <div class="form-group">
-            <label for="selCalificarCodigoAlumnoPractica">Alumnos que han entregado *</label>
-            <select id="selCalificarCodigoAlumnoPractica" name="selCalificarCodigoAlumnoPractica" class="custom-select">
-              <option value="">Seleccionar...</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="calificarEvaluacionPractica">Calificación *</label>
-            <input type="number" class="form-control" id="calificarEvaluacionPractica" name="calificarEvaluacionPractica"  placeholder="Ej. Arrancador a tensión reducida" required="required">
-          </div>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
-          <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-save"></i> </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <!-- El modal unir a un alumno a una clase -->
 <div class="modal fade" id="modalUnirseClase" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
