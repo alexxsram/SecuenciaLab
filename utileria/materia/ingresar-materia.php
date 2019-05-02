@@ -382,7 +382,7 @@ try {
                                                         Eliminar <i class="fas fa-times"></i>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="redireccionarPagina('../practica/calificar-practica-entregado.php?idPractica=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\''; ?>);">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-practica-entregado.php', 'idPractica=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\'' ?>);">
                                                         Calificar <i class="fas fa-edit"></i>
                                                     </button>
                                                 </div>
