@@ -369,12 +369,6 @@ try {
 
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalCalificarPractica"
-                                                    data-idpractica="<?php echo $practica->idPractica; ?>"
-                                                    data-claveacceso="<?php echo $clase->claveAcceso; ?>">
-                                                    Calificar <i class="fas fa-edit"></i>
-                                                    </button>
-
                                                     <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#modalEditarPractica"
                                                     data-idpractica="<?php echo $practica->idPractica; ?>"
                                                     data-nombre="<?php echo $practica->nombre; ?>"
@@ -386,6 +380,12 @@ try {
 
                                                     <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmarEliminar(<?php echo '\'' . $practica->idPractica . '-' . $practica->nombre . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
                                                         Eliminar <i class="fas fa-times"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalCalificarPractica"
+                                                    data-idpractica="<?php echo $practica->idPractica; ?>"
+                                                    data-claveacceso="<?php echo $clase->claveAcceso; ?>">
+                                                        Calificar <i class="fas fa-edit"></i>
                                                     </button>
                                                 </div>
                                             </td>

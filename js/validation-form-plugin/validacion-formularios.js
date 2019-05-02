@@ -1004,6 +1004,19 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
   });
 });
 
+// ***************************************** Para calificar una practica
+$("#modalCalificarPractica").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+
+  var idPractica = button.data("idpractica");
+  var claveAcceso = button.data("claveacceso");
+
+  modal.find("#formCalificarPractica #calificarIdPractica").val(idPractica);
+  
+  insercionPorAjax("POST", "../../utileria/practica/cargar-practica-alumno-entregado.php?idPractica=" + $("#calificarIdPractica").val(), "#selCalificarCodigoAlumnoPractica");
+});
+
 // ***************************************** Para unir estudiante a una clase
 $("#modalUnirseClase").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
@@ -1164,7 +1177,6 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
       var formData = new FormData(form);
       formData.append('idPractica', $("#idPractica").val());
       formData.append('codigoAlumno', $("#codigoAlumno").val());
-      
       $.ajax({
         url: "../../utileria/practica/enviar-practica-cuestionario.php",
         type: "POST",
@@ -1521,8 +1533,8 @@ function insercionPorAjax(metodo, ruta, idEtiqueta) {
     success: function(response) {
       $(idEtiqueta).html(response).fadeIn();
     },
-    error: function(response) {
-      bootbox.alert("Error: " + response);
+    error: function(xhr, textStatus, errorThrown) {
+      bootbox.alert("Error: " + xhr.responseText);
     }
   });
 }
