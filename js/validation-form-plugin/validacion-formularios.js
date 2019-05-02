@@ -1068,42 +1068,42 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
-$("#formEntregaPractica").submit(function(e) {
-  e.preventDefault();
-  var formData = new FormData(this);
-  formData.append('idPractica', $("#formEntregaPractica #idPractica").val());
-  formData.append('codigoAlumno', $("#formEntregaPractica #codigoAlumno").val());
-  formData.append('claveAcceso', $("#formEntregaPractica #claveAcceso").val());
-  var claveAcceso = $("#formEntregaPractica #claveAcceso").val();
-  $.ajax({
-    url: "../../utileria/practica/enviar-practica-cuestionario.php",
-    type: 'POST',
-    data: formData,
-    success: function (echo) {
-      if(echo == "success") {
-        bootbox.alert({
-          message: "Actividad entregada correctamente!",
-          callback: function () {
-            limpiarFormulario("#formEntregaPractica");
-            redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa( claveAcceso ));
-          }
-        });
-      }
-      else {
-        var html = "<div class='alert alert-danger' role='alert'>";
-        html += echo;
-        html += "hola ";
-        html += " ";
-        html += $("#formEntregaPractica #claveAcceso").val();
-        html += "</div>";
-        bootbox.alert(html);
-      }
-    },
-    cache: false,
-    contentType: false,
-    processData: false
-  });
-});
+// $("#formEntregaPractica").submit(function(e) {
+//   e.preventDefault();
+//   var formData = new FormData(this);
+//   formData.append('idPractica', $("#formEntregaPractica #idPractica").val());
+//   formData.append('codigoAlumno', $("#formEntregaPractica #codigoAlumno").val());
+//   formData.append('claveAcceso', $("#formEntregaPractica #claveAcceso").val());
+//   var claveAcceso = $("#formEntregaPractica #claveAcceso").val();
+//   $.ajax({
+//     url: "../../utileria/practica/enviar-practica-cuestionario.php",
+//     type: 'POST',
+//     data: formData,
+//     success: function (echo) {
+//       if(echo == "success") {
+//         bootbox.alert({
+//           message: "Actividad entregada correctamente!",
+//           callback: function () {
+//             limpiarFormulario("#formEntregaPractica");
+//             redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa( claveAcceso ));
+//           }
+//         });
+//       }
+//       else {
+//         var html = "<div class='alert alert-danger' role='alert'>";
+//         html += echo;
+//         html += "hola ";
+//         html += " ";
+//         html += $("#formEntregaPractica #claveAcceso").val();
+//         html += "</div>";
+//         bootbox.alert(html);
+//       }
+//     },
+//     cache: false,
+//     contentType: false,
+//     processData: false
+//   });
+// });
 
 // ***************************************** Para entregar una practica ESTE FALTA DE REVISAR BIEN PARA QUE FUNCIONE CON FILES
 $("#modalEntregaPractica").on("show.bs.modal", function (event) {
@@ -1122,7 +1122,6 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   modal.find("#fechaLimite").text("Fecha límite de entrega: " + fechaLimite);
   modal.find("#formEntregaPractica #idPractica").val(idPractica);
   modal.find("#formEntregaPractica #codigoAlumno").val(codigoAlumno);
-  modal.find("#formEntregaPractica #claveAcceso").val(claveAcceso);
 
   $("#formEntregaPractica").validate({
     rules: {
@@ -1161,62 +1160,55 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
         accept: "Solo se admiten archivos con formato jpg/jpeg/png/gif/pdf"
       }
     },
-    /*submitHandler: function(form) {
-    var formData = new FormData(this);
-    formData.append('idPractica', $("#formEntregaPractica #idPractica").val());
-    formData.append('codigoAlumno', $("#formEntregaPractica #codigoAlumno").val());
-    $.ajax({
-    url: "../../utileria/practica/enviar-practica-cuestionario.php",
-    type: "POST",
-    cache: false,
-    contentType: false,
-    processData: false,
-    dataType: "HTML",
-    data: "respuestaPregunta1=" + $("#respuestaPregunta1").val()
-    + "&respuestaPregunta2=" + $("#respuestaPregunta2").val()
-    + "&respuestaPregunta3=" + $("#respuestaPregunta3").val()
-    + "&conclusion=" + $("#conclusion").val()
-    + "&nombreArchivo=" + $("#nombreArchivo").val()
-    + "&idPractica=" + $("#idPractica").val()
-    + "&codigoAlumno=" + $("#codigoAlumno").val()
-    //Si se descomenta formdata con eso funciona, yo preferiria usar formdata por si se agregar preguntas de amnera dinamica
-    //formData
-  }).done(function(echo) {
-  if(echo == "success") {
-  bootbox.alert({
-  message: "Actividad entregada correctamente!",
-  callback: function () {
-  limpiarFormulario("#formEntregaPractica");
-  redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
-}
-});
-}
-else {
-var html = "<div class='alert alert-danger' role='alert'>";
-html += echo;
-html += "</div>";
-bootbox.alert(html);
-}
-});
-},*/
-errorElement: "em",
-errorPlacement: function(error, element) {
-  // Add the `help-block` class to the error element
-  error.addClass("invalid-feedback");
-  if(element.prop("type") === "checkbox") {
-    // error.insertAfter(element.parent("label"));
-    error.addClass("invalid-feedback");
-  } else {
-    error.insertAfter(element);
-  }
-},
-highlight: function (element, errorClass, validClass) {
-  $(element).addClass("is-invalid").removeClass("is-valid");
-},
-unhighlight: function (element, errorClass, validClass) {
-  $(element).addClass("is-valid").removeClass("is-invalid");
-}
-});
+    submitHandler: function(form) {
+      var formData = new FormData(form);
+      formData.append('idPractica', $("#idPractica").val());
+      formData.append('codigoAlumno', $("#codigoAlumno").val());
+      
+      $.ajax({
+        url: "../../utileria/practica/enviar-practica-cuestionario.php",
+        type: "POST",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "HTML",
+        data: formData
+      }).done(function(echo) {
+        if(echo == "success") {
+          bootbox.alert({
+            message: "Actividad entregada correctamente!",
+            callback: function () {
+              limpiarFormulario("#formEntregaPractica");
+              redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa(claveAcceso));
+            }
+          });
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
 });
 
 // ***************************************** Para dar de alta un usuario

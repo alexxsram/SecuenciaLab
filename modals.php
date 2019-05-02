@@ -554,10 +554,6 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           <div class="form-group">
             <input type="text" class="form-control" id="codigoAlumno" name="codigoAlumno" disabled="disabled">
           </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="claveAcceso" name="claveAcceso" disabled="disabled">
-          </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">

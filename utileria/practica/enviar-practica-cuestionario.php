@@ -2,14 +2,17 @@
 include('../operaciones/conexion.php');
 
 try {
-
   $respuestaPregunta1 = htmlentities(addslashes($_POST['respuestaPregunta1']));
   $respuestaPregunta2 = htmlentities(addslashes($_POST['respuestaPregunta2']));
   $respuestaPregunta3 = htmlentities(addslashes($_POST['respuestaPregunta3']));
   $conclusion = htmlentities(addslashes($_POST['conclusion']));
   $fechaFinalizacion = date('Y-m-d');
-  $nombreArchivo = $_FILES['nombreArchivo']; // ESTE DEBE SER $_FILES PARA AGARRAR LOS ARCHIVOS
-  $idPractica = htmlentities(addslashes($_POST['idPractica']));
+
+  $nombreArchivo = $_FILES['nombreArchivo']['name']; // nombre del archivo
+  $tmpArchivo = $_FILES['nombreArchivo']['tmp_name']; // nombre del temporal del archivo
+  $tamanoArchivo = $_FILES['nombreArchivo']['size']; // tamaño del archivo
+  
+  $idPractica = htmlentities(addslashes($_POST['idPractica']));  
   $codigoAlumno = htmlentities(addslashes($_POST['codigoAlumno']));
 
   //Convertir elementos de texto en codificación UTF-8
@@ -28,23 +31,25 @@ try {
   if($numRow == 0) {
     echo 'Error. No se pudo encontrar al alumno, no es posible subir la práctica.';
   } else {
-    $directorio = '../../images/files/';
-
     $alumno = $resultado->fetch(PDO::FETCH_OBJ);
     $nombreAlumno = $alumno->apellidoPaterno . '-' . $alumno->apellidoMaterno . '-' . $alumno->nombrePila;
 
+    $directorio = '../../images/files/';
     $directorio = $directorio . $nombreAlumno . "/";
     
     if(!file_exists($directorio)) {
       mkdir($directorio, 0777, true);
     }
 
-    $target_file = $directorio . basename($_FILES["nombreArchivo"]["name"]);
+    $target_file = $directorio . basename($nombreArchivo);
+    
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
     // Check if image file is a actual image or fake image
     //if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["nombreArchivo"]["tmp_name"]);
+    $check = getimagesize($tmpArchivo);
     if($check !== false) {
       //echo "El archivo es una imagen - " . $check["mime"] . ".";
       $uploadOk = 1;
@@ -52,6 +57,7 @@ try {
       echo "El archivo no es una imagen.";
       $uploadOk = 0;
     }
+
     //}
     // Check if file already exists
     /*if (file_exists($target_file)) {
@@ -61,31 +67,30 @@ try {
   $tamanoMegas = 10;
 
   // Comprobar el tamaño de la imagen
-  if ($_FILES["nombreArchivo"]["size"] > ($tamanoMegas * 1000000)) {
+  if($tamanoArchivo > ($tamanoMegas * 1000000)) {
     echo "Error. El tamaño de la imagen es muy grande. El tamaño máximo permitido es de: " . $tamanoMegas . " Mb.";
-    echo "Su archivo pesa: " . $_FILES["nombreArchivo"]["size"]/1000000 . " Mb.";
+    echo "Su archivo pesa: " . $tamanoArchivo / 1000000 . " Mb.";
     $uploadOk = 0;
   }
+
   // Comrpobar formato de los archivos
-  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-  && $imageFileType != "gif" && $imageFileType != "pdf" ) {
+  if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "pdf" ) {
     echo "Error. Solo se permiten archivos JPG, JPEG, PNG, GIF y PDF.";
     $uploadOk = 0;
   }
+
   // Check if $uploadOk is set to 0 by an error
-  if ($uploadOk == 0) {
+  if($uploadOk == 0) {
     echo "Error. Tu archivo no fue subido correctamente.";
     // if everything is ok, try to upload file
   } else {
-    if (move_uploaded_file($_FILES["nombreArchivo"]["tmp_name"], $target_file)) {
+    if(move_uploaded_file($tmpArchivo, $target_file)) {
       //echo "El archivo ". basename( $_FILES["nombreArchivo"]["name"]). " ha sido correctamente subido.";
-      echo "success";
+      // echo "success";
     } else {
       echo "Error. Hubo un error subiendo el archivo.";
     }
   }
-
-  // FALTA HACER QUE MUEVA LOS ARCHIVOS AL DIRECTORIO CREADO
 
   // $sql = 'INSERT INTO cuestionario (respuestaPregunta1, respuestaPregunta2, respuestaPregunta3, conclusion, fechaFinalizacion, rutaArchivo, Practica_idPractica, AlumnoUsuario_codigoAlumno) VALUES (:rp1, :rp2, :rp3, :c, :ff, :ra, :pip, :auca)';
   // $resultado = $baseDatos->prepare($sql);
