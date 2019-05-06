@@ -11,7 +11,6 @@ include('../operaciones/conexion.php');
 
 $claveAccesoClase = base64_decode($_GET['claveAccesoClase']);
 
-
 try {
     $sql = "SELECT * FROM clase WHERE claveAcceso = :claveAcceso";
     $resultado = $baseDatos->prepare($sql);
@@ -383,7 +382,8 @@ try {
                                                         Eliminar <i class="fas fa-times"></i>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-entrega.php', 'idPractica=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\'' ?>);">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-entrega.php', 'criterioCalificar=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\''; ?>
+                                                    );">
                                                         Calificar <i class="fas fa-edit"></i>
                                                     </button>
                                                 </div>
@@ -497,7 +497,8 @@ try {
                                     <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-success" onclick="redireccionarPagina('../../panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>);"> Ver gráficas <i class="fas fa-chart-bar"></i> </button>
-                                            <button type="button" class="btn btn-sm btn-outline-primary"> Calificar <i class="fas fa-clipboard-check"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-entrega.php', 'criterioCalificar=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>
+                                                    );"> Calificar <i class="fas fa-clipboard-check"></i> </button>
                                         </div>
                                     <?php } ?>
                                 </li>
