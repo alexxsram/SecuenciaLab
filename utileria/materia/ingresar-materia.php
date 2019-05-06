@@ -11,6 +11,7 @@ include('../operaciones/conexion.php');
 
 $claveAccesoClase = base64_decode($_GET['claveAccesoClase']);
 
+
 try {
     $sql = "SELECT * FROM clase WHERE claveAcceso = :claveAcceso";
     $resultado = $baseDatos->prepare($sql);
@@ -101,7 +102,7 @@ try {
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
             <!-- HEADER DE LOS TAB -->
             <div class="card-header bg-dark border-dark">
-                <ul class="nav nav-tabs justify-content-end card-header-tabs text-white" id="tabsDashboard" role="tablist">
+                <ul class="nav nav-pills justify-content-end card-header-pills text-white" id="tabsDashboard" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="tablero-tab" data-toggle="tab" href="#tablero" role="tab" aria-controls="tablero" aria-selected="true">Tablero</a>
                     </li>
@@ -356,9 +357,9 @@ try {
                                                 <?php
                                                 $longitud = strlen($practica->descripcion);
                                                 if($longitud > 30) { ///SI ES UN TEXTO MUY LARGO QUE EXCEDE MAS DE 30 CARACTERES
-                                                echo substr($practica->descripcion, 0, 30) . '...';
+                                                    echo substr($practica->descripcion, 0, 30) . '...';
                                                 } else {
-                                                echo $practica->descripcion;
+                                                    echo $practica->descripcion;
                                                 }
                                                 ?>
                                             </td>
@@ -382,7 +383,7 @@ try {
                                                         Eliminar <i class="fas fa-times"></i>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-practica-entregado.php', 'idPractica=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\'' ?>);">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-entrega.php', 'idPractica=' + <?php echo '\'' . base64_encode($practica->idPractica) . '\'' ?>);">
                                                         Calificar <i class="fas fa-edit"></i>
                                                     </button>
                                                 </div>

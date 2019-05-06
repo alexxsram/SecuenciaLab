@@ -51,31 +51,43 @@ try {
 
                 <div class="form-inline">
                     <?php
-                    $sql = 'SELECT * FROM cuestionario WHERE Practica_idPractica = :pip';
+                    $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno IN (SELECT AlumnoUsuario_codigoAlumno FROM cuestionario WHERE Practica_idPractica = :pip)';
                     $resultado = $baseDatos->prepare($sql);
                     $resultado->bindValue(':pip', $practica->idPractica);
                     $resultado->execute();
 
-                    $entregados = $resultado->fetchAll(PDO::FETCH_OBJ);
+                    $numRow = $resultado->rowCount();
+                    if($numRow != 0) {
+                        $entregados = $resultado->fetchAll(PDO::FETCH_OBJ);
                     ?>
+
                     <div class="form-group">
-                        <label class="mr-sm-2" for="alumnoEntregado">Alumnos que han entregado</label>
-                        <select class="custom-select mr-sm-2" id="alumnoEntregado" name="alumnoEntregado">
-                            <option selected>Seleccionar un alumno...</option>
+                        <label class="mr-sm-2" for="alumnoEntregado">Entregas realizadas</label>
+                        <select class="custom-select mr-sm-2" id="alumnoEntregado" name="alumnoEntregado" onchange="insercionPorAjax('GET', 'cargar-detalle-entrega.php?codigoAlumno=' + this.value + '&idPractica=' + <?php echo $practica->idPractica; ?>, '#respuestasPractica');">
+                            <option value="" selected>Seleccionar alumno...</option>
                             <?php foreach ($entregados as $entregado) { ?>
-                                <option value="<?php echo $entregado->idCuestionario?>"><?php echo $entregado->AlumnoUsuario_codigoAlumno; ?></option>      
+                                <option value="<?php echo $entregado->codigoAlumno?>"><?php echo $entregado->apellidoPaterno . ' ' . $entregado->apellidoMaterno . ' ' . $entregado->nombrePila; ?></option>      
                             <?php } ?>
                         </select>
                     </div>
+                    <?php } ?>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
                 </div>
-
-                <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
             </div>
         </div>
         <!-- FIN DEL JUMBOTRON DE LOS DATOS DE LA CLASE -->
 
-        <!-- INICIO DEL CONTENIDO PARA CALIFICAR LA PRACTICA -->
-
+        <!-- CONTENIDO PARA CALIFICAR LA PRACTICA -->
+        <div class="card border-dark mb-3">
+            <div class="card-header border-dark">Información de la práctica</div>
+            <div class="card-body text-dark">
+                <h5 class="card-title">Descripcion del problema</h5>
+                <p class="card-text"><?php echo $practica->descripcion; ?></p>
+                <hr>
+                <div id="respuestasPractica"></div>
+            </div>
+        </div>
+        <!-- FIN DEL CONTENIDO PARA CALIFICAR UNA PRACTICA -->
     </div>
     <!-- FIN DEL CONTAINER -->
 
