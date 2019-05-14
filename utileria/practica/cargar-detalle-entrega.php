@@ -10,7 +10,7 @@ try {
         $resultado = $baseDatos->prepare($sql);
         $array = array(':pip'=>$idPractica, ':auca'=>$codigoAlumno);
         if($resultado->execute($array)) {
-            
+
             $cuestionario = $resultado->fetch(PDO::FETCH_OBJ);
 ?>
 
@@ -44,7 +44,7 @@ try {
 
         <div class="alert alert-light text-justify" role="alert">
             <h5 class="alert-heading">Diagrama de control</h5>
-            <button type="button" class="btn btn-sm btn-outline-success" onclick="descargarArchivo(<?php echo '\'' . $cuestionario->rutaArchivo . '\''; ?>);">Descargar archivo</button>
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="descargarArchivo(<?php echo '\'' . $cuestionario->rutaArchivo . '\''; ?> , <?php echo '\'' . $cuestionario->nombreOriginal . '\''; ?> );">Descargar archivo</button>
         </div>
 
         <div class="alert alert-light text-justify" role="alert">
@@ -62,7 +62,7 @@ try {
     </div>
 </div>
 
-<?php   
+<?php
         } else {
             echo 'Error. Algo le hiciste prro.';
         }

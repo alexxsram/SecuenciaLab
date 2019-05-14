@@ -1013,7 +1013,7 @@ $("#modalCalificarPractica").on("show.bs.modal", function (event) {
   var claveAcceso = button.data("claveacceso");
 
   modal.find("#formCalificarPractica #calificarIdPractica").val(idPractica);
-  
+
   insercionPorAjax("POST", "../../utileria/practica/cargar-practica-alumno-entregado.php?idPractica=" + $("#calificarIdPractica").val(), "#selCalificarCodigoAlumnoPractica");
 });
 
@@ -1539,16 +1539,16 @@ function insercionPorAjax(metodo, ruta, idEtiqueta) {
   });
 }
 
-function descargarArchivo(rutaArchivo) {
+function descargarArchivo(rutaArchivo, nombreOriginal) {
   var vectorValores = rutaArchivo.split("/");
-  var nombreArchivo = vectorValores[5]; // ../../images/files/NombreAlumno/NombreArchivo
-  //Usaremos un link para iniciar la descarga 
+  var nombreArchivo = vectorValores[4]; // ../../images/files/NombreAlumno/NombreArchivo
+  //Usaremos un link para iniciar la descarga
   var save = document.createElement('a');
   save.href = rutaArchivo;
   save.target = '_blank';
-  //Truco: así le damos el nombre al archivo 
+  //Truco: así le damos el nombre al archivo
   // save.download = nombreArchivo || 'archivo.dat';
-  save.download = nombreArchivo;
+  save.download = nombreOriginal;
   var clicEvent = new MouseEvent('click', {
     'view': window,
     'bubbles': true,

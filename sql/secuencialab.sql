@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 29-04-2019 a las 05:17:00
--- Versión del servidor: 5.7.23
--- Versión de PHP: 7.2.10
+-- Tiempo de generación: 14-05-2019 a las 04:47:08
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -47,7 +47,9 @@ CREATE TABLE IF NOT EXISTS `alumnousuario` (
 --
 
 INSERT INTO `alumnousuario` (`codigoAlumno`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('A123456789', 'ALEJANDRO', 'SANCHEZ', 'PEREZ', 'alexio1815@gmail.com', 2, 'firulais', '123456789');
+('A123456789', 'ALEJANDRO', 'SANCHEZ', 'PEREZ', 'alexio1815@gmail.com', 2, 'firulais', '123456789'),
+('A147258369', 'ALUMNO DE PRUEBA 2', 'SEGUNDO', 'SEGUNDO', 'gato@hotmail.com', 1, 'nada', '147258369'),
+('A987654321', 'ALUMNO DE PRUEBA', 'PRUEBA', 'PRUEBA', 'PERRO@hotmail.com', 1, ' nada', '987654321');
 
 -- --------------------------------------------------------
 
@@ -66,14 +68,15 @@ CREATE TABLE IF NOT EXISTS `anuncio` (
   PRIMARY KEY (`idAnuncio`),
   KEY `fk_Anuncio_ProfesorUsuario1_idx` (`ProfesorUsuario_codigoProfesor`),
   KEY `fk_Anuncio_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `anuncio`
 --
 
 INSERT INTO `anuncio` (`idAnuncio`, `titulo`, `contenido`, `fechaPublicacion`, `ProfesorUsuario_codigoProfesor`, `Clase_claveAcceso`) VALUES
-(2, 'Ejemplo', 'sfsdfsdfsdf', '2019-04-29', 'P123456789', 'M8evmaEJIr');
+(2, 'Ejemplo', 'sfsdfsdfsdf', '2019-04-29', 'P123456789', 'M8evmaEJIr'),
+(3, 'Realizar. Yo soy el título.', 'Hola est. Yo soy el contenido', '2019-05-14', 'P987654321', 'txsdH2Id36');
 
 -- --------------------------------------------------------
 
@@ -126,7 +129,9 @@ CREATE TABLE IF NOT EXISTS `clase` (
 --
 
 INSERT INTO `clase` (`claveAcceso`, `nombreMateria`, `nrc`, `claveSeccion`, `nombreClase`, `aula`, `anio`, `CicloEscolar_idCicloEscolar`, `ProfesorUsuario_codigoProfesor`) VALUES
-('M8evmaEJIr', 'SISTEMAS DE CONTROL SECUENCIAL', 123456, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'P10', '2019', 1, 'P123456789');
+('3LGQ4t7kyx', 'CONTROL SECUENCIAL', 4629865, 'D06', 'SEGUNDO CUEROS DE PRUEBA', 'X96', '2019', 3, 'P987654321'),
+('M8evmaEJIr', 'SISTEMAS DE CONTROL SECUENCIAL', 123456, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'P10', '2019', 1, 'P123456789'),
+('txsdH2Id36', 'CONTROL SECUENCIAL', 4656, 'D01', 'LABORATORIO DE CONTROL SECUENCIAL', 'X25', '2019', 2, 'P987654321');
 
 -- --------------------------------------------------------
 
@@ -143,6 +148,16 @@ CREATE TABLE IF NOT EXISTS `clase_has_alumnousuario` (
   KEY `fk_Clase_has_AlumnoUsuario_Clase1_idx` (`Clase_claveAcceso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `clase_has_alumnousuario`
+--
+
+INSERT INTO `clase_has_alumnousuario` (`Clase_claveAcceso`, `AlumnoUsuario_codigoAlumno`) VALUES
+('3LGQ4t7kyx', 'A147258369'),
+('3LGQ4t7kyx', 'A987654321'),
+('txsdH2Id36', 'A147258369'),
+('txsdH2Id36', 'A987654321');
+
 -- --------------------------------------------------------
 
 --
@@ -156,7 +171,14 @@ CREATE TABLE IF NOT EXISTS `comentario` (
   `Anuncio_idAnuncio` int(11) NOT NULL,
   PRIMARY KEY (`idComentario`),
   KEY `fk_Comentario_Anuncio1_idx` (`Anuncio_idAnuncio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`idComentario`, `comentario`, `Anuncio_idAnuncio`) VALUES
+(1, 'CRISTIAN MICHELL CASTILLO SERRANO: Hola este es un comentario dle profesor', 3);
 
 -- --------------------------------------------------------
 
@@ -171,14 +193,25 @@ CREATE TABLE IF NOT EXISTS `cuestionario` (
   `respuestaPregunta2` text,
   `respuestaPregunta3` text,
   `conclusion` text,
-  `fechaFinalizacion` date DEFAULT NULL,
+  `fechaEntrega` date DEFAULT NULL,
   `rutaArchivo` varchar(100) NOT NULL,
   `Practica_idPractica` int(10) UNSIGNED NOT NULL,
   `AlumnoUsuario_codigoAlumno` varchar(15) NOT NULL,
+  `nombreClave` varchar(80) DEFAULT NULL,
+  `nombreOriginal` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`idCuestionario`),
+  UNIQUE KEY `nombreClave` (`nombreClave`),
   KEY `fk_Cuestionario_Practica1_idx` (`Practica_idPractica`),
   KEY `fk_Cuestionario_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `cuestionario`
+--
+
+INSERT INTO `cuestionario` (`idCuestionario`, `respuestaPregunta1`, `respuestaPregunta2`, `respuestaPregunta3`, `conclusion`, `fechaEntrega`, `rutaArchivo`, `Practica_idPractica`, `AlumnoUsuario_codigoAlumno`, `nombreClave`, `nombreOriginal`) VALUES
+(3, 'kjkj', 'jk', 'jk', 'jk', '2019-05-14', '../../images/files/XMUbA36G1H.png', 3, 'A987654321', 'XMUbA36G1H.png', 'Captura de pantalla (175).png'),
+(4, 'kl', 'k', 'kl', 'klk', '2019-05-14', '../../images/files/lXRAi0QoOy.png', 3, 'A987654321', 'lXRAi0QoOy.png', 'Captura de pantalla (161).png');
 
 -- --------------------------------------------------------
 
@@ -233,14 +266,16 @@ CREATE TABLE IF NOT EXISTS `practica` (
   `Clase_claveAcceso` varchar(10) NOT NULL,
   PRIMARY KEY (`idPractica`),
   KEY `fk_Practica_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `practica`
 --
 
 INSERT INTO `practica` (`idPractica`, `nombre`, `descripcion`, `fechaLimite`, `Clase_claveAcceso`) VALUES
-(2, 'Arrancador a tensi&oacute;n reducida', 'Ejemplo', '2019-04-29', 'M8evmaEJIr');
+(2, 'Arrancador a tensi&oacute;n reducida', 'Ejemplo', '2019-04-29', 'M8evmaEJIr'),
+(3, 'Arrancador de tensión', 'Esta es la explicación del arrancador de tensión', '2019-05-18', 'txsdH2Id36'),
+(4, 'Arrancador de tensión 2 - Esta es otra práctica', 'Esta es otro contenido de prueba. Hola locaodsikmladmklsaklmkmlsdamklkl', '2019-06-01', 'txsdH2Id36');
 
 -- --------------------------------------------------------
 
@@ -289,7 +324,8 @@ CREATE TABLE IF NOT EXISTS `profesorusuario` (
 --
 
 INSERT INTO `profesorusuario` (`codigoProfesor`, `nombrePila`, `apellidoPaterno`, `apellidoMaterno`, `email`, `PreguntaSeguridad_idPreguntaSeguridad`, `respuestaSeguridad`, `password`) VALUES
-('P123456789', 'MIGUEL ALEJANDRO', 'SALGADO', 'RAMIREZ', 'alejandrosram@outlook.com', 2, 'mailo', '123456789');
+('P123456789', 'MIGUEL ALEJANDRO', 'SALGADO', 'RAMIREZ', 'alejandrosram@outlook.com', 2, 'mailo', '123456789'),
+('P987654321', 'CRISTIAN MICHELL', 'CASTILLO', 'SERRANO', 'agua_cristian@hotmail.com', 1, 'Nada', '987654321');
 
 --
 -- Restricciones para tablas volcadas
