@@ -1005,16 +1005,55 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
 });
 
 // ***************************************** Para calificar una practica
-$("#modalCalificarPractica").on("show.bs.modal", function (event) {
-  var button = $(event.relatedTarget);
-  var modal = $(this);
+$("#formCalificarPractica").validate({
+  rules: {
+    calificacion: {
+      required: true
+    }
+  },
+  messages: {
+    calificacion: { 
+      required: "Ora, Ora Hijo de tu Puta Madre :v"
+    }
+  },
+  submitHandler: function(form) {
+    $.ajax({
+      url: "../../utileria/practica/calificar-practica.php",
+      type: "POST",
+      dataType: "HTML",
+      data: "calificacion=" + $("#calificacion").val()
+      + "&idCuestionario=" + $("#idCuestionario").val()
+    }).done(function(echo) {
+      if(echo == "success") {
+        // ../practica/', 'calificar-entrega.php', 'criterioCalificar=
+        redireccionarPagina('../practica/calificar-entrega.php?criterioCalificar=' + btoa($("#idPractica").val()));
 
-  var idPractica = button.data("idpractica");
-  var claveAcceso = button.data("claveacceso");
-
-  modal.find("#formCalificarPractica #calificarIdPractica").val(idPractica);
-
-  insercionPorAjax("POST", "../../utileria/practica/cargar-practica-alumno-entregado.php?idPractica=" + $("#calificarIdPractica").val(), "#selCalificarCodigoAlumnoPractica");
+      }
+      else {
+        var html = "<div class='alert alert-danger' role='alert'>";
+        html += echo;
+        html += "</div>";
+        bootbox.alert(html);
+      }
+    });
+  },
+  errorElement: "em",
+  errorPlacement: function(error, element) {
+    // Add the `help-block` class to the error element
+    error.addClass("invalid-feedback");
+    if(element.prop("type") === "checkbox") {
+      // error.insertAfter(element.parent("label"));
+      error.addClass("invalid-feedback");
+    } else {
+      error.insertAfter(element);
+    }
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-invalid").removeClass("is-valid");
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).addClass("is-valid").removeClass("is-invalid");
+  }
 });
 
 // ***************************************** Para unir estudiante a una clase
@@ -1042,22 +1081,38 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
       }
     },
     submitHandler: function(form) {
-      $.ajax({
-        url: "utileria/materia/unirse-clase.php",
-        type: "POST",
-        dataType: "HTML",
-        data: "claveClase=" + $("#unirseClaveAcceso").val()
-        + "&codigoAlumno=" + $("#codigoAlumnoUnirse").val()
-      }).done(function(echo) {
-        if(echo == "success") {
-          limpiarFormulario("#formUnirseClase");
-          redireccionarPagina("index.php");
-        }
-        else {
-          var html = "<div class='alert alert-danger' role='alert'>";
-          html += echo;
-          html += "</div>";
-          bootbox.alert(html);
+      bootbox.confirm({
+        title: "Matricular a la clase?",
+        message: "Esta a punto de mattricularse a esta clase, ¿Esta seguro?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancelar'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Aceptar'
+            }
+        },
+        callback: function (result) {
+            if(result == true) {
+              $.ajax({
+                url: "utileria/materia/unirse-clase.php",
+                type: "POST",
+                dataType: "HTML",
+                data: "claveClase=" + $("#unirseClaveAcceso").val()
+                + "&codigoAlumno=" + $("#codigoAlumnoUnirse").val()
+              }).done(function(echo) {
+                if(echo == "success") {
+                  limpiarFormulario("#formUnirseClase");
+                  redireccionarPagina("index.php");
+                }
+                else {
+                  var html = "<div class='alert alert-danger' role='alert'>";
+                  html += echo;
+                  html += "</div>";
+                  bootbox.alert(html);
+                }
+              });
+            }
         }
       });
     },
@@ -1080,43 +1135,6 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
     }
   });
 });
-
-// $("#formEntregaPractica").submit(function(e) {
-//   e.preventDefault();
-//   var formData = new FormData(this);
-//   formData.append('idPractica', $("#formEntregaPractica #idPractica").val());
-//   formData.append('codigoAlumno', $("#formEntregaPractica #codigoAlumno").val());
-//   formData.append('claveAcceso', $("#formEntregaPractica #claveAcceso").val());
-//   var claveAcceso = $("#formEntregaPractica #claveAcceso").val();
-//   $.ajax({
-//     url: "../../utileria/practica/enviar-practica-cuestionario.php",
-//     type: 'POST',
-//     data: formData,
-//     success: function (echo) {
-//       if(echo == "success") {
-//         bootbox.alert({
-//           message: "Actividad entregada correctamente!",
-//           callback: function () {
-//             limpiarFormulario("#formEntregaPractica");
-//             redireccionarPagina('../materia/ingresar-materia.php?claveAccesoClase=' + btoa( claveAcceso ));
-//           }
-//         });
-//       }
-//       else {
-//         var html = "<div class='alert alert-danger' role='alert'>";
-//         html += echo;
-//         html += "hola ";
-//         html += " ";
-//         html += $("#formEntregaPractica #claveAcceso").val();
-//         html += "</div>";
-//         bootbox.alert(html);
-//       }
-//     },
-//     cache: false,
-//     contentType: false,
-//     processData: false
-//   });
-// });
 
 // ***************************************** Para entregar una practica ESTE FALTA DE REVISAR BIEN PARA QUE FUNCIONE CON FILES
 $("#modalEntregaPractica").on("show.bs.modal", function (event) {

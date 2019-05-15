@@ -59,7 +59,6 @@ try {
                     if($numRow != 0) {
                         $entregados = $resultado->fetchAll(PDO::FETCH_OBJ);
                     ?>
-
                     <div class="form-group">
                         <label class="mr-sm-2" for="alumnoEntregado">Entregas realizadas</label>
                         <select class="custom-select mr-sm-2" id="alumnoEntregado" name="alumnoEntregado" onchange="insercionPorAjax('GET', 'cargar-detalle-entrega.php?codigoAlumno=' + this.value + '&idPractica=' + <?php echo $practica->idPractica; ?>, '#detalleEntrega');">
@@ -77,7 +76,14 @@ try {
         <!-- FIN DEL JUMBOTRON DE LOS DATOS DE LA CLASE -->
 
         <!-- CONTENIDO PARA CALIFICAR LA PRACTICA -->
-        <div id="detalleEntrega"></div>
+        <div class="card border-dark mb-3">
+            <div class="card-header border-dark">
+                Información de la práctica
+            </div>
+
+            <div class="card-body text-dark" id="detalleEntrega">
+            </div>
+        </div>
         <!-- FIN DEL CONTENIDO PARA CALIFICAR UNA PRACTICA -->
     </div>
     <!-- FIN DEL CONTAINER -->

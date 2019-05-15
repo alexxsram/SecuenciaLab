@@ -33,7 +33,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 
           <div class="form-group">
             <label for="passwordUsuarioActual">Contraseña actual *</label>
-            <input type="password" class="form-control" id="passwordUsuarioActual" name="passwordUsuarioActual"  required="required">
+            <input type="password" class="form-control" id="passwordUsuarioActual" name="passwordUsuarioActual" required="required">
           </div>
 
           <div class="form-group">
@@ -502,11 +502,11 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="idPractica" name="idPractica" disabled="disabled">
+            <input type="hidden" class="form-control" id="idPractica" name="idPractica" disabled="disabled">
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="codigoAlumno" name="codigoAlumno" disabled="disabled">
+            <input type="hidden" class="form-control" id="codigoAlumno" name="codigoAlumno" disabled="disabled">
           </div>
         </div>
         <!-- Modal footer -->
