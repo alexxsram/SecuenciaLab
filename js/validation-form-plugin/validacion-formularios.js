@@ -1008,12 +1008,14 @@ $("#modalEditarPractica").on("show.bs.modal", function (event) {
 $("#formCalificarPractica").validate({
   rules: {
     calificacion: {
-      required: true
+      required: true,
+      number: true
     }
   },
   messages: {
     calificacion: { 
-      required: "Ora, Ora Hijo de tu Puta Madre :v"
+      required: "Ingresar la calificación de la práctica",
+      number: "Solo se admiten números"
     }
   },
   submitHandler: function(form) {
@@ -1027,7 +1029,6 @@ $("#formCalificarPractica").validate({
       if(echo == "success") {
         // ../practica/', 'calificar-entrega.php', 'criterioCalificar=
         redireccionarPagina('../practica/calificar-entrega.php?criterioCalificar=' + btoa($("#idPractica").val()));
-
       }
       else {
         var html = "<div class='alert alert-danger' role='alert'>";
@@ -1358,8 +1359,12 @@ function redireccionarPagina(ruta) {
 
 function cargarContenido(ruta, archivoPHP, datos) {
   var url = ruta + archivoPHP + "?" + datos;
-  // $("#" + idEtiqueta).load(url);
   window.open(url, "_blank");
+}
+
+function muestraDetalle(ruta, archivoPHP, datos, idEtiqueta) {
+  var url = ruta + archivoPHP + "?" + datos;
+  $("#" + idEtiqueta).load(url);
 }
 
 function accionarEliminacion(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRedireccionar) {
