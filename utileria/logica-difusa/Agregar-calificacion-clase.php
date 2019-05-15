@@ -4,7 +4,7 @@ include('Evaluacion-clase-fuzzy.php');
 
 try {
   $evalClase = new SistemaFuzzyEvalucionClase();
-  /*$evalCalidadCont = htmlentities(addslashes($_POST['evalCalidadCont']));
+  $evalCalidadCont = htmlentities(addslashes($_POST['evalCalidadCont']));
   $evalClaridadCont = htmlentities(addslashes($_POST['evalClaridadCont']));
   $evalCantidadCont = htmlentities(addslashes($_POST['evalCantidadCont']));
   $evalCalidadMatApoyo = htmlentities(addslashes($_POST['evalCalidadMatApoyo']));
@@ -15,10 +15,10 @@ try {
   $evalAprendizaje = htmlentities(addslashes($_POST['evalAprendizaje']));
   $evalClase->inferir($evalFacilidadSimulador,$evalSimulador,
   $evalCalidadMatApoyo,$evalClaridadMatApoyo,$evalCantidadMatApoyo,
-  $evalCalidadCont,$evalClaridadCont,$evalCantidadCont,$evalAprendizaje);*/
-  $evalClase->inferir(100,100,100,100,100,100,100,100,100);
+  $evalCalidadCont,$evalClaridadCont,$evalCantidadCont,$evalAprendizaje, false);
+  //$evalClase->inferir(100,100,100,100,100,100,100,100,100);
 
-  echo "dificulSimuNitido: $evalClase->dificulSimuNitido<br/>";
+  /*echo "dificulSimuNitido: $evalClase->dificulSimuNitido<br/>";
   echo "apoyoSimuNitido: $evalClase->apoyoSimuNitido<br/>";
   echo "CalMatApoNitido: $evalClase->CalMatApoNitido<br/>";
   echo "ClarMatApoNitido: $evalClase->ClarMatApoNitido<br/>";
@@ -47,7 +47,7 @@ try {
   echo "interCaliClaseNitido: $evalClase->interCaliClaseNitido<br/>";
   echo "CalidadClaseNitido: $evalClase->CalidadClaseNitido<br/>";
   echo "CalificacionClaseNitidaFinal: $evalClase->CalificacionClaseNitidaFinal<br/>";
-  echo("<script>console.log('PHP: ".$evalClase->CalificacionClaseNitidaFinal."');</script>");
+  echo("<script>console.log('PHP: ".$evalClase->CalificacionClaseNitidaFinal."');</script>");*/
   if($evalClase->calificacionClaseDifuso != "Error"){
     $sql = 'INSERT INTO evaluaciondifusa (dificulSimuNitido, apoyoSimuNitido,
       CalMatApoNitido,ClarMatApoNitido,CantMatApoNitido,CalContNitido,

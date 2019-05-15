@@ -41,6 +41,11 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
   <!-- optional -->
   <script src="http://code.highcharts.com/modules/offline-exporting.js"></script>
   <script src="http://code.highcharts.com/modules/export-data.js"></script>
+
+  <!--<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+
   <style type="text/css">
   p {
     margin-top: 0;
@@ -56,169 +61,185 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
       <input type="hidden" class="form-control" id="info-alumno-codigo-alumno" name="info-alumno-codigo-alumno" disabled="disabled" value=<?php echo $claveUsuario;?>>
       <!--    </div>-->
       <ul class="list-group" id="listgroup22" name="listgroup22">
-      <li class="list-group-item active disabled">Lista de alumnos</li>
-      <button type="button" class="list-group-item list-group-item-action">DATOS GENERALES</button>
-    </ul>
-    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modalEvaluarClase">
-    Evaluar materia <i class="fas fa-edit"></i>
-  </button>
-  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalEvaluarClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
+        <li class="list-group-item active disabled">Lista de alumnos</li>
+        <button type="button" class="list-group-item list-group-item-action">DATOS GENERALES</button>
+      </ul>
+      <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modalEvaluarClase">
+        Evaluar materia <i class="fas fa-edit"></i>
+      </button>
+      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalEvaluarClase"> <i class="fas fa-users"></i> Unirse a una clase</a>
 
 
-<blockquote class="blockquote text-center"> <h1 class="display-4">Gráficas informativas</h1></blockquote>
-<div class="card" id="info-alumno-datos-clase" name="info-alumno-datos-clase">
-  <h5 class="card-header">Datos de la clase</h5>
-  <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-clase" name="info-alumno-cuerpo-tarjeta-datos-clase">
-    <!--<p class="card-text" id="info-alumno-clase" name="info-alumno-clase"><b>Clase:</b> <?php echo $clase->nombreClase; ?></p>
-    <p class="card-text" id="info-alumno-materia" name="info-alumno-materia"><b>Materia:</b> <?php echo $clase->nombreMateria; ?></p>
-    <p class="card-text" id="info-alumno-seccion" name="info-alumno-seccion"><b>Sección:</b> <?php echo $clase->claveSeccion; ?></p>
-    <p class="card-text" id="info-alumno-ciclo" name="info-alumno-ciclo"><b>Ciclo:</b> <?php echo $clase->anio; ?> B</p>
-    <p class="card-text" id="info-alumno-claveAcceso" name="info-alumno-claveAcceso"><b>Clave de acceso: </b><?php echo $clase->claveAcceso; ?></p>
-    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
-  </div>
-</div>
-
-<div class="card" id="info-alumno-datos-alumno" name="info-alumno-datos-alumno">
-  <h5 class="card-header">Datos del alumno</h5>
-  <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-alumno" name="info-alumno-cuerpo-tarjeta-datos-alumno">
-    <!--<p class="card-text" id="info-alumno-nombre-alumno" name="info-alumno-nombre-alumno"><b>Nombre:</b> <?php echo $alumno->apellidoPaterno." ".$alumno->apellidoMaterno." ".$alumno->nombrePila ; ?></p>
-    <p class="card-text" id="info-alumno-codigo-alumno" name="info-alumno-codigo-alumno"><b>Código:</b> <?php echo $alumno->codigoAlumno; ?></p>
-    <p class="card-text" id="info-alumno-promedio-alumno" name="info-alumno-promedio-alumno"><b>Promedio:</b> 89.6</p>-->
-    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
-  </div>
-</div>
-<div class="card" id="info-alumno-listado-practicas" name="info-alumno-listado-practicas">
-  <h5 class="card-header">Listado de practicas</h5>
-  <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-practicas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
-    <ul class="list-group" style="height: 300px; overflow-y: auto;" id="info-alumno-lista-practicas" name="info-alumno-lista-practicas">
-    </ul>
-  </div>
-</div>
-<div class="card" id="info-alumno-grafica-practica" name="info-alumno-grafica-practica">
-  <h5 class="card-header">Datos y estadísticas de la práctica</h5>
-  <div class="card-body" id="info-alumno-cuerpo-tarjeta-estadisticas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
-    <p class="card-text" id="info-alumno-descripcion-practica" name="info-alumno-descripcion-practica"><b>Sección de graficación.</b></p>
-    <div id="container" name="container" style="width:100%; height:400px;"></div>
-  </div>
-</div>
-
-
-<!-- El modal para editar una practica -->
-<div class="modal fade" id="modalEvaluarClase" name="modalEvaluarClase" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h4 class="modal-title text-white">Evaluar clase</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <blockquote class="blockquote text-center"> <h1 class="display-4">Gráficas informativas</h1></blockquote>
+      <div class="card" id="info-alumno-datos-clase" name="info-alumno-datos-clase">
+        <h5 class="card-header">Datos de la clase</h5>
+        <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-clase" name="info-alumno-cuerpo-tarjeta-datos-clase">
+          <!--<p class="card-text" id="info-alumno-clase" name="info-alumno-clase"><b>Clase:</b> <?php echo $clase->nombreClase; ?></p>
+          <p class="card-text" id="info-alumno-materia" name="info-alumno-materia"><b>Materia:</b> <?php echo $clase->nombreMateria; ?></p>
+          <p class="card-text" id="info-alumno-seccion" name="info-alumno-seccion"><b>Sección:</b> <?php echo $clase->claveSeccion; ?></p>
+          <p class="card-text" id="info-alumno-ciclo" name="info-alumno-ciclo"><b>Ciclo:</b> <?php echo $clase->anio; ?> B</p>
+          <p class="card-text" id="info-alumno-claveAcceso" name="info-alumno-claveAcceso"><b>Clave de acceso: </b><?php echo $clase->claveAcceso; ?></p>
+          <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+        </div>
       </div>
 
-      <form id="formEvaluarClase" name="formEvaluarClase" method="POST">
-        <div class="modal-body">
-          <div class="alert alert-info text-justify" role="alert">
-            En está sección se realiza la evalución de la clase.
-            Estos datos son de suma importancia para mejorar la calidad del curso y del aprendisaje obtenido.
-          </div>
-
-          <div class="form-group">
-            <label for="editarNombrePractica">Calidad del contenido</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalCalidadCont" name="evalCalidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Claridad del contenido</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalClaridadCont" name="evalClaridadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Cantidad del contenido</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalCantidadCont" name="evalCantidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="editarNombrePractica">Calidad del material de apoyo</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalCalidadMatApoyo" name="evalCalidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Claridad del material de apoyo</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalClaridadMatApoyo" name="evalClaridadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Cantidad del material de apoyo</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalCantidadMatApoyo" name="evalCantidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Ayuda en el aprendizaje del simulador de control secuencial</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalSimulador" name="evalClaridadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">Facilidad de utilización simulador de control secuencial</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalFacilidadSimulador" name="evalCantidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editarNombrePractica">¿Cuanto aprendió?</label>
-            <div class="form-group">
-              <input type="range" class="custom-range" min="0" max="100" step="1" id="evalAprendizaje" name="evalCantidadCont">
-              <!--<span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
-              <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>-->
-            </div>
-          </div>
-          <!--<div class="container">
-          <h1>Bootstap Slider Sample Project</h1>
-          <p>This is a sample project for bootstrap slider</p>
-          <input id="ex13" name="ex13" type="text"/>
-          <script>
-          // With JQuery
-          $("#ex13").slider({
-          ticks: [0, 20, 40, 60, 80, 100],
-          ticks_labels: ['Nada claro', 'Poco claro', 'Claro', 'Muy claro', 'Clarisimo',"sepa"],
-          ticks_snap_bounds: 1,
-          orientation: 'horizontal',
-          value: 20,
-          handle: 'triangle'
-        });
-      </script>
-    </div>-->
-  </div>
+      <div class="card" id="info-alumno-datos-alumno" name="info-alumno-datos-alumno">
+        <h5 class="card-header">Datos del alumno</h5>
+        <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-alumno" name="info-alumno-cuerpo-tarjeta-datos-alumno">
+          <!--<p class="card-text" id="info-alumno-nombre-alumno" name="info-alumno-nombre-alumno"><b>Nombre:</b> <?php echo $alumno->apellidoPaterno." ".$alumno->apellidoMaterno." ".$alumno->nombrePila ; ?></p>
+          <p class="card-text" id="info-alumno-codigo-alumno" name="info-alumno-codigo-alumno"><b>Código:</b> <?php echo $alumno->codigoAlumno; ?></p>
+          <p class="card-text" id="info-alumno-promedio-alumno" name="info-alumno-promedio-alumno"><b>Promedio:</b> 89.6</p>-->
+          <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+        </div>
+      </div>
+      <div class="card" id="info-alumno-listado-practicas" name="info-alumno-listado-practicas">
+        <h5 class="card-header">Listado de practicas</h5>
+        <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-practicas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
+          <ul class="list-group" style="height: 300px; overflow-y: auto;" id="info-alumno-lista-practicas" name="info-alumno-lista-practicas">
+          </ul>
+        </div>
+      </div>
+      <div class="card" id="info-alumno-grafica-practica" name="info-alumno-grafica-practica">
+        <h5 class="card-header">Datos y estadísticas de la práctica</h5>
+        <div class="card-body" id="info-alumno-cuerpo-tarjeta-estadisticas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
+          <p class="card-text" id="info-alumno-descripcion-practica" name="info-alumno-descripcion-practica"><b>Sección de graficación.</b></p>
+          <div id="container" name="container" style="width:100%; height:400px;"></div>
+        </div>
+      </div>
 
 
-  <!-- Modal footer -->
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
-    <button type="submit" class="btn btn-primary">Finalizar <i class="fas fa-save"></i> </button>
-  </div>
-</form>
+      <!-- El modal para editar una practica -->
+      <div class="modal fade" id="modalEvaluarClase" name="modalEvaluarClase" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-info">
+              <h4 class="modal-title text-white">Evaluar clase</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <form id="formEvaluarClase" name="formEvaluarClase" method="POST">
+              <div class="modal-body">
+                <div class="alert alert-info text-justify" role="alert">
+                  En está sección se realiza la evalución de la clase.
+                  Estos datos son de suma importancia para mejorar la calidad del curso y del aprendisaje obtenido.
+                </div>
+
+                <div class="form-group">
+                  <!--<label for="points">Points:</label>
+                  <input type="range" name="points" id="points" value="50" min="0" max="100" data-show-value="true">-->
+
+                  <label for="editarNombrePractica">Calidad del contenido</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalCalidadCont" name="evalCalidadCont" oninput="this.form.evalCalidadContAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalCalidadContAmountInput" min="0" max="100" value="0" oninput="this.form.evalClaridadCont.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Claridad del contenido</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalClaridadCont" name="evalClaridadCont" oninput="this.form.evalClaridadContAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalClaridadContAmountInput" min="0" max="100" value="0" oninput="this.form.evalClaridadCont.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Cantidad del contenido</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-minus" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalCantidadCont" name="evalCantidadCont" oninput="this.form.evalCantidadContAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-plus" aria-hidden="true"></i></span>
+                    <input type="number" name="evalCantidadContAmountInput" min="0" max="100" value="0" oninput="this.form.evalCantidadCont.value=this.value" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="editarNombrePractica">Calidad del material de apoyo</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalCalidadMatApoyo" name="evalCalidadCont" oninput="this.form.evalCalidadMatApoyoAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalCalidadMatApoyoAmountInput" min="0" max="100" value="0" oninput="this.form.evalCalidadMatApoyo.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Claridad del material de apoyo</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalClaridadMatApoyo" name="evalClaridadCont" oninput="this.form.evalClaridadMatApoyoAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalClaridadMatApoyoAmountInput" min="0" max="100" value="0" oninput="this.form.evalClaridadMatApoyo.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Cantidad del material de apoyo</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-minus" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalCantidadMatApoyo" name="evalCantidadMatApoyo" oninput="this.form.evalCantidadMatApoyoAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-plus" aria-hidden="true"></i></span>
+                    <input type="number" name="evalCantidadMatApoyoAmountInput" min="0" max="100" value="0" oninput="this.form.evalCantidadMatApoyo.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Ayuda en el aprendizaje del simulador de control secuencial</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalSimulador" name="evalSimulador" oninput="this.form.evalSimuladorAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalSimuladorAmountInput" min="0" max="100" value="0" oninput="this.form.evalSimulador.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Facilidad de utilización simulador de control secuencial</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalFacilidadSimulador" name="evalFacilidadSimulador" oninput="this.form.evalFacilidadSimuladorAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalFacilidadSimuladorAmountInput" min="0" max="100" value="0" oninput="this.form.evalFacilidadSimulador.value=this.value" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="editarNombrePractica">Cantidad de aprendizaje</label>
+                  <div class="form-group">
+                    <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
+                    <input type="range" style="width: 87%;" class="custom-range" min="0" max="100" step="1" id="evalAprendizaje" name="evalAprendizaje" oninput="this.form.evalAprendizajeAmountInput.value=this.value">
+                    <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
+                    <input type="number" name="evalAprendizajeAmountInput" min="0" max="100" value="0" oninput="this.form.evalAprendizaje.value=this.value"/>
+                  </div>
+                </div>
+
+                <!--<div class="container">
+                <h1>Bootstap Slider Sample Project</h1>
+                <p>This is a sample project for bootstrap slider</p>
+                <input id="ex13" name="ex13" type="text" style="width: 100%;" data-slider-min="0" data-slider-max="100" data-slider-step="1"/>
+                <script>
+                // With JQuery
+                $("#ex13").slider({
+                ticks: [20, 40, 60, 80, 100],
+                ticks_labels: ['Nada claro', 'Poco claro', 'Claro', 'Muy claro', 'Clarisimo'],
+                ticks_snap_bounds: 1,
+                orientation: 'horizontal',
+                value: 20,
+                handle: 'triangle'
+              });
+              $('#ex13').slider({
+              formatter: function(value) {
+              return 'Current value: ' + value;
+            }
+          });
+        </script>
+      </div>-->
+    </div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+      <button type="submit" class="btn btn-primary">Evaluar <i class="fas fa-save"></i> </button>
+    </div>
+  </form>
 </div>
 </div>
 </div>

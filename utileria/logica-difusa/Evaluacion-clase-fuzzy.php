@@ -144,7 +144,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembAprendizajeAlumno[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoAprendizajeAlumno, 40, 60, 80);
     $this->nivelMembAprendizajeAlumno[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoAprendizajeAlumno, 60, 80, 100);
     $this->nivelMembAprendizajeAlumno[4] = BiblioFuzzy::Curva_S($datoCuantitativoAprendizajeAlumno, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Aprendizaje Alumno= {$datoCuantitativoAprendizajeAlumno}"), $this->nivelMembAprendizajeAlumno);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Aprendizaje Alumno= {$datoCuantitativoAprendizajeAlumno}"), $this->nivelMembAprendizajeAlumno);
   }
 
   public function nivelMembresiaClaridadContenido($datoCuantitativoClaridadContenido)
@@ -154,7 +154,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembClaridadContenido[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoClaridadContenido, 40, 60, 80);
     $this->nivelMembClaridadContenido[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoClaridadContenido, 60, 80, 100);
     $this->nivelMembClaridadContenido[4] = BiblioFuzzy::Curva_S($datoCuantitativoClaridadContenido, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Claridad Contenido= {$datoCuantitativoClaridadContenido}"), $this->nivelMembClaridadContenido);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Claridad Contenido= {$datoCuantitativoClaridadContenido}"), $this->nivelMembClaridadContenido);
   }
 
   public function nivelMembresiaCalidadContenido($datoCuantitativoCalidadContenido)
@@ -164,7 +164,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembCalidadContenido[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoCalidadContenido, 40, 60, 80);
     $this->nivelMembCalidadContenido[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoCalidadContenido, 60, 80, 100);
     $this->nivelMembCalidadContenido[4] = BiblioFuzzy::Curva_S($datoCuantitativoCalidadContenido, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Calidad Contenido= {$datoCuantitativoCalidadContenido}"), $this->nivelMembCalidadContenido);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Calidad Contenido= {$datoCuantitativoCalidadContenido}"), $this->nivelMembCalidadContenido);
   }
 
   public function nivelMembresiaCantidadContenido($datoCuantitativoCantidadContenido)
@@ -174,7 +174,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembCantidadContenido[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoCantidadContenido, 40, 60, 80);
     $this->nivelMembCantidadContenido[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoCantidadContenido, 60, 80, 100);
     $this->nivelMembCantidadContenido[4] = BiblioFuzzy::Curva_S($datoCuantitativoCantidadContenido, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Cantidad Contenido= {$datoCuantitativoCantidadContenido}"), $this->nivelMembCantidadContenido);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Cantidad Contenido= {$datoCuantitativoCantidadContenido}"), $this->nivelMembCantidadContenido);
   }
 
   public function nivelMembresiaDificultadSimulador($datoCuantitativoDificultadSimulador)
@@ -184,7 +184,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembDificultadUtilSimualdor[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoDificultadSimulador, 40, 60, 80);
     $this->nivelMembDificultadUtilSimualdor[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoDificultadSimulador, 60, 80, 100);
     $this->nivelMembDificultadUtilSimualdor[4] = BiblioFuzzy::Curva_S($datoCuantitativoDificultadSimulador, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Dificultad Simulador={$datoCuantitativoDificultadSimulador}"), $this->nivelMembDificultadUtilSimualdor);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Dificultad Simulador={$datoCuantitativoDificultadSimulador}"), $this->nivelMembDificultadUtilSimualdor);
   }
 
   public function nivelMembresiaApoyoSimulador($datoCuantitativoApoyoSimulador)
@@ -194,7 +194,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembApoyoSimulador[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoApoyoSimulador, 40, 60, 80);
     $this->nivelMembApoyoSimulador[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoApoyoSimulador, 60, 80, 100);
     $this->nivelMembApoyoSimulador[4] = BiblioFuzzy::Curva_S($datoCuantitativoApoyoSimulador, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Apoyo simulador= {$datoCuantitativoApoyoSimulador}"), $this->nivelMembApoyoSimulador);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Apoyo simulador= {$datoCuantitativoApoyoSimulador}"), $this->nivelMembApoyoSimulador);
   }
 
   public function nivelMembresiaClaridadMaterialApoyo($datoCuantitativoClaridadMaterialApoyo)
@@ -204,7 +204,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembClaridadMaterialApoyo[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoClaridadMaterialApoyo, 40, 60, 80);
     $this->nivelMembClaridadMaterialApoyo[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoClaridadMaterialApoyo, 60, 80, 100);
     $this->nivelMembClaridadMaterialApoyo[4] = BiblioFuzzy::Curva_S($datoCuantitativoClaridadMaterialApoyo, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Claridad Material de Apoyo= {$datoCuantitativoClaridadMaterialApoyo}"), $this->nivelMembClaridadMaterialApoyo);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Claridad Material de Apoyo= {$datoCuantitativoClaridadMaterialApoyo}"), $this->nivelMembClaridadMaterialApoyo);
   }
 
   public function nivelMembresiaCalidadMaterialApoyo($datoCuantitativoCalidadMaterialApoyo)
@@ -214,7 +214,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembCalidadMaterialApoyo[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoCalidadMaterialApoyo, 40, 60, 80);
     $this->nivelMembCalidadMaterialApoyo[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoCalidadMaterialApoyo, 60, 80, 100);
     $this->nivelMembCalidadMaterialApoyo[4] = BiblioFuzzy::Curva_S($datoCuantitativoCalidadMaterialApoyo, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Calidad Material de Apoyo= {$datoCuantitativoCalidadMaterialApoyo}"), $this->nivelMembCalidadMaterialApoyo);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Calidad Material de Apoyo= {$datoCuantitativoCalidadMaterialApoyo}"), $this->nivelMembCalidadMaterialApoyo);
   }
 
   public function nivelMembresiaCantidadMaterialApoyo($datoCuantitativoCantidadMaterialApoyo)
@@ -224,7 +224,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembCantidadMaterialApoyo[2] = BiblioFuzzy::TriangularSuave($datoCuantitativoCantidadMaterialApoyo, 40, 60, 80);
     $this->nivelMembCantidadMaterialApoyo[3] = BiblioFuzzy::TriangularSuave($datoCuantitativoCantidadMaterialApoyo, 60, 80, 100);
     $this->nivelMembCantidadMaterialApoyo[4] = BiblioFuzzy::Curva_S($datoCuantitativoCantidadMaterialApoyo, 80, 100);
-    $this->imprimirNivelMembresiaMayor(("Membresías Cantidad Material de Apoyo= {$datoCuantitativoCantidadMaterialApoyo}"), $this->nivelMembCantidadMaterialApoyo);
+    //$this->imprimirNivelMembresiaMayor(("Membresías Cantidad Material de Apoyo= {$datoCuantitativoCantidadMaterialApoyo}"), $this->nivelMembCantidadMaterialApoyo);
   }
 
   public function fuzzificarDificiltadUtilSimulador($datoCuantitativoDificultadSimulador)
@@ -3029,7 +3029,7 @@ class SistemaFuzzyEvalucionClase
     $this->nivelMembCalificacionClase[0] = -1;
     // Se retorna el resultado para indicar el conjunto difuso al que pertenece la variable intermedia ‘Condiciones Naturales para incendios’.
     //Se retorna el nivel de membresía calculado para la variable intermedia ‘Condiciones Naturales para incendios’.
-    $this->imprimirNivelMembresiaMayor("nivelMembCalificacionClase: ", $this->nivelMembCalificacionClase);
+    //$this->imprimirNivelMembresiaMayor("nivelMembCalificacionClase: ", $this->nivelMembCalificacionClase);
     return $this->nivelMembCalificacionClase[$this->posicionMayorNivelMembresia($this->nivelMembCalificacionClase)];
   }
 
@@ -3056,18 +3056,22 @@ class SistemaFuzzyEvalucionClase
   }
 
   public function inferir($dificulSimuNitido, $apoyoSimuNitido, $CalMatApoNitido, $ClarMatApoNitido, $CantMatApoNitido,
-  $CalContNitido, $ClarContNitido, $CantContNitido, $nivelAprendizajeNitido)
+  $CalContNitido, $ClarContNitido, $CantContNitido, $nivelAprendizajeNitido, $mostrarSalidas)
   {
-    //double nivelMembresiaCondNatuInce = 0.0, nivelMembresiaProbaInce = 0.0, probabilidadNitida = 0.0;
-    echo "\n************************* Variables de entrada *************************<br/>";
-    echo "[Dificultad utilizar simulador: {$dificulSimuNitido}, Apoyo Simulador: {$apoyoSimuNitido} ]\n<br/>";
-    echo "[Calidad material apoyo: {$CalMatApoNitido}, Claridad material apoyo: {$ClarMatApoNitido}, Cantidad material apoyo: {$CantMatApoNitido} ]\n<br/>";
-    echo "[Calidad contenido: {$CalContNitido}, Claridad contenido: {$ClarContNitido}, Cantidad contenido: {$nivelAprendizajeNitido} ]\n<br/>";
-    echo "[Nivel Aprendizaje: {$nivelAprendizajeNitido}]\n<br/>";
-    /*La siguiente sección de código se encarga de fuzzificar las variables de entradas (Temperatura, Humedad
-    * relativa, Niveles de precipitación y Cantidad de presencia humana en la zona) nítidas del sistema para
-    * obtener su representación difusa.*/
-    echo "************************* Niveles de membresía de los datos nítidos en los conjuntos difusos *************************<br/>";
+    if($mostrarSalidas==true){
+      //double nivelMembresiaCondNatuInce = 0.0, nivelMembresiaProbaInce = 0.0, probabilidadNitida = 0.0;
+      echo "\n************************* Variables de entrada *************************<br/>";
+      echo "[Dificultad utilizar simulador: {$dificulSimuNitido}, Apoyo Simulador: {$apoyoSimuNitido} ]\n<br/>";
+      echo "[Calidad material apoyo: {$CalMatApoNitido}, Claridad material apoyo: {$ClarMatApoNitido}, Cantidad material apoyo: {$CantMatApoNitido} ]\n<br/>";
+      echo "[Calidad contenido: {$CalContNitido}, Claridad contenido: {$ClarContNitido}, Cantidad contenido: {$nivelAprendizajeNitido} ]\n<br/>";
+      echo "[Nivel Aprendizaje: {$nivelAprendizajeNitido}]\n<br/>";
+    }
+    if($mostrarSalidas==true){
+      /*La siguiente sección de código se encarga de fuzzificar las variables de entradas (Temperatura, Humedad
+      * relativa, Niveles de precipitación y Cantidad de presencia humana en la zona) nítidas del sistema para
+      * obtener su representación difusa.*/
+      echo "************************* Niveles de membresía de los datos nítidos en los conjuntos difusos *************************<br/>";
+    }
     $dificulSimuDifuso = $this->fuzzificarDificiltadUtilSimulador($dificulSimuNitido);
     $apoyoSimuDifuso = $this->fuzzificarApoyoSimulador($apoyoSimuNitido);
     $CalMatApoDifuso = $this->fuzzificarCalidadMaterialApoyo($CalMatApoNitido);
@@ -3078,19 +3082,21 @@ class SistemaFuzzyEvalucionClase
     $CantContDifuso = $this->fuzzificarCantidadContenido($CantContNitido);
     $nivelAprendizajeDifuso = $this->fuzzificarAprendizajeAlumno($nivelAprendizajeNitido);
 
-    /*Se muestra el valor nítido recibido desde el entorno y su correspondencia expresada con una variable
-    * lingüística dentro del sistema difuso.*/
-    echo "\n<br/>";
-    echo "************************* Datos nítidos y correspondencia difusa *************************\n<br/>";
-    echo "Para dificulSimu = {$dificulSimuNitido}, Corresponde: {$dificulSimuDifuso}\n<br/>";
-    echo "Para apoyoSimu = {$apoyoSimuNitido}, Corresponde: {$apoyoSimuDifuso}\n<br/>";
-    echo "Para CalMatApo = {$CalMatApoNitido}, Corresponde: {$CalMatApoDifuso}\n<br/>";
-    echo "Para ClarMatApo = {$ClarMatApoNitido}, Corresponde: {$ClarMatApoDifuso}\n<br/>";
-    echo "Para CantMatApo = {$CantMatApoNitido}, Corresponde: {$CantMatApoDifuso}\n<br/>";
-    echo "Para CalCont = {$CalContNitido}, Corresponde: {$CalContDifuso}\n<br/>";
-    echo "Para ClarCont = {$ClarContNitido}, Corresponde: {$ClarContDifuso}\n<br/>";
-    echo "Para CantCont = {$CantContNitido}, Corresponde: {$CantContDifuso}\n<br/>";
-    echo "Para nivelAprendizaje = {$nivelAprendizajeNitido}, Corresponde: {$nivelAprendizajeDifuso}\n<br/>";
+    if($mostrarSalidas==true){
+      /*Se muestra el valor nítido recibido desde el entorno y su correspondencia expresada con una variable
+      * lingüística dentro del sistema difuso.*/
+      echo "\n<br/>";
+      echo "************************* Datos nítidos y correspondencia difusa *************************\n<br/>";
+      echo "Para dificulSimu = {$dificulSimuNitido}, Corresponde: {$dificulSimuDifuso}\n<br/>";
+      echo "Para apoyoSimu = {$apoyoSimuNitido}, Corresponde: {$apoyoSimuDifuso}\n<br/>";
+      echo "Para CalMatApo = {$CalMatApoNitido}, Corresponde: {$CalMatApoDifuso}\n<br/>";
+      echo "Para ClarMatApo = {$ClarMatApoNitido}, Corresponde: {$ClarMatApoDifuso}\n<br/>";
+      echo "Para CantMatApo = {$CantMatApoNitido}, Corresponde: {$CantMatApoDifuso}\n<br/>";
+      echo "Para CalCont = {$CalContNitido}, Corresponde: {$CalContDifuso}\n<br/>";
+      echo "Para ClarCont = {$ClarContNitido}, Corresponde: {$ClarContDifuso}\n<br/>";
+      echo "Para CantCont = {$CantContNitido}, Corresponde: {$CantContDifuso}\n<br/>";
+      echo "Para nivelAprendizaje = {$nivelAprendizajeNitido}, Corresponde: {$nivelAprendizajeDifuso}\n<br/>";
+    }
     /*En la siguiente sección se realiza una inferencia difusa cualitativa para obtener la correspondencia difusa para la variable intermedia
     * ‘Condiciones Naturales para Incendios’ a partir de valores difusos calculados.
     * Asimismo se calcula el nivel de certeza obtenido para la variable intermedia en su rango de acción acorde a los conjuntos difusos
@@ -3108,22 +3114,24 @@ class SistemaFuzzyEvalucionClase
     $interMatApoNitido = $this->inferirInterMaterialApoyoCuantitativo($CalMatApoDifuso, $ClarMatApoDifuso, $CantMatApoDifuso);
     $interContNitido = $this->inferirInterContenidoCuantitativo($CalContDifuso, $ClarContDifuso, $CantContDifuso);
     $interCaliClaseNitido = $this->inferirInterCalidadClaseCuantitativo($interSimuladorDifuso, $interMaterialApoyoDifuso, $interContenidoClaseDifuso);
-
-    // Notificar en consola resultados de la Inferencia Difusa Cualitativa y Cuantitativa de la sección de codigo anterior.
-    echo "\n<br/>";
-    echo "************************* Correspondencia difusa para las variables intermedias' *************************\n<br/>";
-    echo "Variable intermedia interSimuladorDifuso: {$interSimuladorDifuso}, Con un nivel de certeza de: {$interSimuladorNitido}<br/>";
-    echo "Variable intermedia interMaterialApoyoDifuso : {$interMaterialApoyoDifuso}, Con un nivel de certeza de: {$interMatApoNitido}<br/>";
-    echo "Variable intermedia interContenidoClaseDifuso: {$interContenidoClaseDifuso}, Con un nivel de certeza de: {$interContNitido}<br/>";
-    echo "Variable intermedia interCalidadClaseDifuso: {$interCalidadClaseDifuso}, Con un nivel de certeza de: {$interCaliClaseNitido}<br/>";
-
+    if($mostrarSalidas==true){
+      // Notificar en consola resultados de la Inferencia Difusa Cualitativa y Cuantitativa de la sección de codigo anterior.
+      echo "\n<br/>";
+      echo "************************* Correspondencia difusa para las variables intermedias' *************************\n<br/>";
+      echo "Variable intermedia interSimuladorDifuso: {$interSimuladorDifuso}, Con un nivel de certeza de: {$interSimuladorNitido}<br/>";
+      echo "Variable intermedia interMaterialApoyoDifuso : {$interMaterialApoyoDifuso}, Con un nivel de certeza de: {$interMatApoNitido}<br/>";
+      echo "Variable intermedia interContenidoClaseDifuso: {$interContenidoClaseDifuso}, Con un nivel de certeza de: {$interContNitido}<br/>";
+      echo "Variable intermedia interCalidadClaseDifuso: {$interCalidadClaseDifuso}, Con un nivel de certeza de: {$interCaliClaseNitido}<br/>";
+    }
     $CalidadClaseNitido = $this->inferirCalificacionClaseCuantitativo($nivelAprendizajeDifuso, $interCalidadClaseDifuso);
     $CalificacionClaseNitidaFinal = $this->desfuzzificarProbabilidad($calificacionClaseDifuso, $CalidadClaseNitido);
-    echo "\n<br/>";
-    echo "************************* Correspondencia nitida y difusa para variable de salida' *************************\n<br/>";
-    echo "La calificación de la clase es de: {$CalificacionClaseNitidaFinal}<br/>";
-    echo "Variable final calificacionClaseDifuso: {$calificacionClaseDifuso}, Con un nivel de certeza de: {$CalidadClaseNitido}<br/>";
-    //Console.WriteLine("Con una certeza de: " + nivelMembresiaCondNatuInce);
+    if($mostrarSalidas==true){
+      echo "\n<br/>";
+      echo "************************* Correspondencia nitida y difusa para variable de salida' *************************\n<br/>";
+      echo "La calificación de la clase es de: {$CalificacionClaseNitidaFinal}<br/>";
+      echo "Variable final calificacionClaseDifuso: {$calificacionClaseDifuso}, Con un nivel de certeza de: {$CalidadClaseNitido}<br/>";
+      //Console.WriteLine("Con una certeza de: " + nivelMembresiaCondNatuInce);
+    }
     $this->dificulSimuNitido = $dificulSimuNitido;
     $this->apoyoSimuNitido = $apoyoSimuNitido;
     $this->CalMatApoNitido = $CalMatApoNitido;

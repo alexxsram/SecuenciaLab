@@ -53,7 +53,7 @@
   });
 });*/
 
-$(document).ready(function() {
+$('#listgroup22').ready(function() {
   $.ajax({
     type: "POST",
     url: "utileria/materia/cargar-lista-alumnos.php",
@@ -222,9 +222,18 @@ function cargarGraficaDePractica(idPractica, nombrePractica, codigoAlumno) {
       if(idPractica == -1){
         $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa de todas las prácticas hasta el momento.").fadeIn();
         $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a todas las practicas</button>");
+        optionsPracticaIndividual.title.text = "Todas las prácticas";
+        $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">"+data+"</button>");
+        optionsPracticaIndividual.series=crearSeriesCaliPrac(jQuery.parseJSON( data ));
+        $('#container').highcharts(optionsPracticaIndividual);
+
       }else if(idPractica == -2){
         $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a promedio prácticas</button>");
         $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa entre el promedio del alumno y los datos de promedio del resto de la clase.").fadeIn();
+        optionsPracticaIndividual.title.text = "Alumno vs. Grupo";
+        optionsPracticaIndividual.series=crearSeriesCaliPrac(jQuery.parseJSON( data ));
+        $('#container').highcharts(optionsPracticaIndividual);
+        $('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">"+data+"</button>");
       }else{
         cargarDescripcionPractica(idPractica, nombrePractica, codigoAlumno);
         optionsPracticaIndividual.title.text = nombrePractica;
@@ -251,3 +260,121 @@ error: function(response) {
 
 //redireccionarPagina("index.php");
 }
+
+// ***************************************** Para abilitar la evaluación de los cursos por lógica difusa
+$("#modalEvaluarClase").on("show.bs.modal", function (event) {
+  var button = $(event.relatedTarget);
+  var modal = $(this);
+  var claveUsuario = button.data("codigo");
+  modal.find("#formCambiarPassword #claveUsuario").val(claveUsuario);
+  $("#formEvaluarClase").validate({
+    rules: {
+      evalCalidadCont: {
+        required: true
+      },
+      evalClaridadCont: {
+        required: true
+      },
+      evalCantidadCont: {
+        required: true
+      },
+      evalCalidadMatApoyo: {
+        required: true
+      },
+      evalClaridadMatApoyo: {
+        required: true
+      },
+      evalCantidadMatApoyo: {
+        required: true
+      },
+      evalSimulador: {
+        required: true
+      },
+      evalFacilidadSimulador: {
+        required: true
+      },
+      evalAprendizaje: {
+        required: true
+      }
+    },
+    messages: {
+      evalCalidadCont: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalClaridadCont: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalCantidadCont: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalCalidadMatApoyo: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalClaridadMatApoyo: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalCantidadMatApoyo: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalSimulador: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalFacilidadSimulador: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      },
+      evalAprendizaje: {
+        required: "Seleccione el valor que más se ajuste a su perspectiva."
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "utileria/logica-difusa/Agregar-calificacion-clase.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "evalCalidadCont=" + $("#evalCalidadCont").val()
+        + "&evalClaridadCont=" + $("#evalClaridadCont").val()
+        + "&evalCantidadCont=" + $("#evalCantidadCont").val()
+        + "&evalCalidadMatApoyo=" + $("#evalCalidadMatApoyo").val()
+        + "&evalClaridadMatApoyo=" + $("#evalClaridadMatApoyo").val()
+        + "&evalCantidadMatApoyo=" + $("#evalCantidadMatApoyo").val()
+        + "&evalSimulador=" + $("#evalSimulador").val()
+        + "&evalFacilidadSimulador=" + $("#evalFacilidadSimulador").val()
+        + "&evalAprendizaje=" + $("#evalAprendizaje").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          bootbox.alert({
+            message: "La evaluación de la materia se harealizado correctamente.",
+            callback: function() {
+              limpiarFormulario("#formEvaluarClase");
+              $('#modalEvaluarClase').modal('hide')
+              //redireccionarPagina("panel-info-alumno.php");
+            }
+          });
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
