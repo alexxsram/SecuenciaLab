@@ -17,6 +17,7 @@ try {
     $data = $baseDatos->query("SELECT AVG(califiacion) as promedio FROM evaluacion WHERE Cuestionario_idCuestionario IN (SELECT idCuestionario FROM cuestionario WHERE Practica_idPractica IN (SELECT Practica_idPractica FROM practica WHERE Clase_claveAcceso = '$claveAcceso') and AlumnoUsuario_codigoAlumno = '$claveUsuario')")->fetchAll();
     foreach ($data as $row) {
       $promedioAlumno = $row['promedio'];
+      $promedioAlumno = round($promedioAlumno, 2);
     }
     if(!$promedioAlumno){
       $promedioAlumno = "Promedio No disponible";
