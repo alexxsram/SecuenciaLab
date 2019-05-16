@@ -14,7 +14,7 @@ try {
     //Calcular promedio del alumno
     $data = $baseDatos->query("SELECT AVG(califiacion) as promedio FROM evaluacion WHERE Cuestionario_idCuestionario IN (SELECT idCuestionario FROM cuestionario WHERE Practica_idPractica IN (SELECT Practica_idPractica FROM practica WHERE Clase_claveAcceso = '$claveAcceso') and AlumnoUsuario_codigoAlumno = '$codAlumno')")->fetchAll();
     foreach ($data as $row) {
-      $promedioAlumno = round($row['promedio'],4);
+      $promedioAlumno = round($row['promedio'], 4);
     }
     if(!$promedioAlumno){
       $promedioAlumno = 0;
