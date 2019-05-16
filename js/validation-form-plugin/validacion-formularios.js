@@ -1009,13 +1009,17 @@ $("#formCalificarPractica").validate({
   rules: {
     calificacion: {
       required: true,
-      number: true
+      number: true,
+      minlength: 1,
+      maxlength: 3
     }
   },
   messages: {
-    calificacion: { 
-      required: "Ingresar la calificación de la práctica",
-      number: "Solo se admiten números"
+    calificacion: {
+      required: "Ingresar la calificación de la práctica.",
+      number: "Solo se admiten números. Ingrese un númerp entre 0 y 100.",
+      minlength: jQuery.validator.format("La califificación mínima es 0."),
+      maxlength: jQuery.validator.format("La calificación máxima es 100.")
     }
   },
   submitHandler: function(form) {
@@ -1026,6 +1030,7 @@ $("#formCalificarPractica").validate({
       data: "calificacion=" + $("#calificacion").val()
       + "&idCuestionario=" + $("#idCuestionario").val()
     }).done(function(echo) {
+      bootbox.alert(echo);
       if(echo == "success") {
         // ../practica/', 'calificar-entrega.php', 'criterioCalificar=
         redireccionarPagina('../practica/calificar-entrega.php?criterioCalificar=' + btoa($("#idPractica").val()));
@@ -1086,34 +1091,34 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
         title: "Matricular a la clase?",
         message: "Esta a punto de mattricularse a esta clase, ¿Esta seguro?",
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancelar'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Aceptar'
-            }
+          cancel: {
+            label: '<i class="fa fa-times"></i> Cancelar'
+          },
+          confirm: {
+            label: '<i class="fa fa-check"></i> Aceptar'
+          }
         },
         callback: function (result) {
-            if(result == true) {
-              $.ajax({
-                url: "utileria/materia/unirse-clase.php",
-                type: "POST",
-                dataType: "HTML",
-                data: "claveClase=" + $("#unirseClaveAcceso").val()
-                + "&codigoAlumno=" + $("#codigoAlumnoUnirse").val()
-              }).done(function(echo) {
-                if(echo == "success") {
-                  limpiarFormulario("#formUnirseClase");
-                  redireccionarPagina("index.php");
-                }
-                else {
-                  var html = "<div class='alert alert-danger' role='alert'>";
-                  html += echo;
-                  html += "</div>";
-                  bootbox.alert(html);
-                }
-              });
-            }
+          if(result == true) {
+            $.ajax({
+              url: "utileria/materia/unirse-clase.php",
+              type: "POST",
+              dataType: "HTML",
+              data: "claveClase=" + $("#unirseClaveAcceso").val()
+              + "&codigoAlumno=" + $("#codigoAlumnoUnirse").val()
+            }).done(function(echo) {
+              if(echo == "success") {
+                limpiarFormulario("#formUnirseClase");
+                redireccionarPagina("index.php");
+              }
+              else {
+                var html = "<div class='alert alert-danger' role='alert'>";
+                html += echo;
+                html += "</div>";
+                bootbox.alert(html);
+              }
+            });
+          }
         }
       });
     },
