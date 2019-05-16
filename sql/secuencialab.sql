@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-05-2019 a las 04:47:08
+-- Tiempo de generación: 16-05-2019 a las 03:15:32
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.2.14
 
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `cuestionario` (
   UNIQUE KEY `nombreClave` (`nombreClave`),
   KEY `fk_Cuestionario_Practica1_idx` (`Practica_idPractica`),
   KEY `fk_Cuestionario_AlumnoUsuario1_idx` (`AlumnoUsuario_codigoAlumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `cuestionario`
@@ -211,7 +211,9 @@ CREATE TABLE IF NOT EXISTS `cuestionario` (
 
 INSERT INTO `cuestionario` (`idCuestionario`, `respuestaPregunta1`, `respuestaPregunta2`, `respuestaPregunta3`, `conclusion`, `fechaEntrega`, `rutaArchivo`, `Practica_idPractica`, `AlumnoUsuario_codigoAlumno`, `nombreClave`, `nombreOriginal`) VALUES
 (3, 'kjkj', 'jk', 'jk', 'jk', '2019-05-14', '../../images/files/XMUbA36G1H.png', 3, 'A987654321', 'XMUbA36G1H.png', 'Captura de pantalla (175).png'),
-(4, 'kl', 'k', 'kl', 'klk', '2019-05-14', '../../images/files/lXRAi0QoOy.png', 3, 'A987654321', 'lXRAi0QoOy.png', 'Captura de pantalla (161).png');
+(6, 'hola2', 'hola2', 'hola2', 'hola2', '2019-05-16', '../../images/files/9Q6fnopPYd.png', 3, 'A147258369', '9Q6fnopPYd.png', 'Captura de pantalla (205).png'),
+(8, 'jkdskjdkl', 'lk', 'kl', 'lk', '2019-05-16', '../../images/files/hogUApwwSI.png', 4, 'A147258369', 'hogUApwwSI.png', 'Captura de pantalla (182).png'),
+(9, 'JK', 'J', 'JKJK', 'JK', '2019-05-16', '../../images/files/Su8qYLANKt.png', 7, 'A147258369', 'Su8qYLANKt.png', 'Captura de pantalla (183).png');
 
 -- --------------------------------------------------------
 
@@ -226,7 +228,14 @@ CREATE TABLE IF NOT EXISTS `evaluacion` (
   `Cuestionario_idCuestionario` int(11) NOT NULL,
   PRIMARY KEY (`idEvaluacion`),
   KEY `fk_Evaluacion_Cuestionario1_idx` (`Cuestionario_idCuestionario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `evaluacion`
+--
+
+INSERT INTO `evaluacion` (`idEvaluacion`, `califiacion`, `Cuestionario_idCuestionario`) VALUES
+(31, 95, 9);
 
 -- --------------------------------------------------------
 
@@ -249,7 +258,23 @@ CREATE TABLE IF NOT EXISTS `evaluaciondifusa` (
   `calificacionClaseNitido` int(11) NOT NULL,
   `calificacionClaseDifuso` varchar(20) NOT NULL,
   PRIMARY KEY (`idEvaluacionDifusa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `evaluaciondifusa`
+--
+
+INSERT INTO `evaluaciondifusa` (`idEvaluacionDifusa`, `dificulSimuNitido`, `apoyoSimuNitido`, `CalMatApoNitido`, `ClarMatApoNitido`, `CantMatApoNitido`, `CalContNitido`, `ClarContNitido`, `CantContNitido`, `nivelAprendizajeNitido`, `calificacionClaseNitido`, `calificacionClaseDifuso`) VALUES
+(1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 'Excelente'),
+(2, 50, 50, 50, 50, 50, 50, 50, 50, 50, 10, 'Deficiente'),
+(3, 100, 100, 50, 84, 8, 50, 50, 50, 100, 50, 'Excelente'),
+(4, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(5, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(6, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(7, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(8, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(9, 96, 91, 29, 59, 94, 80, 0, 77, 90, 34, 'Buena'),
+(10, 50, 50, 50, 50, 50, 50, 50, 50, 50, 10, 'Deficiente');
 
 -- --------------------------------------------------------
 
@@ -266,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `practica` (
   `Clase_claveAcceso` varchar(10) NOT NULL,
   PRIMARY KEY (`idPractica`),
   KEY `fk_Practica_Clase1_idx` (`Clase_claveAcceso`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `practica`
@@ -275,7 +300,10 @@ CREATE TABLE IF NOT EXISTS `practica` (
 INSERT INTO `practica` (`idPractica`, `nombre`, `descripcion`, `fechaLimite`, `Clase_claveAcceso`) VALUES
 (2, 'Arrancador a tensi&oacute;n reducida', 'Ejemplo', '2019-04-29', 'M8evmaEJIr'),
 (3, 'Arrancador de tensión', 'Esta es la explicación del arrancador de tensión', '2019-05-18', 'txsdH2Id36'),
-(4, 'Arrancador de tensión 2 - Esta es otra práctica', 'Esta es otro contenido de prueba. Hola locaodsikmladmklsaklmkmlsdamklkl', '2019-06-01', 'txsdH2Id36');
+(4, 'Arrancador de tensión 2 - Esta es otra práctica', 'Esta es otro contenido de prueba. Hola locaodsikmladmklsaklmkmlsdamklkl', '2019-05-14', 'txsdH2Id36'),
+(5, 'Practica de prueba #1', 'ashdhajks', '2019-05-06', 'txsdH2Id36'),
+(6, 'Practica de prueba #3', 'Practica de prueba #3', '2019-05-31', 'txsdH2Id36'),
+(7, 'Practica de prueba Calificada', 'SKJAKLDAKLSKLDS', '2019-05-16', 'txsdH2Id36');
 
 -- --------------------------------------------------------
 
