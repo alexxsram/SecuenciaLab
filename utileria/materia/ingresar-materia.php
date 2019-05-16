@@ -319,7 +319,7 @@ try {
                         </div>
 
                         <?php
-                        } else { 
+                        } else {
                             $practicas = $resultado->fetchAll(PDO::FETCH_OBJ);
                             if($estado == 'INICIO_SESION_PROFESOR') {
                         ?>
@@ -338,7 +338,7 @@ try {
                                             Fecha limite de entrega
                                         </th>
                                         <th scope="col" class="text-center">
-                                            Accion
+                                            Acción
                                         </th>
                                     </tr>
                                 </thead>
@@ -416,7 +416,7 @@ try {
                                 if($numRowCuestionario == 1) {
                                     $actividadEntregada = true;
                                     $cuestionario = $resultado->fetch(PDO::FETCH_OBJ);
-                                
+
                                     //Comprobar si el cuestionario esta calificado
                                     $sql = "SELECT * FROM evaluacion WHERE Cuestionario_idCuestionario = :cicu";
                                     $resultado = $baseDatos->prepare($sql);
@@ -429,7 +429,7 @@ try {
                                         $evaluacion = $resultado->fetch(PDO::FETCH_OBJ);
                                     }
                                 }
-                                
+
                                 if($actividadEntregada && date('Y-m-d') < $practica->fechaLimite) { // Si la actividad no ha sido entregada y no pasa de la fecha limite
                                     $colorBorde = "warning";
                                     $botonEntregarHabilitado = "";
@@ -456,19 +456,19 @@ try {
                                     $botonEntregarHabilitado = "";
                                 }
                             ?>
-                            
+
                             <div class="card border-<?php echo $colorBorde; ?> mb-3">
                                 <div class="card-header bg-transparent border-<?php echo $colorBorde; ?>">
                                     <div class="form-group text-center">
                                         <h5><span class="badge badge-<?php echo $colorBorde; ?>"><?php echo $estadoActidad; ?></span></h5>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-center">
                                         <?php echo $practica->nombre; ?>
                                     </h5>
-                                
+
                                     <p class="card-text">
                                         <?php
                                         $longitud = strlen($practica->descripcion);
@@ -479,7 +479,7 @@ try {
                                         }
                                         ?>
                                     </p>
-                                    
+
                                     <button type="button" class="btn btn-sm btn-outline-<?php echo $colorBorde; ?>" data-toggle="modal" <?php echo $botonEntregarHabilitado; ?> data-target="#modalEntregaPractica"
                                     data-idpractica="<?php echo $practica->idPractica; ?>";
                                     data-nombre="<?php echo $practica->nombre; ?>";
@@ -490,19 +490,19 @@ try {
                                         Entregar <i class="fas fa-check-square"></i>
                                     </button>
                                 </div>
-                                
+
                                 <div class="card-footer border-<?php echo $colorBorde; ?>">
                                     <small class="text-muted"><i class="fas fa-calendar"></i> Fecha de entrega: <?php echo $practica->fechaLimite; ?></small>
                                 </div>
                             </div>
 
-                            <?php 
+                            <?php
                             }
                             ?>
                         </div>
 
-                        <?php 
-                            } 
+                        <?php
+                            }
                         }
                         ?>
                     </div>
@@ -552,11 +552,11 @@ try {
                                     <?php echo $alumnoClase->codigo . ' - ' . $alumnoClase->nombreCompleto; ?>
                                     <?php if($estado == 'INICIO_SESION_PROFESOR') { ?>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="redireccionarPagina('../../panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>);"> 
-                                                Ver gráficas <i class="fas fa-chart-bar"></i> 
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="redireccionarPagina('../../panel-info-alumno.php?claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?> + '&claveUsuario=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>);">
+                                                Ver gráficas <i class="fas fa-chart-bar"></i>
                                             </button>
                                             <button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarContenido('../practica/', 'calificar-entrega.php', 'criterioCalificar=' + <?php echo '\'' . base64_encode($alumnoClase->codigo) . '\''; ?>
-                                                );"> Calificar <i class="fas fa-clipboard-check"></i> 
+                                                );"> Calificar <i class="fas fa-clipboard-check"></i>
                                             </button>
                                         </div>
                                     <?php } ?>
