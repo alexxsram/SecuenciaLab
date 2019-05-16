@@ -22,6 +22,7 @@ try {
                 $_SESSION['codigo'] = $profesor->codigoProfesor;
                 $_SESSION['nombre'] = $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno;
                 $_SESSION['estado'] = 'INICIO_SESION_PROFESOR';
+                $_SESSION['tiempo_sesion'] = time();
                 echo "success";
             }
             else {
@@ -45,6 +46,7 @@ try {
                 $_SESSION['codigo'] = $alumno->codigoAlumno;
                 $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
                 $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
+                $_SESSION['tiempo_sesion'] = time();
                 echo "success";
             }
             else {

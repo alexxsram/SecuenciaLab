@@ -6,6 +6,14 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
     $estado = $_SESSION['estado'];
+    // $tiempo = $_SESSION['tiempo_sesion'];
+
+    // if(time() - $tiempo >= 10){
+    //     header('Location: utileria/sesion/cerrar-sesion.php');
+    // }
+    // else {        
+    //     $_SESSION['tiempo_sesion'] = time();
+    // }
 }
 include('utileria/operaciones/conexion.php');
 $maxLongNomClase = 45;
@@ -21,7 +29,7 @@ $maxLongNomClase = 45;
     <?php include('utileria/encabezados/encabezado-css.php'); ?>
     <link rel="stylesheet" type="text/css" media="screen" href="css/index.css">
 
-    <title>Panel de gestión</title>
+    <title>Panel de gestión </title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
@@ -190,5 +198,9 @@ $maxLongNomClase = 45;
     <?php include('modals.php'); ?>
 
     <?php include('utileria/encabezados/encabezado-js.php'); ?>
+
+    <script>
+        
+    </script>
 </body>
 </html>
