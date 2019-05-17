@@ -468,6 +468,8 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 
           <hr>
 
+          <div class="alert alert-danger text-justify" role="alert" id="alerta-modificacion-entrega" name="alerta-modificacion-entrega">
+          </div>
           <div class="alert alert-info text-justify" role="alert">
             Contesta a las preguntas de la actividad.
             Todos los campos con (*) son obligatorios.
@@ -499,6 +501,20 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
               <input type="file" class="custom-file-input" id="nombreArchivo" name="nombreArchivo" onchange="$(this).next('.custom-file-label').html($(this).val().replace('C:\\fakepath\\', ' '));" required>
               <label class="custom-file-label" for="nombreArchivo" data-browse="Buscar">Selecccione el diagrama secuencial adecuado...</label>
             </div>
+            <!--<?php
+							$path = "../../images/files/";
+							if(file_exists($path)){
+								$directorio = opendir($path);
+								while ($archivo = readdir($directorio))
+								{
+									if (!is_dir($archivo)){
+										echo "<div data='".$path."/".$archivo."'><a href='".$path."/".$archivo."' title='Ver Archivo Adjunto'><span class='glyphicon glyphicon-picture'></span></a>";
+										echo "$archivo <a href='#' class='delete' title='Ver Archivo Adjunto' ><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></div>";
+										echo "<img src='../../images/files/$archivo' width='300' />";
+									}
+								}
+							}
+						?>-->
           </div>
 
           <div class="form-group">
@@ -511,8 +527,8 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
-          <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-check-circle"></i> </button>
+          <button type="button" class="btn btn-danger" onclick="limpiarFormulario(#formEntregaPractica);" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+          <button type="submit" id="sumit-entregar-practica" name="sumit-entregar-practica" class="btn btn-primary">Guardar <i class="fas fa-check-circle"></i> </button>
         </div>
       </form>
     </div>

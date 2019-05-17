@@ -1142,6 +1142,80 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
   });
 });
 
+function llenarConclusionPreviaCuestionario(codigoAlumno, idPractica, claveDeAcceso){
+  $.ajax({
+    type: "POST",
+    url: "../../utileria/materia/formularioEntregarPractica/cargar-conclusion-previa.php",
+    dataType: "HTML",
+    data: "codigoAlumno=" + codigoAlumno
+    + "&idPractica=" + idPractica
+    + "&claveDeAcceso=" + claveDeAcceso,
+    success: function(data)
+    {
+      $('#conclusion').append(data);
+      $('#sumit-entregar-practica').html("Modificar <i class=\"fas fa-check-circle\"></i>").fadeIn();
+      $('#alerta-modificacion-entrega').html("Usted está modificando una práctica que ya entrego. Puede modificar sus respuestas, no obstante, deberá subir su diagrama secuencial nuevamente.").fadeIn();
+    },
+    error: function(data) {
+      //bootbox.alert("Error: " + data);
+    }
+  });
+}
+
+function llenarPregunta1PreviaCuestionario(codigoAlumno, idPractica, claveDeAcceso){
+  $.ajax({
+    type: "POST",
+    url: "../../utileria/materia/formularioEntregarPractica/cargar-respuesta-pregunta1-previa.php",
+    dataType: "HTML",
+    data: "codigoAlumno=" + codigoAlumno
+    + "&idPractica=" + idPractica
+    + "&claveDeAcceso=" + claveDeAcceso,
+    success: function(data)
+    {
+      $('#respuestaPregunta1').append(data);
+    },
+    error: function(data) {
+      //bootbox.alert("Error: " + data);
+    }
+  });
+}
+
+function llenarPregunta2PreviaCuestionario(codigoAlumno, idPractica, claveDeAcceso){
+  $.ajax({
+    type: "POST",
+    url: "../../utileria/materia/formularioEntregarPractica/cargar-respuesta-pregunta2-previa.php",
+    dataType: "HTML",
+    data: "codigoAlumno=" + codigoAlumno
+    + "&idPractica=" + idPractica
+    + "&claveDeAcceso=" + claveDeAcceso,
+    success: function(data)
+    {
+      $('#respuestaPregunta2').append(data);
+    },
+    error: function(data) {
+      //bootbox.alert("Error: " + data);
+    }
+  });
+}
+
+function llenarPregunta3PreviaCuestionario(codigoAlumno, idPractica, claveDeAcceso){
+  $.ajax({
+    type: "POST",
+    url: "../../utileria/materia/formularioEntregarPractica/cargar-respuesta-pregunta3-previa.php",
+    dataType: "HTML",
+    data: "codigoAlumno=" + codigoAlumno
+    + "&idPractica=" + idPractica
+    + "&claveDeAcceso=" + claveDeAcceso,
+    success: function(data)
+    {
+      $('#respuestaPregunta3').append(data);
+    },
+    error: function(data) {
+      //bootbox.alert("Error: " + data);
+    }
+  });
+}
+
 // ***************************************** Para entregar una practica ESTE FALTA DE REVISAR BIEN PARA QUE FUNCIONE CON FILES
 $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
@@ -1154,11 +1228,23 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   var codigoAlumno = button.data("codigoalumno");
   var claveAcceso = button.data("claveacceso");
 
+
   modal.find("#titulo").text(nombre);
   modal.find("#descripcion").text(descripcion);
   modal.find("#fechaLimite").text("Fecha límite de entrega: " + fechaLimite);
   modal.find("#formEntregaPractica #idPractica").val(idPractica);
   modal.find("#formEntregaPractica #codigoAlumno").val(codigoAlumno);
+
+  llenarConclusionPreviaCuestionario(codigoAlumno, idPractica, claveAcceso)
+  llenarPregunta1PreviaCuestionario(codigoAlumno, idPractica, claveAcceso)
+  llenarPregunta2PreviaCuestionario(codigoAlumno, idPractica, claveAcceso)
+  llenarPregunta3PreviaCuestionario(codigoAlumno, idPractica, claveAcceso)
+  /*$('#conclusion').append("En la siguiente sección grafica se muestra una comparativa entre el promedio del alumno y los datos de promedio del resto de la clase.");
+  $('#respuestaPregunta1').append("Respuesta dinamica Respuesta 1.");
+  $('#respuestaPregunta2').append("Respuesta dinamica Respuesta 2.");
+  $('#respuestaPregunta3').append("Respuesta dinamica Respuesta 3.");
+  $('#"sumit-entregar-practica"').append("Respuesta dinamica Respuesta 3.");*/
+  //$('#sumit-entregar-practica').append("Respuesta dinamica Respuesta 3.");
 
   $("#formEntregaPractica").validate({
     rules: {
@@ -1176,7 +1262,7 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
       },
       rutaArchivo: {
         required: true,
-        accept: "jpg,png,jpeg,gif"
+        accept: "jpg, png, jpeg, gif"
       }
     },
     messages: {
