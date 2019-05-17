@@ -74,9 +74,9 @@ try {
                       $numRowSiYaCalificaron = $resultado->rowCount();
                       if($numRowSiYaCalificaron==0){
                         ?>
-                        <option value="<?php echo $entregado->codigoAlumno; ?>"><?php echo "(NCAL)" . " " .$entregado->apellidoPaterno . ' ' . $entregado->apellidoMaterno . ' ' . $entregado->nombrePila; ?></option>
+                        <option value="<?php echo $entregado->codigoAlumno; ?>"><?php echo "(NCAL)" . " $entregado->codigoAlumno - " .$entregado->apellidoPaterno . ' ' . $entregado->apellidoMaterno . ' ' . $entregado->nombrePila; ?></option>
                       <?php }else{ ?>
-                        <option value="<?php echo $entregado->codigoAlumno; ?>"><?php echo "(SCAL)" . " " .$entregado->apellidoPaterno . ' ' . $entregado->apellidoMaterno . ' ' . $entregado->nombrePila; ?></option>
+                        <option value="<?php echo $entregado->codigoAlumno; ?>"><?php echo "(SCAL)" . " $entregado->codigoAlumno -" .$entregado->apellidoPaterno . ' ' . $entregado->apellidoMaterno . ' ' . $entregado->nombrePila; ?></option>
                       <?php }} ?>
                     </select>
                   </div>
@@ -90,7 +90,6 @@ try {
               $resultado = $baseDatos->prepare($sql);
               $resultado->bindValue(':ca', $codigoAlumno);
               $resultado->execute();
-
               $alumno = $resultado->fetch(PDO::FETCH_OBJ);
               ?>
 
@@ -119,15 +118,25 @@ try {
                     <label class="mr-sm-2" for="practicaEntregado">Entregas realizadas</label>
                     <select class="custom-select mr-sm-2" id="practicaEntregado" name="practicaEntregado" onchange="insercionPorAjax('GET', 'cargar-detalle-entrega.php?codigoAlumno=' + <?php echo '\'' . $alumno->codigoAlumno . '\''; ?> + '&idPractica=' + this.value, '#detalleEntrega');">
                       <option value="" selected>Seleccionar práctica...</option>
-                      <?php foreach ($entregados as $entregado) { ?>
-                        <option value="<?php echo $entregado->idPractica; ?>"><?php echo $entregado->nombre; ?></option>
-                      <?php } ?>
+                      <?php foreach ($entregados as $entregado) {
+                      $sql = "SELECT * FROM evaluacion WHERE Cuestionario_idCuestionario IN (SELECT idCuestionario FROM cuestionario WHERE Practica_idPractica = :pip AND AlumnoUsuario_codigoAlumno = :idAlumno)";
+                      $resultado = $baseDatos->prepare($sql);
+                      $resultado->bindValue(':pip', $entregado->idPractica);
+                      $resultado->bindValue(':idAlumno', $alumno->codigoAlumno);
+                      $resultado->execute();
+                      $numRowSiYaCalificaron = $resultado->rowCount();
+                      if($numRowSiYaCalificaron==0){
+                        ?>
+                        <option value="<?php echo $entregado->codigoAlumno; ?>"><?php echo "(NCAL)" . " " . $entregado->nombre; ?></option>
+                      <?php }else{ ?>
+                        <option value="<?php echo $entregado->idPractica; ?>"><?php echo "(SCAL)" . " " . $entregado->nombre; ?></option>
+                      <?php }
+                    }?>
                     </select>
                   </div>
                 <?php } ?>
                 <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
               </div>
-
             <?php } ?>
           </div>
         </div>
