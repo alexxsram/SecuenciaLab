@@ -405,33 +405,36 @@ try {
                   $colorBorde = 'success';
                   $botonEntregarHabilitado = '';
                   $estadoActidad = 'Ninguno';
+                  $cuestionario = "";
+                  $evaluacion = "";
 
                   foreach ($practicas as $practica) {
                     //Buscar todos los cuestionarios de un alumno
                     $sql = "SELECT * FROM cuestionario WHERE Practica_idPractica = :pip AND AlumnoUsuario_codigoAlumno = :auca";
                     $resultado = $baseDatos->prepare($sql);
-                    $array = array(':pip'=>$practica->idPractica, ':auca'=>$codigo);
-                    $resultado->execute($array);
+                    //$array = array(':pip'=>$practica->idPractica, ':auca'=>$codigo);
+                    $resultado->bindValue(':pip', $practica->idPractica);
+                    $resultado->bindValue(':auca', $codigo);
+                    $resultado->execute();
+                    //$resultado->execute($array);
+                    $numRowCuestionario = 0;
                     $numRowCuestionario = $resultado->rowCount();
-
                     if($numRowCuestionario == 1) {
                       $actividadEntregada = true;
                       $cuestionario = $resultado->fetch(PDO::FETCH_OBJ);
-
                       //Comprobar si el cuestionario esta calificado
                       $sql = "SELECT * FROM evaluacion WHERE Cuestionario_idCuestionario = :cicu";
                       $resultado = $baseDatos->prepare($sql);
                       $array = array(':cicu'=>$cuestionario->idCuestionario);
                       $resultado->execute($array);
                       $numRowEvaluacion = $resultado->rowCount();
-
                       if($numRowEvaluacion == 1) {
                         $actividadCalificada = true;
                         $evaluacion = $resultado->fetch(PDO::FETCH_OBJ);
                       }
                     }
 
-                    if($actividadEntregada && date('Y-m-d') < $practica->fechaLimite) { // Si la actividad no ha sido entregada y no pasa de la fecha limite
+                    if($actividadEntregada && (date('Y-m-d') < $practica->fechaLimite) && $cuestionario->Practica_idPractica==$practica->idPractica && !$actividadCalificada) { // Si la actividad no ha sido entregada y no pasa de la fecha limite
                       $colorBorde = "warning";
                       $botonEntregarHabilitado = "";
                       $estadoActidad = "Entregada - Editable";
