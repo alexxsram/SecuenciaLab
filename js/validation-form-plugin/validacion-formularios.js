@@ -1673,3 +1673,4 @@ function descargarArchivo(rutaArchivo, nombreOriginal) {
   //Y liberamos recursos...
   (window.URL || window.webkitURL).revokeObjectURL(save.href);
 }
+//
