@@ -50,7 +50,7 @@ include('../operaciones/conexion.php');
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
             <div class="card-header bg-dark border-dark text-white">
                 <div class="float-right">
-                    <button type="button" class="btn btn-sm btn-outline-warning" onclick="alert('realizar respaldo')">
+                    <button type="button" class="btn btn-sm btn-outline-warning" onclick="accionarBackup('method=export', 'respaldos-bd.php');">
                         <i class="fas fa-file-export"></i> Exportar base de datos
                     </button>
                 </div>

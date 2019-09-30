@@ -1659,6 +1659,35 @@ function accionarConsulta(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRed
   });
 }
 
+function accionarBackup(dato, rutaRedireccionar) {
+  $.ajax({
+    type: "POST",
+    url: "backup.php",
+    dataType: "HTML",
+    data: dato,
+    success: function(echo) {
+      if(echo == "success") {
+        bootbox.alert({
+          message: "Respaldo creado correctamente.",
+          callback: function () {
+            redireccionarPagina(rutaRedireccionar);
+          }
+        });
+      } else {
+        bootbox.alert({
+          message: echo,
+          callback: function () {
+            redireccionarPagina(rutaRedireccionar);
+          }
+        });
+      }
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      bootbox.alert("Error: " + xhr.responseText);
+    }
+  });
+}
+
 function confirmarAccion(valor, tipo) {
   var vectorValores = valor.split("-");
   if(tipo == "clase") { // Si elimino una clase
