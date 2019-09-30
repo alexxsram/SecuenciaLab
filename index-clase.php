@@ -80,7 +80,7 @@ if($nombre != $nombreUsuario) {
                                         <i class="fas fa-users"></i> Permisos a usuarios profesor
                                     </button>
                                     <?php if($permiso == 'dba') { ?>
-                                        <button class="dropdown-item" onclick="cargarPagina('utileria/resp/respaldos-bd.php');">
+                                        <button class="dropdown-item" onclick="cargarPagina('utileria/respaldo/respaldos-bd.php');">
                                             <i class="fas fa-database"></i> Respaldos
                                         </button>
                                     <?php } ?>
