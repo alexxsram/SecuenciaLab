@@ -1,5 +1,5 @@
 <?php 
-$method = $_POST['method'];
+$method = $_GET['method'];
 
 $host = 'localhost';
 $user = 'root';
@@ -11,6 +11,9 @@ $database = 'secuencialab';
 // $password = 'develsecuencialab';
 // $database = 'id10689217_secuencialab';
 $rutaCarpetaBackups = realpath('../../sql/backups');
+$rutaCarpetaImageFiles = realpath('../../images/files');
+echo $rutaCarpetaImageFiles;
+die;
 $fechaFile = date('Ymd_His');
 $rutaDump = $rutaCarpetaBackups.'\\'.$fechaFile.'\\';
 $filename = $database.'_'.$fechaFile.'.sql';
@@ -21,6 +24,21 @@ if(!file_exists(is_dir($rutaDump))) {
         echo $error['message'];
     }
 }
+
+/*$zip = new ZipArchive();
+$zip->open('files.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
+foreach ($files as $name => $file) {
+    // Skip directories (they would be added automatically)
+    if (!$file->isDir()) {
+        // Get real and relative path for current file
+        $filePath = $file->getRealPath();
+        $relativePath = substr($filePath, strlen($rootPath) + 1);
+        // Add current file to archive
+        $zip->addFile($filePath, $relativePath);
+    }
+}
+$zip->close();*/
 
 $comando = "mysqldump --host={$host} --user={$user} --password={$password} {$database} > {$rutaDump}{$filename}";
 
