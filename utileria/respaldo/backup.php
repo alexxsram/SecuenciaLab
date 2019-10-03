@@ -10,13 +10,14 @@ $database = 'secuencialab';
 // $user = 'id10689217_secuencialaboperaciones';
 // $password = 'develsecuencialab';
 // $database = 'id10689217_secuencialab';
+
+$fecha = date('Ymd_His');
 $rutaCarpetaBackups = realpath('../../sql/backups');
 $rutaCarpetaImageFiles = realpath('../../images/files');
-echo $rutaCarpetaImageFiles;
-die;
-$fechaFile = date('Ymd_His');
-$rutaDump = $rutaCarpetaBackups.'\\'.$fechaFile.'\\';
-$filename = $database.'_'.$fechaFile.'.sql';
+$fileNameDb = $database.'_'.$fecha.'.sql';
+$fileNameZipImageFiles = 'files_'.$fecha.'.zip';
+$rutaDump = $rutaCarpetaBackups.'\\'.$fecha.'\\';
+$rutaZip = $rutaDump.$fileNameZipImageFiles;
 
 if(!file_exists(is_dir($rutaDump))) {
     if(!mkdir($rutaDump, 0777, true)) {
@@ -25,22 +26,19 @@ if(!file_exists(is_dir($rutaDump))) {
     }
 }
 
-/*$zip = new ZipArchive();
-$zip->open('files.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
-$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath), RecursiveIteratorIterator::LEAVES_ONLY);
+$zip = new ZipArchive();
+$zip->open($rutaZip, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rutaCarpetaBackups), RecursiveIteratorIterator::LEAVES_ONLY);
 foreach ($files as $name => $file) {
-    // Skip directories (they would be added automatically)
     if (!$file->isDir()) {
-        // Get real and relative path for current file
         $filePath = $file->getRealPath();
-        $relativePath = substr($filePath, strlen($rootPath) + 1);
-        // Add current file to archive
+        $relativePath = substr($filePath, strlen($rutaCarpetaBackups) + 1);
         $zip->addFile($filePath, $relativePath);
     }
 }
-$zip->close();*/
+$zip->close();
 
-$comando = "mysqldump --host={$host} --user={$user} --password={$password} {$database} > {$rutaDump}{$filename}";
+$comando = "mysqldump --host={$host} --user={$user} --password={$password} {$database} > {$rutaDump}{$fileNameDb}";
 
 exec($comando, $output, $resultado);
 
@@ -49,7 +47,7 @@ switch($resultado) {
         $archivoBackupJson = $rutaCarpetaBackups.'\\backups.json';
         $array = array();
         $array['dumps'] = array();
-        $array['dumps'][$fechaFile] = array('sql_filename' => $filename, 'sql_path' => $rutaDump, 'export_date' => $fechaFile);
+        $array['dumps'][$fecha] = array('sql_filename' => $fileNameDb, 'zip_foldername' => $fileNameZipImageFiles, 'path' => $rutaDump, 'export_date' => $fecha);
         if(!file_exists($archivoBackupJson)) {
             $json = json_encode($array, JSON_PRETTY_PRINT);
         } else {
