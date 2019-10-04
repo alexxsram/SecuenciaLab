@@ -1,15 +1,15 @@
 <?php 
 $method = $_POST['method'];
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$database = 'secuencialab';
-
 // $host = 'localhost';
-// $user = 'id10689217_secuencialaboperaciones';
-// $password = 'develsecuencialab';
-// $database = 'id10689217_secuencialab';
+// $user = 'root';
+// $password = '';
+// $database = 'secuencialab';
+
+$host = 'localhost';
+$user = 'id10689217_secuencialaboperaciones';
+$password = 'develsecuencialab';
+$database = 'id10689217_secuencialab';
 
 $fecha = date('Ymd_His');
 $rutaCarpetaBackups = realpath('../../sql/backups');
