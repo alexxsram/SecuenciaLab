@@ -1,5 +1,5 @@
 <?php 
-$method = $_GET['method'];
+$method = $_POST['method'];
 
 $host = 'localhost';
 $user = 'root';
@@ -47,7 +47,7 @@ switch($resultado) {
         $archivoBackupJson = $rutaCarpetaBackups.'\\backups.json';
         $array = array();
         $array['dumps'] = array();
-        $array['dumps'][$fecha] = array('sql_filename' => $fileNameDb, 'zip_foldername' => $fileNameZipImageFiles, 'path' => $rutaDump, 'export_date' => $fecha);
+        $array['dumps'][0] = array('sql_filename' => $fileNameDb, 'zip_foldername' => $fileNameZipImageFiles, 'path' => $rutaDump, 'export_date' => $fecha);
         if(!file_exists($archivoBackupJson)) {
             $json = json_encode($array, JSON_PRETTY_PRINT);
         } else {

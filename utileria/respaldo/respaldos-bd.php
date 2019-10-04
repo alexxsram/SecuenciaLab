@@ -56,7 +56,15 @@ include('../operaciones/conexion.php');
                 </div>
             </div>
             <div class="card-body">
-
+                <?php 
+                $fileBackups = realpath('../../sql/backups').'\\backups.json';
+                if(file_exists($fileBackups)) {
+                    $json = file_get_contents($fileBackups);
+                    $array = json_decode($json, true);
+                    echo "<pre>";
+                    print_r($array['dumps']);
+                }
+                ?>
             </div>
         </div>
     </div>
