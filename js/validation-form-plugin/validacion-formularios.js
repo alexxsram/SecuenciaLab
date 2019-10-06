@@ -1659,16 +1659,23 @@ function accionarConsulta(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRed
   });
 }
 
-function accionarBackup(dato, rutaRedireccionar) {
+function accionarRespaldo(dato, rutaRedireccionar) {
   $.ajax({
     type: "POST",
     url: "backup.php",
     dataType: "HTML",
     data: dato,
     success: function(echo) {
-      if(echo == "success") {
+      if(echo == "export success") {
         bootbox.alert({
-          message: "Respaldo creado correctamente.",
+          message: "Archivos de respaldo exportados correctamente",
+          callback: function () {
+            redireccionarPagina(rutaRedireccionar);
+          }
+        });
+      } else if(echo == "import success") {
+        bootbox.alert({
+          message: "Archivos de respaldo importados correctamente",
           callback: function () {
             redireccionarPagina(rutaRedireccionar);
           }

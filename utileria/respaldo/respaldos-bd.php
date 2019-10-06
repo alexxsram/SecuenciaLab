@@ -50,8 +50,8 @@ include('../operaciones/conexion.php');
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
             <div class="card-header bg-dark border-dark text-white">
                 <div class="float-right">
-                    <button type="button" class="btn btn-sm btn-outline-warning" onclick="accionarBackup('method=export', 'respaldos-bd.php');">
-                        <i class="fas fa-file-export"></i> Exportar base de datos
+                    <button type="button" class="btn btn-sm btn-outline-warning" onclick="accionarRespaldo('method=export', 'respaldos-bd.php');">
+                        <i class="fas fa-file-export"></i> Exportar
                     </button>
                 </div>
             </div>
@@ -61,10 +61,44 @@ include('../operaciones/conexion.php');
                 if(file_exists($fileBackups)) {
                     $json = file_get_contents($fileBackups);
                     $array = json_decode($json, true);
-                    echo "<pre>";
-                    print_r($array['dumps']);
-                }
+                    $dumps = $array['dumps'];
+                    $total = count($dumps);
                 ?>
+
+                <div class="card table-responsive" style="border-radius: 5px;">
+                    <table class="table table-hover table-stripped cart-wrap">
+                        <thead class="text-muted">
+                            <tr>
+                                <th scope="col">Archivo SQL</th>
+                                <th scope="col">Archivo de imagenes</th>
+                                <th scope="col">Fecha de exportación</th>
+                                <th scope="col" class="text-center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php for($i = 0; $i < $total; $i++) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $dumps[$i]['sql_filename']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $dumps[$i]['zip_foldername']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $dumps[$i]['export_date']; ?>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-outline-success" onclick="accionarRespaldo('method=import&sql_filename=<?php echo $dumps[$i]['sql_filename']; ?>&zip_foldername=<?php echo $dumps[$i]['zip_foldername']; ?>&path=<?php echo urlencode($dumps[$i]['path']); ?>', 'respaldos-bd.php');">
+                                        <i class="fas fa-file-import"></i> Importar
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <?php } ?>
             </div>
         </div>
     </div>
