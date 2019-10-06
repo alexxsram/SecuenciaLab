@@ -25,7 +25,7 @@ switch ($method) {
         $path = $rutaBackups.'\\'.$fecha.'\\';
         
         if(!file_exists(is_dir($path))) {
-            if(!mkdir($path, 0777, true)) {
+            if(!mkdir($path, 0755, true)) {
                 $error = error_get_last();
                 echo $error['message'];
             }

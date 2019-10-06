@@ -1,34 +1,25 @@
 <!DOCTYPE html>
 <?php
+session_start();
+if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO' || $_SESSION['estado'] == 'INICIO_SESION_ADMIN')) {
+  header('Location: utileria/sesion/sesion.php');
+} else {
+  $codigo = $_SESSION['codigo'];
+  $nombre = $_SESSION['nombre'];
+  $estado = $_SESSION['estado'];
+  $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
+  // $tiempo = $_SESSION['tiempo_sesion'];
+  // if(time() - $tiempo >= 10){
+  //     header('Location: utileria/sesion/cerrar-sesion.php');
+  // }
+  // else {
+  //     $_SESSION['tiempo_sesion'] = time();
+  // }
+}
+
 include('utileria/operaciones/conexion.php');
 $claveAccesoClase =   base64_decode($_GET['claveAccesoClase']);
 $claveUsuario = base64_decode($_GET['codigoAlumno']);
-/*//Estraer datos de una clase
-$sql = "SELECT * FROM clase WHERE claveAcceso = :claveAcceso";
-$resultado = $baseDatos->prepare($sql);
-$resultado->bindValue(':claveAcceso', $claveAccesoClase);
-$resultado->execute();
-$numRow = $resultado->rowCount();
-if($numRow != 0)
-$clase = $resultado->fetch(PDO::FETCH_OBJ);
-//Extraer datos del alumno
-$sql = "SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno";
-$resultado = $baseDatos->prepare($sql);
-$resultado->bindValue(':codigoAlumno', $claveUsuario);
-$resultado->execute();
-$numRow = $resultado->rowCount();
-if($numRow != 0)
-$alumno = $resultado->fetch(PDO::FETCH_OBJ);
-
-//Extraer datos de las prácticas de una clase
-$sql = "SELECT * FROM practica WHERE Clase_claveAcceso = :Clase_claveAcceso";
-$resultado = $baseDatos->prepare($sql);
-$resultado->bindValue(':Clase_claveAcceso', $claveAccesoClase);
-$resultado->execute();
-$numRow = $resultado->rowCount();
-if($numRow != 0)
-$practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
-//$practicasClase = $alumno;
 ?>
 <html lang="es">
 <head>
@@ -56,12 +47,6 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
     <div class="form-group">
       <input type="hidden" class="form-control" id="info-alumno-claveAcceso" name="info-alumno-claveAcceso" disabled="disabled" value=<?php echo $claveAccesoClase;?>>
       <input type="hidden" class="form-control" id="info-alumno-codigo-alumno" name="info-alumno-codigo-alumno" disabled="disabled" value=<?php echo $claveUsuario;?>>
-      <!--
-      <ul class="list-group" id="listgroup22" name="listgroup22">
-      <li class="list-group-item active disabled">Lista de alumnos</li>
-      <button type="button" class="list-group-item list-group-item-action">DATOS GENERALES</button>
-    </ul>
-  -->
 
   <blockquote class="blockquote text-center"> <h1 class="display-4">Gráficas informativas</h1></blockquote>
   <div class="card" id="info-alumno-datos-clase" name="info-alumno-datos-clase">
@@ -89,22 +74,6 @@ $practicasClase = $resultado->fetchAll(PDO::FETCH_OBJ);*/
       <div id="container" name="container" style="width:100%; height:400px;"></div>
     </div>
   </div>
-
-  <!--<form id="myAwesomeDropzone" name= "myAwesomeDropzone" action="upload.php" class="dropzone"></form>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <form id="form1" runat="server">
-  <input type='file' id="imgInp" />
-  <img id="blah" src="#" alt="your image" />
-</form>
-
-<input type="file" accept="image/*" onchange="loadFile(event)">
-<img id="output"/>
-
-<img id="blah" alt="your image" width="100" height="100" />
-<input type="file"
-onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-</div>-->
 
 <script src="js/validation-form-plugin/panel-info-alumno.js"></script>
 </body>
