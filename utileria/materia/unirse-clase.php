@@ -22,7 +22,7 @@ try {
       $resultado = $baseDatos->prepare($sql);
       $array = array(
         ':cca' => $claveAcceso,
-        ':auca' =>$codigoAlumno
+        ':auca' => $codigoAlumno
       );
       $resultado->execute($array);
       $count = $resultado->rowCount();
@@ -31,13 +31,14 @@ try {
       }
 
       if($noPreviamente) {
-        $sql = 'INSERT INTO clase_has_alumnousuario (Clase_claveAcceso, AlumnoUsuario_codigoAlumno, createdAt, updatedAt)
-        VALUES (:ca, :cal, :cat, :uat)';
+        $sql = 'INSERT INTO clase_has_alumnousuario (Clase_claveAcceso, AlumnoUsuario_codigoAlumno, matriculado, createdAt, updatedAt)
+        VALUES (:ca, :cal, :m, :cat, :uat)';
         
         $resultado = $baseDatos->prepare($sql);
         $array = array(
           ':ca' => $claveAcceso,
           ':cal' => $codigoAlumno,
+          ':m' => true,
           ':cat' => $timeAt,
           ':uat' => $timeAt
         );

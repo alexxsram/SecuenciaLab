@@ -2,7 +2,7 @@
 include('../operaciones/conexion.php');
 
 try {
-    $claveAccesoClase = $_POST['claveAccesoClase'];
+    $claveAccesoClase = $_GET['claveAccesoClase'];
 
     $sql = 'SELECT CHAU.*, AU.* FROM clase_has_alumnousuario CHAU
     INNER JOIN alumnousuario AU ON CHAU.AlumnoUsuario_codigoAlumno = AU.codigoAlumno

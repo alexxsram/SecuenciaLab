@@ -6,9 +6,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
     $estado = $_SESSION['estado'];
-    if(isset($_SESSION['permiso'])) {
-        $permiso = $_SESSION['permiso'];
-    }
+    $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
     // $tiempo = $_SESSION['tiempo_sesion'];
     // if(time() - $tiempo >= 10){
     //     header('Location: utileria/sesion/cerrar-sesion.php');
@@ -125,22 +123,19 @@ if($nombre != $nombreUsuario) {
                 $sql = 'SELECT C.*, PU.* FROM clase AS C
                 INNER JOIN profesorusuario AS PU ON C.ProfesorUsuario_codigoProfesor = PU.codigoprofesor
                 ORDER BY C.anio DESC, C.nombreClase ASC, C.CicloEscolar_idCicloEscolar ASC';
-
                 $resultado = $baseDatos->prepare($sql);
             } else if($estado == 'INICIO_SESION_PROFESOR') {
                 $sql = 'SELECT * FROM clase
                 WHERE ProfesorUsuario_codigoProfesor = :pucp
                 AND eliminado != true
                 ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC';
-
                 $resultado = $baseDatos->prepare($sql);
                 $resultado->bindValue(':pucp', $codigo);
             } else if($estado == 'INICIO_SESION_ALUMNO') {
-                $sql = 'SELECT C.*, CHAU.acceso FROM clase AS C
+                $sql = 'SELECT C.*, CHAU.permiso FROM clase AS C
                 INNER JOIN clase_has_alumnousuario AS CHAU ON CHAU.Clase_claveAcceso = C.claveAcceso
                 WHERE C.eliminado != true AND CHAU.AlumnoUsuario_codigoAlumno = :auca
                 ORDER BY C.anio DESC, C.nombreClase ASC, C.CicloEscolar_idCicloEscolar ASC';
-
                 $resultado = $baseDatos->prepare($sql);
                 $resultado->bindValue(':auca', $codigo);
             }
@@ -271,25 +266,29 @@ if($nombre != $nombreUsuario) {
                                     </button>
 
                                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalAccesoClase" data-claveacceso="<?php echo $clase->claveAcceso; ?>">
-                                        Acceso <i class="fas fa-key"></i>
+                                        Permiso alumnos <i class="fas fa-key"></i>
                                     </button>
 
                                     <button type="button" class="btn btn-sm btn-secondary <?php echo $botonActivaClase; ?>" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'activarClase');">
                                         Activar clase <i class="fas fa-check"></i>
                                     </button>
                                 <?php } else if($estado == 'INICIO_SESION_ALUMNO') {
-                                    if($clase->acceso) {
-                                        $mensaje = 'Entrar';
+                                    if($clase->permiso) {
+                                        $mensaje = 'Alumno matriculado, permiso de acceso concedido';
                                         $color = 'success';
                                         $disabled = '';
                                     } else {
-                                        $mensaje = 'Esperando aprobación';
+                                        $mensaje = 'Alumno matriculado, esperando aprobaciónn de permiso de acceso a la clase';
                                         $color = 'warning';
                                         $disabled = 'disabled="true"';
                                     }
                                 ?>
+                                    <p class="card-text text-center" style="font-size: 12.5px;">
+                                        <b> Estatus del alumno: </b> <?php echo $mensaje; ?>
+                                    </p>
+
                                     <button type="button" class="btn btn-sm btn-<?php echo $color; ?>" <?php echo $disabled; ?> onclick="cargarContenido('utileria/materia/', 'index-materia.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">
-                                        <?php echo $mensaje; ?> <i class="fas fa-door-open"></i>
+                                        Entrar <i class="fas fa-door-open"></i>
                                     </button>
 
                                     <button type="button" class="btn btn-sm btn-danger" <?php echo $disabled; ?> onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '-' . $codigo . '\''; ?>, 'abandonarClase');">

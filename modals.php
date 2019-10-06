@@ -1,10 +1,18 @@
 <?php
-if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO' || $_SESSION['estado'] == 'INICIO_SESION_ADMON')) {
-  header('Location: utileria/sesion/sesion.php');
+if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO' || $_SESSION['estado'] == 'INICIO_SESION_ADMIN')) {
+    header('Location: utileria/sesion/sesion.php');
 } else {
-  $codigo = $_SESSION['codigo'];
-  $nombre = $_SESSION['nombre'];
-  $estado = $_SESSION['estado'];
+    $codigo = $_SESSION['codigo'];
+    $nombre = $_SESSION['nombre'];
+    $estado = $_SESSION['estado'];
+    $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
+    // $tiempo = $_SESSION['tiempo_sesion'];
+    // if(time() - $tiempo >= 10){
+    //     header('Location: utileria/sesion/cerrar-sesion.php');
+    // }
+    // else {
+    //     $_SESSION['tiempo_sesion'] = time();
+    // }
 }
 ?>
 
@@ -270,7 +278,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-info">
-        <h4 class="modal-title text-white">Acceso a la clase</h4>
+        <h4 class="modal-title text-white">Permisos a la clase</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -280,7 +288,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
       <form id="formAccesoClase" name="formAccesoClase" method="POST">
         <div class="modal-body">
           <div class="alert alert-info text-justify" role="alert">
-            Esta sección ayuda a los profesores a autorizar acceso a los alumnos que podrán ver el contenido de la clase.
+            Esta sección ayuda a los profesores a autorizar el permiso de acceso a los alumnos que podrán ver el contenido de la clase.
           </div>
 
           <div class="form-group">

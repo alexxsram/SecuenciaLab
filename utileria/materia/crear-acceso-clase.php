@@ -5,7 +5,7 @@ try {
     $claveAccesoClase = htmlentities(addslashes($_POST['claveAccesoClase']));
     $selectAccesoAlumno = htmlentities(addslashes($_POST['selectAccesoAlumno']));
     
-    $sql = 'UPDATE clase_has_alumnousuario SET acceso = true
+    $sql = 'UPDATE clase_has_alumnousuario SET permiso = true
     WHERE Clase_claveAcceso = :cca AND AlumnoUsuario_codigoAlumno = :auca';
     $resultado = $baseDatos->prepare($sql);
     $array = array(

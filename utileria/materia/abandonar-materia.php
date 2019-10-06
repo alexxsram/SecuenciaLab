@@ -20,7 +20,7 @@ try {
       /*$sql = 'DELETE FROM clase_has_alumnousuario
       WHERE Clase_claveAcceso = :claveAcceso
       AND AlumnoUsuario_codigoAlumno = :codigoAlumno';*/
-      $sql = 'UPDATE clase_has_alumnousuario SET acceso = false, updatedAt = :uat 
+      $sql = 'UPDATE clase_has_alumnousuario SET matriculado = false, permiso = false, updatedAt = :uat 
       WHERE Clase_claveAcceso = :ca AND AlumnoUsuario_codigoAlumno = :auca';
 
       $resultado = $baseDatos->prepare($sql);

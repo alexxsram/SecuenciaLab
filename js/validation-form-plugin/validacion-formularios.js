@@ -759,7 +759,7 @@ $("#modalAccesoClase").on("show.bs.modal", function (event) {
 
   var claveAcceso = button.data("claveacceso");
 
-  insercionPorAjax("POST", "utileria/materia/cargar-lista-alumnos-acceso.php?claveAccesoClase=" + claveAcceso, "#selectAccesoAlumno");
+  insercionPorAjax("GET", "utileria/materia/cargar-lista-alumnos-acceso.php?claveAccesoClase=" + claveAcceso, "#selectAccesoAlumno");
 
   modal.find("#formAccesoClase #claveAccesoClase").val(claveAcceso);
 
