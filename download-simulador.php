@@ -133,9 +133,15 @@
           El simulador se encuentra disponible para los siguientes sistemas operativos:
         </h3>
         <div class="btn-toolbar" role="toolbar" aria-label="Opciones de descarga">
-          <button type="button" class="btn btn-success btn-block"> <i class="fab fa-windows"></i> Descarga para <br>Windows</button>
-          <button type="button" class="btn btn-warning btn-block"> <i class="fab fa-linux"></i> Descarga para <br>Linux</button>
-          <button type="button" class="btn btn-danger btn-block"> <i class="fab fa-apple"></i> Descarga para <br>Mac</button>
+          <button type="button" class="btn btn-success btn-block" onclick="cargarPagina('http://tiny.cc/0no0dz');"> <i class="fab fa-windows"></i> Descarga para <br>Windows x32 - 32 bits</button>
+          <button type="button" class="btn btn-success btn-block" onclick="cargarPagina('http://tiny.cc/8oo0dz');"> <i class="fab fa-windows"></i> Descarga para <br>Windows x64 - 64 bits</button>
+          
+          <button type="button" class="btn btn-warning btn-block" onclick="cargarPagina('http://tiny.cc/qqo0dz');"> <i class="fab fa-linux"></i> Descarga para <br>Linux x32 - 32 bits</button>
+          <button type="button" class="btn btn-warning btn-block" onclick="cargarPagina('http://tiny.cc/ppo0dz');"> <i class="fab fa-linux"></i> Descarga para <br>Linux x64 - 64 bits</button>
+        
+          <button type="button" class="btn btn-danger btn-block" onclick="cargarPagina('http://tiny.cc/kro0dz');"> <i class="fab fa-apple"></i> Descarga para <br>Mac x32 - 32 bits</button>
+          <button type="button" class="btn btn-danger btn-block" onclick="cargarPagina('http://tiny.cc/fro0dz');"> <i class="fab fa-apple"></i> Descarga para <br>Mac x64 - 64 bits</button>
+          
           <button class="btn btn-sm btn-outline-primary btn-block" type="button" onclick="redireccionarPagina('index.php');">
             Regresar <i class="fas fa-arrow-left"></i>
           </button>
