@@ -2,11 +2,11 @@
 include('../operaciones/conexion.php');
 
 try {
-    $claveAccesoClase = $_GET['claveAccesoClase'];
+    $claveAccesoClase = $_POST['claveAccesoClase'];
 
     $sql = 'SELECT CHAU.*, AU.* FROM clase_has_alumnousuario CHAU
     INNER JOIN alumnousuario AU ON CHAU.AlumnoUsuario_codigoAlumno = AU.codigoAlumno
-    WHERE CHAU.Clase_claveAcceso = :cca AND CHAU.acceso != true';
+    WHERE CHAU.Clase_claveAcceso = :cca AND CHAU.permiso != true';
 
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':cca', $claveAccesoClase);

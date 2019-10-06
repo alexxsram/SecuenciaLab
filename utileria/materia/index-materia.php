@@ -6,9 +6,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
     $estado = $_SESSION['estado'];
-    if(isset($_SESSION['permiso'])) {
-        $permiso = $_SESSION['permiso'];
-    }
+    $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
     // $tiempo = $_SESSION['tiempo_sesion'];
     // if(time() - $tiempo >= 10){
     //     header('Location: utileria/sesion/cerrar-sesion.php');
@@ -82,7 +80,7 @@ try {
                     <p class="h6">
                         <small class="text-muted">
                             Clave de acceso: <?php echo $clase->claveAcceso; ?>
-                            <button class="btn " style="background-color: transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\''.$clase->claveAcceso.'\'' ?>);">
+                            <button class="btn" style="background-color: transparent;" data-toggle="tooltip" title="Mostrar" onclick="expandirClaveAcceso(<?php echo '\'' . $clase->claveAcceso . '\''; ?>);">
                                 <i class="fas fa-sign-in-alt"></i>
                             </button>
                         </small>
@@ -150,7 +148,7 @@ try {
         </div>
         <!-- FIN DEL JUMBOTRON DE LOS DATOS DE LA CLASE -->
 
-        <!-- PESTAÑAS/TABS DEL CONTENIDO QUE VOY A MOSTRAR -->
+        <!-- PESTAÑAS/TABS DEL CONTENIDO -->
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
 
             <!-- HEADER DE LOS TAB -->
@@ -194,7 +192,7 @@ try {
                             $resultado->execute($array);
                         } else if($estado == 'INICIO_SESION_ALUMNO') {
                             $sql = 'SELECT * FROM anuncio 
-                            WHERE Clase_claveAcceso IN ( SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca AND acceso != false )
+                            WHERE Clase_claveAcceso IN ( SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca AND permiso != false )
                             ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
                             $array = array(':cca' => $clase->claveAcceso);
@@ -679,7 +677,7 @@ try {
                     <!-- TAB DE LA LISTA DE ALUMNOS -->
                     <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
                         <?php
-                        $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno,  " ", A.apellidoMaterno) AS nombreCompleto, CHAU.acceso as accesoAlumno
+                        $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno,  " ", A.apellidoMaterno) AS nombreCompleto, CHAU.permiso as accesoAlumno
                         FROM clase_has_alumnousuario AS CHAU 
                         INNER JOIN alumnousuario A ON CHAU.AlumnoUsuario_codigoAlumno = A.codigoAlumno 
                         WHERE CHAU.Clase_claveAcceso = :ca';
@@ -797,7 +795,7 @@ try {
             <!-- FIN DEL CUERPO DE LOS TAB  -->
 
         </div>
-        <!-- TERMINA LAS PESTAÑAS/TABS DEL CONTENIDO -->
+        <!-- FIN DE LAS PESTAÑAS/TABS DEL CONTENIDO -->
 
     </div>
     <!-- FIN DEL CONTAINER -->
@@ -816,7 +814,7 @@ try {
 
 <?php
     } else {
-        echo '<script>window.close();</script>';
+        // echo '<script>window.close();</script>';
     }
 } catch(Exception $exec) {
     die('Error en la base de datos: ' . $exec->getMessage());
