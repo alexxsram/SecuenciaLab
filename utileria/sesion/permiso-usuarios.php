@@ -70,6 +70,7 @@ include('../operaciones/conexion.php');
                     <table class="table table-hover table-stripped cart-wrap">
                         <thead class="text-muted">
                             <tr>
+                                <th scope="col">Código</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col" class="text-center">Permiso</th>
                                 <th scope="col" class="text-center">Conceder permiso</th>
@@ -91,6 +92,9 @@ include('../operaciones/conexion.php');
                             ?>
                             <tr>
                                 <td>
+                                    <?php echo $profesor->codigoProfesor; ?>
+                                </td>
+                                <td>
                                     <?php echo $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ', ' . $profesor->nombrePila; ?>
                                 </td>
                                 <td class="text-center">
@@ -104,6 +108,16 @@ include('../operaciones/conexion.php');
 
                                     if($permiso == 'dba') {
                                         $noConcesionPermisoDba = 'disabled="disabled"';
+                                        if($profesor->permiso == $permiso) {
+                                            $noConcesionPermisoPadmin = 'disabled="disabled"';
+                                            $noConcesionPermisoPnormal = 'disabled="disabled"';
+                                        }
+                                        if($profesor->permiso == 'padmin') {
+                                            $noConcesionPermisoPadmin = 'disabled="disabled"';
+                                        }
+                                        if($profesor->permiso == 'pnormal') {
+                                            $noConcesionPermisoPnormal = 'disabled="disabled"';
+                                        }
                                     }
                                     if($permiso == 'padmin') {
                                         $noConcesionPermisoDba = 'disabled="disabled"';
@@ -119,14 +133,14 @@ include('../operaciones/conexion.php');
                                         }
                                     }
                                     ?>
-                                    <button type="button" class="btn btn-sm btn-outline-<?php echo $color; ?>" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=dba', 'permiso-usuarios.php');" <?php echo $noConcesionPermisoDba; ?>>
-                                        Permiso dba
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=dba', 'permiso-usuarios.php');" <?php echo $noConcesionPermisoDba; ?>>
+                                        dba
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-outline-<?php echo $color; ?>" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=padmin', 'permiso-usuarios.php');"  <?php echo $noConcesionPermisoPadmin; ?>>
-                                        Permiso padmin
+                                    <button type="button" class="btn btn-sm btn-outline-success" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=padmin', 'permiso-usuarios.php');"  <?php echo $noConcesionPermisoPadmin; ?>>
+                                        padmin
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-outline-<?php echo $color; ?>" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=pnormal', 'permiso-usuarios.php');"  <?php echo $noConcesionPermisoPnormal; ?>>
-                                        Permiso pnormal
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="accionarConsulta('POST', '', 'actualizar-permiso.php', 'html', 'codigoProfesor=<?php echo $profesor->codigoProfesor; ?>&permiso=pnormal', 'permiso-usuarios.php');"  <?php echo $noConcesionPermisoPnormal; ?>>
+                                        pnormal
                                     </button>
                                 </td>
                             </tr>
