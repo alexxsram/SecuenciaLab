@@ -4,15 +4,15 @@ $sqlFilename = isset($_POST['sql_filename']) ? $_POST['sql_filename'] : '';
 $zipFoldername = isset($_POST['zip_foldername']) ? $_POST['zip_foldername'] : '';
 $path = isset($_POST['path']) ? $_POST['path'] : '';
 
-// $host = 'localhost';
-// $user = 'root';
-// $password = '';
-// $database = 'secuencialab';
-
 $host = 'localhost';
-$user = 'id10689217_secuencialaboperaciones';
-$password = 'develsecuencialab';
-$database = 'id10689217_secuencialab';
+$user = 'root';
+$password = '';
+$database = 'secuencialab';
+
+// $host = 'localhost';
+// $user = 'id11133718_admin';
+// $password = 'secuencialab';
+// $database = 'id11133718_secuencialab';
 
 switch ($method) {
     case 'export':
@@ -22,7 +22,7 @@ switch ($method) {
         $rutaImageFiles = realpath('../../images/files');
         $sqlFileName = $database.'_'.$fecha.'.sql';
         $zipFoldername = 'files_'.$fecha.'.zip';
-        $path = $rutaBackups.'\\'.$fecha.'\\';
+        $path = $rutaBackups.'/'.$fecha.'/';
         
         if(!file_exists(is_dir($path))) {
             if(!mkdir($path, 0755, true)) {
@@ -52,7 +52,7 @@ switch ($method) {
         
         switch($resultado) {
             case 0:
-                $archivoBackupJson = $rutaBackups.'\\backups.json';
+                $archivoBackupJson = $rutaBackups.'/backups.json';
                 $array = array();
                 $array['dumps'] = array();
                 $array['dumps'][0] = array('sql_filename' => $sqlFileName, 'zip_foldername' => $zipFoldername, 'path' => $path, 'export_date' => $fecha1);
@@ -73,6 +73,9 @@ switch ($method) {
                 echo 'export success';
                 break;
             case 1:
+                echo "<pre>";
+                print_r($output);
+                die;
                 echo 'Error al realizar la exportación de la base de datos';
                 break;
         }        
