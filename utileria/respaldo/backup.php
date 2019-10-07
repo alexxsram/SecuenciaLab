@@ -22,7 +22,7 @@ switch ($method) {
         $rutaImageFiles = realpath('../../images/files');
         $sqlFileName = $database.'_'.$fecha.'.sql';
         $zipFoldername = 'files_'.$fecha.'.zip';
-        $path = $rutaBackups.'\\'.$fecha.'\\';
+        $path = $rutaBackups.'/'.$fecha.'/';
         
         if(!file_exists(is_dir($path))) {
             if(!mkdir($path, 0755, true)) {
