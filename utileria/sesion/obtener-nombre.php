@@ -7,44 +7,43 @@ try {
   $aux = substr($claveUsuario, 0, 1);
 
   if($aux == 'A' || $aux == 'a') {
-    $sql = "SELECT *
-    FROM alumnousuario
-    WHERE codigoAlumno= :codigoAlumno";
+    $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno= :ca';
     $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':codigoAlumno', $claveUsuario);
+    $resultado->bindValue(':ca', $claveUsuario);
     $resultado->execute();
-    $numRow = $resultado->rowCount();
-    if($numRow!=0){
-      $usuario = $resultado->fetch(PDO::FETCH_OBJ);
-      echo "[{
-        \"nombrePila\": \"$usuario->nombrePila\",
-        \"apellidoPaterno\": \"$usuario->apellidoPaterno\",
-        \"apellidoMaterno\": \"$usuario->apellidoMaterno\"
-      }]";
-    }else{
-      echo "Error. El usuario (Alumno) no es valido. " . $claveUsuario;
-    }
-  } else if($aux == 'P' || $aux == 'p'){
-    $sql = "SELECT *
-    FROM profesorusuario
-    WHERE codigoProfesor= :codigoProfesor";
 
-    $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':codigoProfesor', $claveUsuario);
-    $resultado->execute();
     $numRow = $resultado->rowCount();
-    if($numRow!=0){
+    
+    if($numRow != 0) {
       $usuario = $resultado->fetch(PDO::FETCH_OBJ);
-      echo "[{
-        \"nombrePila\": \"$usuario->nombrePila\",
-        \"apellidoPaterno\": \"$usuario->apellidoPaterno\",
-        \"apellidoMaterno\": \"$usuario->apellidoMaterno\"
-      }]";
-    }else{
-      echo "Error. El usuario (Profesor) no es valido. " . $claveUsuario;
+      $array = array();
+      $array['nombrePila'] = $usuario->nombrePila;
+      $array['apellidoPaterno'] = $usuario->apellidoPaterno;
+      $array['apellidoMaterno'] = $usuario->apellidoMaterno;
+      echo json_encode($array);
+    } else {
+      echo 'Error. El usuario (Alumno) no es valido. ' . $claveUsuario;
     }
-  }else{
-    echo "Error. Tipo de usuario desconocido. " . $claveUsuario;
+  } else if(($aux == 'P' || $aux == 'p') || ($aux == 'M' || $aux == 'm')){
+    $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor= :cp';
+    $resultado = $baseDatos->prepare($sql);
+    $resultado->bindValue(':cp', $claveUsuario);
+    $resultado->execute();
+
+    $numRow = $resultado->rowCount();
+
+    if($numRow != 0) {
+      $usuario = $resultado->fetch(PDO::FETCH_OBJ);
+      $array = array();
+      $array['nombrePila'] = $usuario->nombrePila;
+      $array['apellidoPaterno'] = $usuario->apellidoPaterno;
+      $array['apellidoMaterno'] = $usuario->apellidoMaterno;
+      echo json_encode($array);
+    } else {
+      echo 'Error. El usuario (Profesor) no es valido. ' . $claveUsuario;
+    }
+  } else {
+    echo 'Error. Tipo de usuario desconocido. ' . $claveUsuario;
   }
 } catch(Exception $exec) {
   die('Error en la base de datos: ' . $exec->getMessage());

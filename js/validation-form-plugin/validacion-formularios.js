@@ -380,12 +380,10 @@ function llenarCamposNombreUsuario(claveUsuario, modal) {
     dataType: "HTML",
     data: "claveUsuario=" + claveUsuario,
     success: function(data) {
-      //console.log("data: " + data);
       var json = jQuery.parseJSON(data);
-      //console.log(json);
-      modal.find("#formCambiarNombre #nombrePilaUsuarioCambiar").val(json[0].nombrePila);
-      modal.find("#formCambiarNombre #apellidoPaternoUsuarioCambiar").val(json[0].apellidoPaterno);
-      modal.find("#formCambiarNombre #apellidoMaternoUsuarioCambiar").val(json[0].apellidoMaterno);
+      modal.find("#formCambiarNombre #nombrePilaUsuarioCambiar").val(json["nombrePila"]);
+      modal.find("#formCambiarNombre #apellidoPaternoUsuarioCambiar").val(json["apellidoPaterno"]);
+      modal.find("#formCambiarNombre #apellidoMaternoUsuarioCambiar").val(json["apellidoMaterno"]);
     },
     error: function(data) {
     }
@@ -399,7 +397,7 @@ $("#modalCambiarNombre").on("show.bs.modal", function (event) {
   var claveUsuario = button.data("codigo");
 
   modal.find("#formCambiarNombre #claveUsuario").val(claveUsuario);
-  //console.log(claveUsuario);
+
   llenarCamposNombreUsuario(claveUsuario, modal);
 
   $("#formCambiarNombre").validate({
