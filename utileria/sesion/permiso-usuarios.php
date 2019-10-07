@@ -6,9 +6,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
     $estado = $_SESSION['estado'];
-    if(isset($_SESSION['permiso'])) {
-        $permiso = $_SESSION['permiso'];
-    }
+    $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
     // $tiempo = $_SESSION['tiempo_sesion'];
     // if(time() - $tiempo >= 10){
     //     header('Location: utileria/sesion/cerrar-sesion.php');
