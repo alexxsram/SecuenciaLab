@@ -6,7 +6,7 @@
 // $PASS = ''; // quitar esta contraseña y dejarla vacía
 
 $HOST = 'mysql:host=localhost; dbname=secuenc2_secuencialab';
-$USER = 'secuenc2_admin';
+$USER = 'secuenc2';
 $PASS = 'secuencialabcucei'; // quitar esta contraseña y dejarla vacía
 
 try {

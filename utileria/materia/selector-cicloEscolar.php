@@ -2,17 +2,17 @@
 include('../operaciones/conexion.php');
 
 try {
-  $data = $baseDatos->query("SELECT *
-    FROM cicloescolar")->fetchAll();
+  $sql = 'SELECT * FROM cicloescolar';
+  $resultado = $baseDatos->prepare($sql);
+  $resultado->execute();
 
-    foreach ($data as $row) {
-      $idCiclo = $row['idCicloEscolar'];
-      $cilo = $row['ciclo'];
-      echo "<option value='{$idCiclo}'> {$cilo} </option>";
-    }
-    // Cerrar la conexión
-    mysql_close($baseDatos);
-  } catch(Exception $exec) {
-    die('Error en la base de datos: ' . $exec->getMessage());
+  $ciclosEscolares = $resultado->fetchAll(PDO::FETCH_OBJ);
+  $ciclos = '';
+  foreach ($ciclosEscolares as $cicloEscolar) {
+    $ciclos .= '<option value="' . $cicloEscolar->idCicloEscolar . '">'. $cicloEscolar->ciclo . '</option>';
   }
-  ?>
+  echo $ciclos;
+} catch(Exception $exec) {
+  die('Error en la base de datos: ' . $exec->getMessage());
+}
+?>

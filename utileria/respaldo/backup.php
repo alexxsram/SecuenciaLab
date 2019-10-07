@@ -10,7 +10,7 @@ $path = isset($_POST['path']) ? $_POST['path'] : '';
 // $database = 'secuencialab';
 
 $host = 'localhost';
-$user = 'secuenc2_secuencialab';
+$user = 'secuenc2';
 $password = 'secuencialabcucei';
 $database = 'secuenc2_secuencialab';
 
