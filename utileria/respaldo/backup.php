@@ -4,15 +4,15 @@ $sqlFilename = isset($_POST['sql_filename']) ? $_POST['sql_filename'] : '';
 $zipFoldername = isset($_POST['zip_foldername']) ? $_POST['zip_foldername'] : '';
 $path = isset($_POST['path']) ? $_POST['path'] : '';
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$database = 'secuencialab';
-
 // $host = 'localhost';
-// $user = 'id11133718_admin';
-// $password = 'secuencialab';
-// $database = 'id11133718_secuencialab';
+// $user = 'root';
+// $password = '';
+// $database = 'secuencialab';
+
+$host = 'localhost';
+$user = 'secuenc2_secuencialab';
+$password = 'secuencialabcucei';
+$database = 'secuenc2_secuencialab';
 
 switch ($method) {
     case 'export':
