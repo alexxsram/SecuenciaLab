@@ -36,12 +36,9 @@ switch ($method) {
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rutaImageFiles), RecursiveIteratorIterator::LEAVES_ONLY);
         foreach ($files as $name => $file) {
             if (!$file->isDir()) {
-                if($file->getFilename() == 'readme.md') {
-                } else {
-                    $filePath = $file->getRealPath();
-                    $relativePath = substr($filePath, strlen($rutaBackups) + 1);
-                    $zip->addFile($filePath, $relativePath);
-                }
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($rutaBackups) + 1);
+                $zip->addFile($filePath, $relativePath);
             }
         }
         $zip->close();
