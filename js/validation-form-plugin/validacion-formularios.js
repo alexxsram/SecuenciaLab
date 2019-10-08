@@ -224,13 +224,12 @@ $("#formRestablecerContrasena").validate({
     }).done(function(echo) {
       if(echo != "") {
         bootbox.alert({
-            message: echo,
-            callback: function () {
-              limpiarFormulario("#formRestablecerContrasena");
-              redireccionarPagina("index.php");
-            }
+          message: echo,
+          callback: function () {
+            limpiarFormulario("#formRestablecerContrasena");
+            redireccionarPagina("index.php");
           }
-        );
+        });
       }
     });
   },
