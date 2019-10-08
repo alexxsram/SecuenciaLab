@@ -61,7 +61,7 @@ try {
     } else {
       echo 'Error. No se encontro un alumno con ese código.';
     }
-  } else if ($aux == 'P' || $aux == 'p') {
+  } else if (($aux == 'P' || $aux == 'p') || ($aux == 'M' || $aux == 'm')) {
     $sql = 'SELECT * FROM profesorusuario
     WHERE codigoProfesor = :codigoProfesor AND respuestaSeguridad = :respuestaSeguridad';
 
