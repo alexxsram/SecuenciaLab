@@ -203,17 +203,6 @@ $("#formRestablecerContrasena").validate({
     },
     respuestaSeguridad: {
       required: true
-    },
-    nuevoPasswordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45
-    },
-    confirmarNuevoPasswordUsuario: {
-      required: true,
-      minlength: 8,
-      maxlength: 45,
-      equalTo: "#nuevoPasswordUsuario"
     }
   },
   messages: {
@@ -224,17 +213,6 @@ $("#formRestablecerContrasena").validate({
     },
     respuestaSeguridad: {
       required: "Ingresa la respuesta de la pregunta de seguridad"
-    },
-    nuevoPasswordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de {0} caracteres")
-    },
-    confirmarNuevoPasswordUsuario: {
-      required: "Ingresa la contraseña",
-      minlength: jQuery.validator.format("La contraseña debe tener una longitud como mínimo de {0} caracteres"),
-      maxlength: jQuery.validator.format("La contraseña debe tener una longitud como máximo de {0} caracteres"),
-      equalTo: "La contraseña debe ser igual a la que acaba de ingresar"
     }
   },
   submitHandler: function(form) {
@@ -242,23 +220,17 @@ $("#formRestablecerContrasena").validate({
       url: "utileria/sesion/restablecer-contrasena-sesion.php",
       type: "POST",
       dataType: "HTML",
-      data: "claveUsuario=" + $("#claveUsuario").val() + "&respuestaSeguridad=" + $("#respuestaSeguridad").val() + "&nuevoPasswordUsuario=" + $("#nuevoPasswordUsuario").val() + "&confirmNuevoPasswordUsuario=" + $("#confirmNuevoPasswordUsuario").val()
+      data: "claveUsuario=" + $("#claveUsuario").val() + "&respuestaSeguridad=" + $("#respuestaSeguridad").val()
     }).done(function(echo) {
-      if(echo == "success") {
+      if(echo != "") {
         bootbox.alert({
-            message: "Actualización de contraseña exitosamente!",
+            message: echo,
             callback: function () {
               limpiarFormulario("#formRestablecerContrasena");
               redireccionarPagina("index.php");
             }
           }
         );
-      }
-      else {
-        var html = "<div class='alert alert-danger' role='alert'>";
-        html += echo;
-        html += "</div>";
-        bootbox.alert(html);
       }
     });
   },

@@ -45,22 +45,6 @@
                         <input type="text" id="respuestaSeguridad" name="respuestaSeguridad" class="form-control" required="required">
                     </div>
 
-                    <label for="nuevoPasswordUsuario"> <b> <i> Nueva contraseña * </i> </b> </label>
-                    <div class="input-group mb-2 mr-sm-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"> <i class="fas fa-lock"></i> </div>
-                        </div>
-                        <input type="password" id="nuevoPasswordUsuario" name="nuevoPasswordUsuario" class="form-control" required="required">
-                    </div>
-
-                    <label for="confirmNuevoPasswordUsuario"> <b> <i> Contraseña de nuevo * </i> </b> </label>
-                    <div class="input-group mb-2 mr-sm-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"> <i class="fas fa-lock"></i> </div>
-                        </div>
-                        <input type="password" id="confirmarNuevoPasswordUsuario" name="confirmarNuevoPasswordUsuario" class="form-control" required="required">
-                    </div>
-
                     <div class="float-right">
                         <div class="input-group">
                             <button class="btn btn-sm btn-outline-primary" type="button" onclick="redireccionarPagina('index.php');">
