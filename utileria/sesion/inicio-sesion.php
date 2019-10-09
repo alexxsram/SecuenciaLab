@@ -8,10 +8,10 @@ try {
   $aux = substr($claveUsuario, 0, 1);
 
   if(($aux == 'P' || $aux == 'p') || ($aux == 'M' || $aux == 'm')) {
-    $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :codigoProfesor';
+    $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :cp';
 
     $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':codigoProfesor', $claveUsuario);
+    $resultado->bindValue(':cp', $claveUsuario);
     $resultado->execute();
 
     $numRow = $resultado->rowCount();
@@ -22,11 +22,11 @@ try {
       if($profesor->password == $passwordUsuario) {
         $_SESSION['codigo'] = $profesor->codigoProfesor;
         $_SESSION['nombre'] = $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno;
-        if($profesor->permiso == 'dba') {
-          $_SESSION['estado'] = 'INICIO_SESION_ADMIN';
-        } else {
-          $_SESSION['estado'] = 'INICIO_SESION_PROFESOR';
-        }
+        // if($profesor->permiso == 'dba') {
+        //   $_SESSION['estado'] = 'INICIO_SESION_ADMIN';
+        // } else {
+        //   $_SESSION['estado'] = 'INICIO_SESION_PROFESOR';
+        // }
         $_SESSION['permiso'] = $profesor->permiso;
         $_SESSION['tiempo_sesion'] = time();
         echo 'success';
@@ -37,10 +37,10 @@ try {
       echo 'Clave de profesor no encontrada.';
     }
   } else {
-    $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :codigoAlumno';
+    $sql = 'SELECT * FROM alumnousuario WHERE codigoAlumno = :ca';
 
     $resultado = $baseDatos->prepare($sql);
-    $resultado->bindValue(':codigoAlumno', $claveUsuario);
+    $resultado->bindValue(':ca', $claveUsuario);
     $resultado->execute();
 
     $numRow = $resultado->rowCount();
@@ -50,7 +50,8 @@ try {
       if($alumno->password == $passwordUsuario) {
         $_SESSION['codigo'] = $alumno->codigoAlumno;
         $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
-        $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
+        // $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
+        $_SESSION['permiso'] = 'alumno';
         $_SESSION['tiempo_sesion'] = time();
         echo 'success';
       } else {

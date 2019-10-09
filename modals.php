@@ -1,18 +1,17 @@
 <?php
-if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO' || $_SESSION['estado'] == 'INICIO_SESION_ADMIN')) {
-    header('Location: utileria/sesion/sesion.php');
+if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
+  header('Location: utileria/sesion/sesion.php');
 } else {
-    $codigo = $_SESSION['codigo'];
-    $nombre = $_SESSION['nombre'];
-    $estado = $_SESSION['estado'];
-    $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
-    // $tiempo = $_SESSION['tiempo_sesion'];
-    // if(time() - $tiempo >= 10){
-    //     header('Location: utileria/sesion/cerrar-sesion.php');
-    // }
-    // else {
-    //     $_SESSION['tiempo_sesion'] = time();
-    // }
+  $codigo = $_SESSION['codigo'];
+  $nombre = $_SESSION['nombre'];
+  $permiso = $_SESSION['permiso'];    
+  // $tiempo = $_SESSION['tiempo_sesion'];
+  // if(time() - $tiempo >= 10){
+  //     header('Location: utileria/sesion/cerrar-sesion.php');
+  // }
+  // else {
+  //     $_SESSION['tiempo_sesion'] = time();
+  // }
 }
 ?>
 
