@@ -103,9 +103,14 @@ try {
         $ColorTexto = "black";
         //$resultadoNitido = "";
       }
+      //Resultado difuso con resultado nitido
+      /*echo "<li type=\"button\" class=\"list-group-item d-flex
+      justify-content-between align-items-center p-3 mb-2 bg-$ColorFondo
+      text-$ColorTexto\"><h5>$resultadoDifuso - ($resultadoNitido)</h5></li>";*/
+      //Resultado solo difuso
       echo "<li type=\"button\" class=\"list-group-item d-flex
       justify-content-between align-items-center p-3 mb-2 bg-$ColorFondo
-      text-$ColorTexto\"><h5>$resultadoDifuso - ($resultadoNitido)</h5></li>";
+      text-$ColorTexto\"><h5>$resultadoDifuso</h5></li>";
     }
   } catch(Exception $exec) {
     die('Error en la base de datos: ' . $exec->getMessage());
