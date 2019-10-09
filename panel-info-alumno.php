@@ -61,7 +61,7 @@ $claveUsuario = base64_decode($_GET['codigoAlumno']);
     </div>
   </div>
   <div class="card" id="info-alumno-listado-practicas" name="info-alumno-listado-practicas">
-    <h5 class="card-header">Listado de practicas</h5>
+    <h5 class="card-header">Listado de prácticas</h5>
     <div class="card-body" id="info-alumno-cuerpo-tarjeta-datos-practicas" name="info-alumno-cuerpo-tarjeta-datos-practicas">
       <ul class="list-group" style="height: 300px; overflow-y: auto;" id="info-alumno-lista-practicas" name="info-alumno-lista-practicas">
       </ul>

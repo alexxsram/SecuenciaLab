@@ -38,7 +38,7 @@ try {
         </div>
 
         <div class="card-body text-dark">
-          <h5 class="card-title">Descripcion del problema</h5>
+          <h5 class="card-title">Descripción del problema</h5>
           <p class="card-text"><?php echo $cuestionario->descripcion; ?></p>
 
           <hr>
@@ -81,7 +81,7 @@ try {
         <form id="formCalificarPractica" name="formCalificarPractica" method="POST">
           <div class="alert alert-light text-justify" role="alert">
             <div class="form-group">
-              <label for="calificacion">Calificación de la practica *</label>
+              <label for="calificacion">Calificación de la práctica *</label>
               <?php if($numRowEvaluacion == 0) { ?>
                 <input type="text" class="form-control" id="calificacion" name="calificacion" placeholder="0-100" min="0" max="100" required="required">
               <?php } else { ?>
@@ -105,7 +105,7 @@ try {
 
             <div class="form-group ">
               <button type="submit" class="btn btn-sm btn-outline-primary float-right">
-                Calificar <i class="fas fa-save"></i> 
+                Calificar <i class="fas fa-save"></i>
               </button>
             </div>
           </div>

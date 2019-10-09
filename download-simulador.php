@@ -12,8 +12,8 @@
   <title> SecuenciaLab - Descargar Simulador </title>
 </head>
 
-<body> 
- 
+<body>
+
   <!-- Page Content -->
   <div class="container">
     <div class="card border-0 shadow my-5">
@@ -25,8 +25,8 @@
           el cual consiste en el uso de componentes, conexión de cables de un aparato real para el arranque de motores de 220V.
         </p>
         <br>
-        
-        <p class="lead"> <i class="fas fa-image"></i> <strong>Imagenes de muestra</strong> </p>
+
+        <p class="lead"> <i class="fas fa-image"></i> <strong>Imágenes de muestra</strong> </p>
         <hr>
         <!--  carousel -->
         <div class="bd-example">
@@ -103,7 +103,7 @@
         </div>
         <!-- end carousel -->
         <br>
-        
+
         <p class="lead"> <i class="fas fa-feather"></i> <strong>Características de SecuenciaLab</strong> </p>
         <hr>
         <h3 class="lead text-justify">
@@ -135,13 +135,13 @@
         <div class="btn-toolbar" role="toolbar" aria-label="Opciones de descarga">
           <button type="button" class="btn btn-success btn-block" onclick="cargarPagina('http://tiny.cc/0no0dz');"> <i class="fab fa-windows"></i> Descarga para <br>Windows x32 - 32 bits</button>
           <button type="button" class="btn btn-success btn-block" onclick="cargarPagina('http://tiny.cc/8oo0dz');"> <i class="fab fa-windows"></i> Descarga para <br>Windows x64 - 64 bits</button>
-          
+
           <button type="button" class="btn btn-warning btn-block" onclick="cargarPagina('http://tiny.cc/qqo0dz');"> <i class="fab fa-linux"></i> Descarga para <br>Linux x32 - 32 bits</button>
           <button type="button" class="btn btn-warning btn-block" onclick="cargarPagina('http://tiny.cc/ppo0dz');"> <i class="fab fa-linux"></i> Descarga para <br>Linux x64 - 64 bits</button>
-        
-          <button type="button" class="btn btn-danger btn-block" onclick="cargarPagina('http://tiny.cc/kro0dz');"> <i class="fab fa-apple"></i> Descarga para <br>Mac x32 - 32 bits</button>
+
+          <!--<button type="button" class="btn btn-danger btn-block" onclick="cargarPagina('http://tiny.cc/kro0dz');"> <i class="fab fa-apple"></i> Descarga para <br>Mac x32 - 32 bits</button>-->
           <button type="button" class="btn btn-danger btn-block" onclick="cargarPagina('http://tiny.cc/fro0dz');"> <i class="fab fa-apple"></i> Descarga para <br>Mac x64 - 64 bits</button>
-          
+
           <button class="btn btn-sm btn-outline-primary btn-block" type="button" onclick="redireccionarPagina('index.php');">
             Regresar <i class="fas fa-arrow-left"></i>
           </button>

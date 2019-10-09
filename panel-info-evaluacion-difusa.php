@@ -28,7 +28,7 @@ $claveAccesoClase =   base64_decode($_GET['claveAccesoClase']);
         </div>
       </div>
       <div class="card" id="info-evaluacion-encuesta-no-contestada" name="info-evaluacion-encuesta-no-contestada" style="display: none;">
-        <h5 class="card-header">Encuestas no constestadas</h5>
+        <h5 class="card-header">Encuestas no contestadas</h5>
         <div class="card-body" id="info-alumno-cuerpo-tarjeta-encuesta-no-contestada" name="info-alumno-cuerpo-tarjeta-encuesta-no-contestada">
         </div>
       </div>

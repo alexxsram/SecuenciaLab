@@ -35,7 +35,7 @@ try {
       $resultado->execute($array);
       echo 'success';
     } else {
-      echo 'Error. El usuario (Alumno) no es valido. ' . $claveUsuario;
+      echo 'Error. El usuario (Alumno) no es válido. ' . $claveUsuario;
     }
   } else if(($aux == 'P' || $aux == 'p') || ($aux == 'M' || $aux == 'm')) {
     $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor = :cp';
@@ -55,7 +55,7 @@ try {
       $resultado->execute($array);
       echo 'success';
     } else {
-      echo 'Error. El usuario (Profesor) no es valido. ' . $claveUsuario;
+      echo 'Error. El usuario (Profesor) no es válido. ' . $claveUsuario;
     }
   } else {
     echo 'Error. Tipo de usuario desconocido. ' . $claveUsuario;

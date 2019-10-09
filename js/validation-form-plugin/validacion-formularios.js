@@ -47,8 +47,8 @@ $("#formNuevoUsuario").validate({
   messages: {
     claveUsuario: {
       required: "Ingresa tu número de usuario",
-      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
-      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
+      minlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres"),
+      maxlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres")
     },
     nombrePilaUsuario: {
       required: "Ingrese su nombre",
@@ -148,8 +148,8 @@ $("#formLogin").validate({
   messages: {
     claveUsuario: {
       required: "Ingresa tu número de usuario",
-      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
-      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
+      minlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres"),
+      maxlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres")
     },
     passwordUsuario: {
       required: "Ingresa la contraseña"
@@ -208,8 +208,8 @@ $("#formRestablecerContrasena").validate({
   messages: {
     claveUsuario: {
       required: "Ingresa tu número de usuario",
-      minlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres"),
-      maxlength: jQuery.validator.format("La longitud de su codigo debe ser de {0} caracteres")
+      minlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres"),
+      maxlength: jQuery.validator.format("La longitud de su código debe ser de {0} caracteres")
     },
     respuestaSeguridad: {
       required: "Ingresa la respuesta de la pregunta de seguridad"
@@ -430,7 +430,7 @@ $("#modalCambiarNombre").on("show.bs.modal", function (event) {
           html += echo;
           html += "</div>";
           bootbox.alert(html);
-          console.log("Entro a error con clave de usaurio: " + claveUsuario);
+          console.log("Entró a error con clave de usuario: " + claveUsuario);
         }
       });
     },
@@ -528,7 +528,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
         date: "Ingresa la fecha correctamente"
       },
       cicloEscolarClase: {
-        required: "Seleccione un ciclo escolar valido"
+        required: "Seleccione un ciclo escolar válido"
       }
     },
     submitHandler: function(form) {
@@ -672,7 +672,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
         date: "Ingresa la fecha correctamente"
       },
       editarCicloEscolarClase: {
-        required: "Seleccione un ciclo escolar valido"
+        required: "Seleccione un ciclo escolar válido"
       }
     },
     submitHandler: function(form) {
@@ -814,7 +814,7 @@ $("#modalCrearAnuncio").on("show.bs.modal", function (event) {
         required: "Ingresa el título del anuncio"
       },
       contenidoAnuncio: {
-        required: "Ingresa un contenido o descripición al anuncio"
+        required: "Ingresa un contenido o descripción al anuncio"
       }
     },
     submitHandler: function(form) {
@@ -894,7 +894,7 @@ $("#modalEditarAnuncio").on("show.bs.modal", function (event) {
         required: "Ingresa el nuevo título del anuncio"
       },
       editarContenidoAnuncio: {
-        required: "Ingresa un contenido o descripición nuevo al anuncio"
+        required: "Ingresa un contenido o descripción nuevo al anuncio"
       },
       editarFechaCreacionAnuncio: {
         required: "Ingresa la nueva fecha de creación",
@@ -1188,8 +1188,8 @@ $("#formCalificarPractica").validate({
   messages: {
     calificacion: {
       required: "Ingresar la calificación de la práctica.",
-      number: "Solo se admiten números. Ingrese un númerp entre 0 y 100.",
-      minlength: jQuery.validator.format("La califificación mínima es 0."),
+      number: "Solo se admiten números. Ingrese un número entre 0 y 100.",
+      minlength: jQuery.validator.format("La calificación mínima es 0."),
       maxlength: jQuery.validator.format("La calificación máxima es 100.")
     }
   },
@@ -1259,7 +1259,7 @@ $("#modalUnirseClase").on("show.bs.modal", function (event) {
     submitHandler: function(form) {
       bootbox.confirm({
         title: "Matricular a la clase",
-        message: "Esta a punto de matricularse a esta clase, ¿Esta seguro?",
+        message: "Está a punto de matricularse a esta clase, ¿Está seguro?",
         buttons: {
           cancel: {
             label: "<i class='fa fa-times'></i> Cancelar"
@@ -1779,7 +1779,7 @@ function confirmarAccion(valor, tipo) {
     var claveAcceso = vectorValores[0];
     bootbox.confirm({
       title: "Activar clase",
-      message: "¿Estas seguro de reactivar la clase?",
+      message: "¿Estás seguro de reactivar la clase?",
       size: "small",
       backdrop: true,
       className: "swing animated",

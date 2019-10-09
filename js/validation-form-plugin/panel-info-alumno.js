@@ -221,15 +221,15 @@ function cargarGraficaDePractica(idPractica, nombrePractica, codigoAlumno) {
     success: function(data)
     {
       if(idPractica == -1){
-        $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa de todas las prácticas hasta el momento.").fadeIn();
-        //$('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a todas las practicas</button>");
+        $('#info-alumno-descripcion-practica').html("En la siguiente sección gráfica se muestra una comparativa de todas las prácticas hasta el momento.").fadeIn();
+        //$('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a todas las prácticas</button>");
         optionsPracticaIndividual.title.text = "Todas las prácticas";
         //$('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\">"+data+"</button>");
         optionsPracticaIndividual.series=crearSeriesCaliPrac(jQuery.parseJSON( data ));
         $('#container').highcharts(optionsPracticaIndividual);
       }else if(idPractica == -2){
         //$('#info-alumno-lista-practicas').append("<button type=\"button\" class=\"list-group-item list-group-item-action\"> Entra a promedio prácticas</button>");
-        $('#info-alumno-descripcion-practica').html("En la siguiente sección grafica se muestra una comparativa entre el promedio del alumno y los datos de promedio del resto de la clase.").fadeIn();
+        $('#info-alumno-descripcion-practica').html("En la siguiente sección gráfica se muestra una comparativa entre el promedio del alumno y los datos de promedio del resto de la clase.").fadeIn();
         optionsPracticaIndividual.title.text = "Alumno vs. Grupo";
         optionsPracticaIndividual.series=crearSeriesCaliPrac(jQuery.parseJSON( data ));
         $('#container').highcharts(optionsPracticaIndividual);

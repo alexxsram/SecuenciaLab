@@ -55,7 +55,7 @@ try {
     echo "<p class=\"card-text\"
     id=\"info-alumno-promedio-alumno\"
     name=\"info-alumno-promedio-alumno\">
-    <b>Error:</b> La clase no es valida.</p>";
+    <b>Error:</b> La clase no es válida.</p>";
   }
 } catch(Exception $exec) {
   die('Error en la base de datos: ' . $exec->getMessage());

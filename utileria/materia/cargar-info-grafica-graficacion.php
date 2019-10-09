@@ -299,10 +299,10 @@ try {
                                                 }]";
                                               }
                                             }else{
-                                              echo "Error. El id o nombre de la práctica es invalido.";
+                                              echo "Error. El id o nombre de la práctica es inválido.";
                                             }
                                           }else{
-                                            echo "Error. El id de la práctica es invalido.";
+                                            echo "Error. El id de la práctica es inválido.";
                                           }
                                         }else{
                                           echo "Error. El alumno no se encuentra registrado en la clase indicada.";

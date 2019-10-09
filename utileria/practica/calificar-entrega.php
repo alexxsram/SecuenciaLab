@@ -127,8 +127,8 @@ try {
           </blockquote>
 
           <p class="lead text-justify">
-            En la siguiente sección el profesor puede calificar al alumno que ha realizado la entrega de las practicas
-            de forma correspondiente, esto se revisa mediante un filtro y lista aquellas practicas que el alumno ha entregado.
+            En la siguiente sección el profesor puede calificar al alumno que ha realizado la entrega de las prácticas
+            de forma correspondiente, esto se revisa mediante un filtro y lista aquellas prácticas que el alumno ha entregado.
           </p>
 
           <div class="form-inline">
@@ -176,7 +176,7 @@ try {
             <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
           </div>
 
-        <?php 
+        <?php
           } else {
             echo '<script>window.close();</script>';
           }

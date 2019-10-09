@@ -20,7 +20,7 @@ try {
       /*$sql = 'DELETE FROM clase_has_alumnousuario
       WHERE Clase_claveAcceso = :claveAcceso
       AND AlumnoUsuario_codigoAlumno = :codigoAlumno';*/
-      $sql = 'UPDATE clase_has_alumnousuario SET matriculado = false, permiso = false, updatedAt = :uat 
+      $sql = 'UPDATE clase_has_alumnousuario SET matriculado = false, permiso = false, updatedAt = :uat
       WHERE Clase_claveAcceso = :ca AND AlumnoUsuario_codigoAlumno = :auca';
 
       $resultado = $baseDatos->prepare($sql);
@@ -35,7 +35,7 @@ try {
       echo 'Error. El alumno no se encuentra inscrito a la clase.';
     }
   } else {
-    echo 'Error. No se pudo comprobar el codigo del alumno que desea abandonar la clase.';
+    echo 'Error. No se pudo comprobar el código del alumno que desea abandonar la clase.';
   }
 } catch(Exception $exec) {
   die('Error en la base de datos: ' . $exec->getMessage());

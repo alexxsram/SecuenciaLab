@@ -54,7 +54,7 @@ include('../operaciones/conexion.php');
                 </div>
             </div>
             <div class="card-body">
-                <?php 
+                <?php
                 $fileBackups = realpath('../../sql/backups').'/backups.json';
                 if(file_exists($fileBackups)) {
                     $json = file_get_contents($fileBackups);
@@ -68,7 +68,7 @@ include('../operaciones/conexion.php');
                         <thead class="text-muted">
                             <tr>
                                 <th scope="col">Archivo SQL</th>
-                                <th scope="col">Archivo de imagenes</th>
+                                <th scope="col">Archivo de imágenes</th>
                                 <th scope="col">Fecha de exportación</th>
                                 <th scope="col" class="text-center">Opciones</th>
                             </tr>

@@ -81,7 +81,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
         <div class="modal-body">
           <div class="alert alert-info text-justify" role="alert">
             Por preferencia al usuario, puede actualizar su nombre si así lo desea.
-            Unicamente recuerde que su nombre debe aparecer tal cual como esta registrado en SIIAU.
+            Únicamente recuerde que su nombre debe aparecer tal cual como está registrado en SIIAU.
             Todos los campos con (*) son obligatorios.
           </div>
 
@@ -94,7 +94,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
             <div class="input-group-prepend">
               <div class="input-group-text"> <i class="fas fa-user"></i> </div>
             </div>
-            <input type="text" id="nombrePilaUsuarioCambiar" name="nombrePilaUsuarioCambiar" class="form-control" placeholder="Ej. Juan Jose" required="required">
+            <input type="text" id="nombrePilaUsuarioCambiar" name="nombrePilaUsuarioCambiar" class="form-control" placeholder="Ej. Juan José" required="required">
           </div>
 
           <label for="apellidoPaternoUsuarioCambiar"> <b> <i> Apellido paterno * </i> </b> </label>
@@ -414,7 +414,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-info">
-        <h4 class="modal-title text-white">Crear una practica</h4>
+        <h4 class="modal-title text-white">Crear una práctica</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -439,7 +439,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <label for="fechaLimitePractica">Fecha limíte de entrega *</label>
+            <label for="fechaLimitePractica">Fecha límite de entrega *</label>
             <input type="date" class="form-control" id="fechaLimitePractica" name="fechaLimitePractica" required="required">
           </div>
 
@@ -657,7 +657,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
           </div>
 
           <div class="form-group">
-            <label for="fechaLimiteEvaluacionDifusa">Fecha limíte de realización *</label>
+            <label for="fechaLimiteEvaluacionDifusa">Fecha límite de realización *</label>
             <input type="date" class="form-control" id="fechaLimiteEvaluacionDifusa" name="fechaLimiteEvaluacionDifusa" required="required">
           </div>
 
@@ -690,7 +690,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
       <form id="formEvaluarClase" name="formEvaluarClase" method="POST">
         <div class="modal-body">
           <div class="alert alert-info text-justify" role="alert">
-            En está sección se realiza la evalución de la clase.
+            En está sección se realiza la evaluación de la clase.
             Estos datos son de suma importancia para mejorar la calidad del curso y del aprendisaje obtenido.
           </div>
 

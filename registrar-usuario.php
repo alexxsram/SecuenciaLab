@@ -41,7 +41,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"> <i class="fas fa-user"></i> </div>
                         </div>
-                        <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Juan Jose" required="required">
+                        <input type="text" id="nombrePilaUsuario" name="nombrePilaUsuario" class="form-control" placeholder="Ej. Juan José" required="required">
                     </div>
 
                     <label for="apellidoPaternoUsuario"> <b> <i> Apellido paterno * </i> </b> </label>

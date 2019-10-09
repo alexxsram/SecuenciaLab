@@ -108,10 +108,10 @@ try {
               echo "Error. Para registrar un código de usuario dentro de la plataforma debe iniciar con una letra (Ej. A123456789)";
             }
           } else {
-            echo "Error. El corro electrónico ya se encuentra en el sistema. Introduzca otro correo.";
+            echo "Error. El correo electrónico ya se encuentra en el sistema. Introduzca otro correo.";
           }
         } else {
-          echo "Error. Su código es invalido. Debe estar compuesto unicamente de dígitos.";
+          echo "Error. Su código es inválido. Debe estar compuesto únicamente de dígitos.";
         }
       } catch(Exception $exec) {
         die('Error en la base de datos: ' . $exec->getMessage());

@@ -82,7 +82,7 @@ if($nombre != $nombreUsuario) {
                                             <i class="fas fa-database"></i> Respaldos
                                         </button>
                                     <?php } ?>
-                                <?php } ?>                                
+                                <?php } ?>
                             <?php } else if($estado == 'INICIO_SESION_ALUMNO') { ?>
                                 <button class="dropdown-item" data-toggle="modal" data-target="#modalUnirseClase" data-codigoalumno="<?php echo $codigo; ?>">
                                     <i class="fas fa-users"></i> Unirse a una clase
@@ -274,11 +274,11 @@ if($nombre != $nombreUsuario) {
                                     </button>
                                 <?php } else if($estado == 'INICIO_SESION_ALUMNO') {
                                     if($clase->permiso) {
-                                        $mensaje = 'Alumno matriculado, permiso de acceso concedido';
+                                        $mensaje = 'Alumno matriculado, permiso de acceso concedido.';
                                         $color = 'success';
                                         $disabled = '';
                                     } else {
-                                        $mensaje = 'Alumno matriculado, esperando aprobaciónn de permiso de acceso a la clase';
+                                        $mensaje = 'Alumno matriculado, esperando aprobación de permiso de acceso a la clase.';
                                         $color = 'warning';
                                         $disabled = 'disabled="true"';
                                     }

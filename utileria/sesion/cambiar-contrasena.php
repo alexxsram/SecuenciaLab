@@ -30,10 +30,10 @@ try {
         $resultado->execute($array);
         echo 'success';
       }else{
-        echo "Error. La contraseña actual es incorrecta. No se a realizado ningun cambio.";
+        echo "Error. La contraseña actual es incorrecta. No se ha realizado ningún cambio.";
       }
     }else{
-      echo "Error. El usuario no es valido.";
+      echo "Error. El usuario no es válido.";
     }
   } else {
     $sql = "SELECT *
@@ -50,16 +50,16 @@ try {
         $sql = 'UPDATE profesorusuario
         SET password = :p
         WHERE codigoProfesor = :cp';
-        
+
         $resultado = $baseDatos->prepare($sql);
         $array = array(':p'=>$passwordUsuario, ':cp'=>$claveUsuario);
         $resultado->execute($array);
         echo 'success';
       }else{
-        echo "Error. La contraseña actual es incorrecta. No se a realizado ningun cambio.";
+        echo "Error. La contraseña actual es incorrecta. No se ha realizado ningún cambio.";
       }
     }else{
-      echo "Error. El usuario no es valido.";
+      echo "Error. El usuario no es válido.";
     }
   }
 } catch(Exception $exec) {
