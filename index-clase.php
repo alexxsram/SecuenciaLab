@@ -5,7 +5,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
 } else {
     $codigo = $_SESSION['codigo'];
     $nombre = $_SESSION['nombre'];
-    $permiso = $_SESSION['permiso'];    
+    $permiso = $_SESSION['permiso'];
     // $tiempo = $_SESSION['tiempo_sesion'];
     // if(time() - $tiempo >= 10){
     //     header('Location: utileria/sesion/cerrar-sesion.php');
@@ -123,10 +123,9 @@ if($nombre != $nombreUsuario) {
                 INNER JOIN profesorusuario AS PU ON C.ProfesorUsuario_codigoProfesor = PU.codigoprofesor
                 ORDER BY C.anio DESC, C.nombreClase ASC, C.CicloEscolar_idCicloEscolar ASC';
                 $resultado = $baseDatos->prepare($sql);
-            } else if($permio == 'pnormal') {
-                $sql = 'SELECT * FROM clase
-                WHERE ProfesorUsuario_codigoProfesor = :pucp
-                AND eliminado != true
+            } else if($permiso == 'pnormal') {
+                $sql = 'SELECT * FROM clase 
+                WHERE ProfesorUsuario_codigoProfesor = :pucp AND eliminado != true
                 ORDER BY anio DESC, nombreClase ASC, CicloEscolar_idCicloEscolar ASC';
                 $resultado = $baseDatos->prepare($sql);
                 $resultado->bindValue(':pucp', $codigo);
@@ -166,7 +165,7 @@ if($nombre != $nombreUsuario) {
                                 En esta sección el administrador podrá ver las clases activas e inacticas, podrá acceder a los grupos, editar los datos generales
                                 de la clase en caso de error y/o dar de baja algún curso en caso de que el profesor lo requiera.
                             </p>
-                        <?php } else if($permoso == 'pnormal') { ?>
+                        <?php } else if($permiso == 'pnormal') { ?>
                             <p class="lead text-justify">
                                 En esta sección el profesor podrá administrar las clases que imparte, ingresando a sus grupos y editar los datos generales
                                 de la clase en caso de error.
@@ -242,9 +241,9 @@ if($nombre != $nombreUsuario) {
 
                                     <div class="text-center">
                                         <?php if($permiso == 'dba' || $permiso == 'padmin' || $permiso == 'pnormal') {
-                                            $botonActivaClase = '';
+                                            $botonVisible = '';
                                             if($permiso == 'pnormal') {
-                                                $botonActivaClase = 'd-none'; //clase de bootstrap que oculta un elemento, lo mismo que usae el css de "display: none;" pero más práctico
+                                                $botonVisible = 'd-none'; //clase de bootstrap que oculta un elemento, lo mismo que usae el css de "display: none;" pero más práctico
                                             }
                                         ?>
 
@@ -260,7 +259,7 @@ if($nombre != $nombreUsuario) {
                                                 Editar <i class="fas fa-edit"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '-' . $nombre . '\''; ?>, 'clase');">
+                                            <button type="button" class="btn btn-sm btn-danger <?php echo $botonVisible; ?>" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '-' . $nombre . '\''; ?>, 'clase');">
                                                 Eliminar <i class="fas fa-trash"></i>
                                             </button>
 
@@ -268,7 +267,7 @@ if($nombre != $nombreUsuario) {
                                                 Permiso alumnos <i class="fas fa-key"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-sm btn-secondary <?php echo $botonActivaClase; ?>" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'activarClase');">
+                                            <button type="button" class="btn btn-sm btn-secondary <?php echo $botonVisible; ?>" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '\''; ?>, 'activarClase');">
                                                 Activar clase <i class="fas fa-check"></i>
                                             </button>
                                         <?php } else if($permiso == 'alumno') {
