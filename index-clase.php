@@ -13,6 +13,11 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
     // else {
     //     $_SESSION['tiempo_sesion'] = time();
     // }
+    
+    $botonVisible = '';
+    if($permiso == 'pnormal') {
+        $botonVisible = 'd-none'; //clase de bootstrap que oculta un elemento, lo mismo que usae el css de "display: none;" pero más práctico
+    }
 }
 include('utileria/operaciones/conexion.php');
 
@@ -240,12 +245,7 @@ if($nombre != $nombreUsuario) {
                                     </p>
 
                                     <div class="text-center">
-                                        <?php if($permiso == 'dba' || $permiso == 'padmin' || $permiso == 'pnormal') {
-                                            $botonVisible = '';
-                                            if($permiso == 'pnormal') {
-                                                $botonVisible = 'd-none'; //clase de bootstrap que oculta un elemento, lo mismo que usae el css de "display: none;" pero más práctico
-                                            }
-                                        ?>
+                                        <?php if($permiso == 'dba' || $permiso == 'padmin' || $permiso == 'pnormal') { ?>
 
                                             <button type="button" class="btn btn-sm btn-success" onclick="cargarContenido('utileria/materia/', 'index-materia.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">
                                                 Entrar <i class="fas fa-door-open"></i>
@@ -259,7 +259,7 @@ if($nombre != $nombreUsuario) {
                                                 Editar <i class="fas fa-edit"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-sm btn-danger <?php echo $botonVisible; ?>" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '-' . $nombre . '\''; ?>, 'clase');">
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarAccion(<?php echo '\'' . $clase->claveAcceso . '-' . $nombre . '\''; ?>, 'clase');">
                                                 Eliminar <i class="fas fa-trash"></i>
                                             </button>
 

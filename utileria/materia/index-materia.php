@@ -180,7 +180,7 @@ try {
                     <!-- TAB DEL TABLERO/ANUNCIOS -->
                     <div class="tab-pane fade show active" id="tablero" role="tabpanel" aria-labelledby="tablero-tab">
                         <?php
-                        if($permiso == 'dba' || $permiso == 'padminss') {
+                        if($permiso == 'dba' || $permiso == 'padmin') {
                             $sql = 'SELECT * FROM anuncio
                             WHERE Clase_claveAcceso = :cca 
                             ORDER BY fechaPublicacion DESC';
@@ -255,7 +255,7 @@ try {
                                                             <i class="fas fa-edit"></i> Editar
                                                         </button>
 
-                                                        <button type="button" class="dropdown-item <?php echo $botonVisible; ?>" onclick="confirmarAccion(<?php echo '\'' . $anuncio->idAnuncio . '-' . $anuncio->titulo . '-' . $clase->claveAcceso . '\'';?>, 'anuncio');">
+                                                        <button type="button" class="dropdown-item" onclick="confirmarAccion(<?php echo '\'' . $anuncio->idAnuncio . '-' . $anuncio->titulo . '-' . $clase->claveAcceso . '\'';?>, 'anuncio');">
                                                             <i class="fas fa-trash"></i> Eliminar
                                                         </button>
                                                     </div>
@@ -464,7 +464,7 @@ try {
                                                         Editar <i class="fas fa-edit"></i>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-sm btn-outline-danger <?php echo $botonVisible; ?>" <?php echo $desabilitarBoton; ?> onclick="confirmarAccion(<?php echo '\'' . $practica->idPractica . '-' . $practica->nombre . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
+                                                    <button type="button" class="btn btn-sm btn-outline-danger" <?php echo $desabilitarBoton; ?> onclick="confirmarAccion(<?php echo '\'' . $practica->idPractica . '-' . $practica->nombre . '-' . $clase->claveAcceso . '\''; ?>, 'practica');">
                                                         Eliminar <i class="fas fa-times"></i>
                                                     </button>
 
