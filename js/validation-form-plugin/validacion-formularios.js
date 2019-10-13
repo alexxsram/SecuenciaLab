@@ -430,7 +430,6 @@ $("#modalCambiarNombre").on("show.bs.modal", function (event) {
           html += echo;
           html += "</div>";
           bootbox.alert(html);
-          console.log("Entró a error con clave de usuario: " + claveUsuario);
         }
       });
     },
@@ -1409,8 +1408,7 @@ function descargarDiagramaSecuencialAnterior(codigoAlumno, idPractica, claveAcce
     + "&claveAcceso=" + claveAcceso,
     success: function(data)
     {
-      console.log(data);
-      var json = jQuery.parseJSON( data );
+      var json = jQuery.parseJSON(data);
       descargarArchivo(json.ruta, json.nombreOriginal);
     },
     error: function(data) {
@@ -1956,8 +1954,7 @@ function llenarEvaluacionDifusaAnterior(codigoAlumno, idPractica, claveAcceso, v
     {
       var numeroLetras = data.length;
       if(numeroLetras!=0 ){
-        console.log(data);
-        var json = jQuery.parseJSON( data );
+        var json = jQuery.parseJSON(data);
         if(json.CalContNitido!=-1){
           $("#evalCalidadCont").val(json.CalContNitido);
           $("#evalCalidadContAmountInput").val(json.CalContNitido);

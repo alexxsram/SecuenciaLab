@@ -18,10 +18,10 @@ try {
   $codigoAlumno = htmlentities(addslashes($_POST['codigoAlumno']));
 
   //Convertir elementos de texto en codificación UTF-8
-  $respuestaPregunta1 = html_entity_decode($respuestaPregunta1, ENT_QUOTES | ENT_HTML401, "UTF-8");
-  $respuestaPregunta2 = html_entity_decode($respuestaPregunta2, ENT_QUOTES | ENT_HTML401, "UTF-8");
-  $respuestaPregunta3 = html_entity_decode($respuestaPregunta3, ENT_QUOTES | ENT_HTML401, "UTF-8");
-  $conclusion = html_entity_decode($conclusion, ENT_QUOTES | ENT_HTML401, "UTF-8");
+  $respuestaPregunta1 = html_entity_decode($respuestaPregunta1, ENT_QUOTES | ENT_HTML401, 'UTF-8');
+  $respuestaPregunta2 = html_entity_decode($respuestaPregunta2, ENT_QUOTES | ENT_HTML401, 'UTF-8');
+  $respuestaPregunta3 = html_entity_decode($respuestaPregunta3, ENT_QUOTES | ENT_HTML401, 'UTF-8');
+  $conclusion = html_entity_decode($conclusion, ENT_QUOTES | ENT_HTML401, 'UTF-8');
 
   $sql = 'SELECT *
   FROM alumnousuario
@@ -66,11 +66,11 @@ try {
       for($i=0; $i < 10; $i++) {
         $nombreArchivoClave .= $cadena_base[rand(0, $limite)];
       }
-      $nombreArchivoClave = $nombreArchivoClave.".".$imageFileType;
+      $nombreArchivoClave = $nombreArchivoClave.'.'.$imageFileType;
     }else{
       $flagPrimeraVezCuestionario = false;
       $cuestionarioAnterior = $resultado->fetch(PDO::FETCH_OBJ);
-      $nombreArchivoClave = substr($cuestionarioAnterior->nombreClave, 0, 10) . "." . $imageFileType;
+      $nombreArchivoClave = substr($cuestionarioAnterior->nombreClave, 0, 10) . '.' . $imageFileType;
     }
     $target_file = $directorio . $nombreArchivoClave;
     // Comprobar si el archivo es una imagen
