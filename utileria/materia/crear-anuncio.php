@@ -21,7 +21,7 @@ try {
   $resultado->execute();
   $numRow = $resultado->rowCount();
 
-  if($numRow == 0) {
+  //if(true && $numRow == 0) {
     $sql = 'INSERT INTO anuncio
     (titulo, contenido, fechaPublicacion, ProfesorUsuario_codigoProfesor, Clase_claveAcceso)
     VALUES (:t, :c, :fp, :pucp, :cca)';
@@ -36,9 +36,9 @@ try {
 
     $resultado->execute($array);
     echo 'success';
-  } else {
-    echo 'Ya existe la publicación, se debe crear otra con un título diferente.';
-  }
+  //} else {
+    //echo 'Ya existe la publicación, se debe crear otra con un título diferente.';
+  //}
 } catch(Exception $exec) {
   die('Error en la base de datos: ' . $exec->getMessage());
 }
