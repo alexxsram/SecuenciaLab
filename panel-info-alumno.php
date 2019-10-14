@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <?php
 session_start();
 if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR' || $_SESSION['estado'] != 'INICIO_SESION_ALUMNO' || $_SESSION['estado'] == 'INICIO_SESION_ADMIN')) {
@@ -6,7 +6,7 @@ if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESO
 } else {
   $codigo = $_SESSION['codigo'];
   $nombre = $_SESSION['nombre'];
-  $estado = $_SESSION['estado'];
+  //$estado = $_SESSION['estado'];
   $permiso = isset($_SESSION['permiso']) ? $_SESSION['permiso'] : '';
   // $tiempo = $_SESSION['tiempo_sesion'];
   // if(time() - $tiempo >= 10){
