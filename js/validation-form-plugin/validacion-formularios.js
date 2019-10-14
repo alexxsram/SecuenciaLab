@@ -4,7 +4,7 @@ $("#formNuevoUsuario").validate({
   rules: {
     claveUsuario: {
       required: true,
-      minlength: 9,
+      minlength: 8,
       maxlength: 10
     },
     nombrePilaUsuario: {
@@ -138,7 +138,7 @@ $("#formLogin").validate({
   rules: {
     claveUsuario: {
       required: true,
-      minlength: 9,
+      minlength: 8,
       maxlength: 10
     },
     passwordUsuario: {
@@ -470,7 +470,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       nombreClase: {
         required: true,
         minlength: 4,
-        maxlength: 45
+        maxlength: 80
       },
       seccionClase: {
         required: true,
@@ -483,7 +483,7 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       materiaClase: {
         required: true,
         minlength: 3,
-        maxlength: 45
+        maxlength: 80
       },
       aulaClase: {
         required: true,
@@ -502,12 +502,12 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       nombreClase: {
         required: "Ingresa el nombre de la clase",
         minlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La clase debe tener máximo {0} caracteres")
       },
       seccionClase: {
         required: "Ingresa el número de sección",
         minlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La sección debe tener máximo {0} caracteres")
       },
       nrcClase: {
         required: "Ingresa el nrc de la materia"
@@ -515,12 +515,12 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       materiaClase: {
         required: "Ingresa el nombre de la materia",
         minlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La materia debe tener máximo {0} caracteres")
       },
       aulaClase: {
         required: "Ingresa el aula",
         minlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La aula debe tener máximo {0} caracteres")
       },
       anioClase: {
         required: "Ingresa el año. Debe ser igual o mayor al año actual",
@@ -614,7 +614,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarNombreClase: {
         required: true,
         minlength: 4,
-        maxlength: 45
+        maxlength: 80
       },
       editarSeccionClase: {
         required: true,
@@ -627,7 +627,7 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarMateriaClase: {
         required: true,
         minlength: 3,
-        maxlength: 45
+        maxlength: 80
       },
       editarAulaClase: {
         required: true,
@@ -646,12 +646,12 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarNombreClase: {
         required: "Ingresa el nombre de la clase",
         minlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La clase debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La clase debe tener máximo {0} caracteres")
       },
       editarSeccionClase: {
         required: "Ingresa el número de sección",
         minlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La sección debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La sección debe tener máximo {0} caracteres")
       },
       editarNrcClase: {
         required: "Ingresa el nrc de la materia"
@@ -659,12 +659,12 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       editarMateriaClase: {
         required: "Ingresa el nombre de la materia",
         minlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La materia debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La materia debe tener máximo {0} caracteres")
       },
       editarAulaClase: {
         required: "Ingresa el aula",
         minlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres"),
-        maxlength: jQuery.validator.format("La aula debe tener mínimo {0} caracteres")
+        maxlength: jQuery.validator.format("La aula debe tener máximo {0} caracteres")
       },
       editarAnoClase: {
         required: "Ingresa el año. Debe ser igual o mayor al año actual",
