@@ -346,7 +346,7 @@ try {
     $pdf->writeHTML($html, true, false, true, false, '');
 
     ob_end_clean();
-
+    //$nombrePracticaObjetivo="holo";
     $pdf->Output('reporte_practica_' . $codigoAlumno . '_'.
     $nombrePracticaObjetivo . '.pdf', 'I');
   } else {
