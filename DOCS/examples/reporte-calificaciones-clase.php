@@ -215,7 +215,7 @@ try {
     $sql = 'SELECT AU.codigoAlumno as codigo, CONCAT(AU.apellidoPaterno, " ",
       AU.apellidoMaterno, ", ", AU.nombrePila) as nombre FROM clase_has_alumnousuario CHAU
       INNER JOIN alumnousuario AU ON AU.codigoAlumno = CHAU.AlumnoUsuario_codigoAlumno WHERE
-      CHAU.Clase_claveAcceso = :cca';
+      CHAU.Clase_claveAcceso = :cca ORDER BY nombre ASC';
 
       $resultado = $baseDatos->prepare($sql);
       $resultado->bindValue(':cca', $datosClase->claveAcceso);
