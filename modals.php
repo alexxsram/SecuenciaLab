@@ -4,7 +4,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
 } else {
   $codigo = $_SESSION['codigo'];
   $nombre = $_SESSION['nombre'];
-  $permiso = $_SESSION['permiso'];    
+  $permiso = $_SESSION['permiso'];
   // $tiempo = $_SESSION['tiempo_sesion'];
   // if(time() - $tiempo >= 10){
   //     header('Location: utileria/sesion/cerrar-sesion.php');
@@ -699,7 +699,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalCalidadCont" name="evalCalidadCont" oninput="this.form.evalCalidadContAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalCalidadContAmountInput" name="evalCalidadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCalidadCont.value=this.value" />
+              <!--<input type="number" id= "evalCalidadContAmountInput" name="evalCalidadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCalidadCont.value=this.value" />-->
             </div>
           </div>
 
@@ -709,7 +709,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalClaridadCont" name="evalClaridadCont" oninput="this.form.evalClaridadContAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalClaridadContAmountInput" name="evalClaridadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalClaridadCont.value=this.value" />
+              <!--<input type="number" id= "evalClaridadContAmountInput" name="evalClaridadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalClaridadCont.value=this.value" />-->
             </div>
           </div>
 
@@ -719,7 +719,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-minus" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalCantidadCont" name="evalCantidadCont" oninput="this.form.evalCantidadContAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-plus" aria-hidden="true"></i></span>
-              <input type="number" id= "evalCantidadContAmountInput" name="evalCantidadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCantidadCont.value=this.value" />
+              <!--<input type="number" id= "evalCantidadContAmountInput" name="evalCantidadContAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCantidadCont.value=this.value" />-->
             </div>
           </div>
 
@@ -729,7 +729,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalCalidadMatApoyo" name="evalCalidadMatApoyo" oninput="this.form.evalCalidadMatApoyoAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalCalidadMatApoyoAmountInput" name="evalCalidadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCalidadMatApoyo.value=this.value" />
+              <!--<input type="number" id= "evalCalidadMatApoyoAmountInput" name="evalCalidadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCalidadMatApoyo.value=this.value" />-->
             </div>
           </div>
 
@@ -739,7 +739,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalClaridadMatApoyo" name="evalClaridadMatApoyo" oninput="this.form.evalClaridadMatApoyoAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalClaridadMatApoyoAmountInput" name="evalClaridadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalClaridadMatApoyo.value=this.value" />
+              <!--<input type="number" id= "evalClaridadMatApoyoAmountInput" name="evalClaridadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalClaridadMatApoyo.value=this.value" />-->
             </div>
           </div>
 
@@ -749,7 +749,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-minus" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalCantidadMatApoyo" name="evalCantidadMatApoyo" oninput="this.form.evalCantidadMatApoyoAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-plus" aria-hidden="true"></i></span>
-              <input type="number" id= "evalCantidadMatApoyoAmountInput" name="evalCantidadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCantidadMatApoyo.value=this.value" />
+              <!--<input type="number" id= "evalCantidadMatApoyoAmountInput" name="evalCantidadMatApoyoAmountInput" min="-1" max="100" value="0" oninput="this.form.evalCantidadMatApoyo.value=this.value" />-->
             </div>
           </div>
 
@@ -759,7 +759,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalSimulador" name="evalSimulador" oninput="this.form.evalSimuladorAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalSimuladorAmountInput" name="evalSimuladorAmountInput" min="-1" max="100" value="0" oninput="this.form.evalSimulador.value=this.value" />
+              <!--<input type="number" id= "evalSimuladorAmountInput" name="evalSimuladorAmountInput" min="-1" max="100" value="0" oninput="this.form.evalSimulador.value=this.value" />-->
             </div>
           </div>
 
@@ -769,7 +769,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalFacilidadSimulador" name="evalFacilidadSimulador" oninput="this.form.evalFacilidadSimuladorAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalFacilidadSimuladorAmountInput" name="evalFacilidadSimuladorAmountInput" min="-1" max="100" value="0" oninput="this.form.evalFacilidadSimulador.value=this.value" />
+              <!--<input type="number" id= "evalFacilidadSimuladorAmountInput" name="evalFacilidadSimuladorAmountInput" min="-1" max="100" value="0" oninput="this.form.evalFacilidadSimulador.value=this.value" />-->
             </div>
           </div>
 
@@ -779,7 +779,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
               <span class="font-weight-bold blue-text mr-2 mt-1"><i class="fas fa-thumbs-down" aria-hidden="true"></i></span>
               <input type="range" style="width: 87%;" class="custom-range" min="-1" max="100" step="1" id="evalAprendizaje" name="evalAprendizaje" oninput="this.form.evalAprendizajeAmountInput.value=this.value">
               <span class="font-weight-bold blue-text ml-2 mt-1"><i class="fas fa-thumbs-up" aria-hidden="true"></i></span>
-              <input type="number" id= "evalAprendizajeAmountInput" name="evalAprendizajeAmountInput" min="-1" max="100" value="0" oninput="this.form.evalAprendizaje.value=this.value"/>
+              <!--<input type="number" id= "evalAprendizajeAmountInput" name="evalAprendizajeAmountInput" min="-1" max="100" value="0" oninput="this.form.evalAprendizaje.value=this.value"/>-->
             </div>
           </div>
 
