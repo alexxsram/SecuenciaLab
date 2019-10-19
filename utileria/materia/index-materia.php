@@ -182,20 +182,20 @@ try {
                         <?php
                         if($permiso == 'dba' || $permiso == 'padmin') {
                             $sql = 'SELECT * FROM anuncio
-                            WHERE Clase_claveAcceso = :cca 
+                            WHERE Clase_claveAcceso = :cca
                             ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
                             $array = array(':cca' => $clase->claveAcceso);
                             $resultado->execute($array);
                         } else if($permiso == 'pnormal') {
-                            $sql = 'SELECT * FROM anuncio 
-                            WHERE ProfesorUsuario_codigoProfesor = :pucp AND Clase_claveAcceso = :cca AND eliminado != true 
+                            $sql = 'SELECT * FROM anuncio
+                            WHERE ProfesorUsuario_codigoProfesor = :pucp AND Clase_claveAcceso = :cca AND eliminado != true
                             ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
                             $array = array(':pucp' => $codigo, ':cca' => $clase->claveAcceso);
                             $resultado->execute($array);
                         } else if($permiso == 'alumno') {
-                            $sql = 'SELECT * FROM anuncio 
+                            $sql = 'SELECT * FROM anuncio
                             WHERE Clase_claveAcceso IN ( SELECT Clase_claveAcceso FROM clase_has_alumnousuario WHERE Clase_claveAcceso = :cca AND permiso != false )
                             ORDER BY fechaPublicacion DESC';
                             $resultado = $baseDatos->prepare($sql);
@@ -377,10 +377,10 @@ try {
                     <!-- TAB DE LAS PRACTICAS -->
                     <div class="tab-pane fade" id="practica" role="tabpanel" aria-labelledby="practica-tab">
                         <?php
-                        $sql = 'SELECT * FROM practica 
+                        $sql = 'SELECT * FROM practica
                         WHERE Clase_claveAcceso LIKE :ca AND eliminado != true
                         ORDER BY fechaLimite ASC';
-                        
+
                         $resultado = $baseDatos->prepare($sql);
                         $resultado->bindValue(':ca', $clase->claveAcceso);
 
@@ -410,17 +410,17 @@ try {
                                     <table class="table table-hover table-stripped cart-wrap">
                                         <thead class="text-muted">
                                             <tr>
-                                                <th scope="col"> 
-                                                    Nombre 
+                                                <th scope="col">
+                                                    Nombre
                                                 </th>
-                                                <th scope="col"> 
-                                                    Descripción 
+                                                <th scope="col">
+                                                    Descripción
                                                 </th>
-                                                <th scope="col"> 
-                                                    Fecha limite de entrega 
+                                                <th scope="col">
+                                                    Fecha limite de entrega
                                                 </th>
-                                                <th scope="col" class="text-center"> 
-                                                    Acción 
+                                                <th scope="col" class="text-center">
+                                                    Acción
                                                 </th>
                                             </tr>
                                         </thead>
@@ -619,7 +619,7 @@ try {
                                                 ?>
                                             </p>
 
-                                            <?php 
+                                            <?php
                                             if($practica->nombre == 'Evaluación difusa de la clase') {
                                                 $visualizarDifusa = false;
                                                 if($actividadNoEntregada || $colorBorde == 'primary'){
@@ -682,9 +682,9 @@ try {
                     <div class="tab-pane fade" id="alumnos" role="tabpanel" aria-labelledby="alumnos-tab">
                         <?php
                         $sql = 'SELECT A.codigoAlumno AS codigo, CONCAT(A.nombrePila, " ", A.apellidoPaterno,  " ", A.apellidoMaterno) AS nombreCompleto, CHAU.permiso as accesoAlumno
-                        FROM clase_has_alumnousuario AS CHAU 
-                        INNER JOIN alumnousuario A ON CHAU.AlumnoUsuario_codigoAlumno = A.codigoAlumno 
-                        WHERE CHAU.Clase_claveAcceso = :ca';
+                        FROM clase_has_alumnousuario AS CHAU
+                        INNER JOIN alumnousuario A ON CHAU.AlumnoUsuario_codigoAlumno = A.codigoAlumno
+                        WHERE CHAU.Clase_claveAcceso = :ca ORDER BY nombreCompleto ASC';
                         $resultado = $baseDatos->prepare($sql);
                         $resultado->bindValue(':ca', $clase->claveAcceso);
                         $resultado->execute();
@@ -718,8 +718,8 @@ try {
                                 <?php foreach ($alumnosClase as $alumnoClase) { ?>
                                 <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                     <?php if($permiso == 'dba' || $permiso == 'padmin' || $permiso == 'pnormal') {
-                                        $sql = 'SELECT AVG(califiacion) AS promedio FROM evaluacion 
-                                        WHERE Cuestionario_idCuestionario IN (SELECT idCuestionario FROM cuestionario WHERE Practica_idPractica IN (SELECT idPractica FROM practica WHERE Clase_claveAcceso = :cca AND eliminado != true) 
+                                        $sql = 'SELECT AVG(califiacion) AS promedio FROM evaluacion
+                                        WHERE Cuestionario_idCuestionario IN (SELECT idCuestionario FROM cuestionario WHERE Practica_idPractica IN (SELECT idPractica FROM practica WHERE Clase_claveAcceso = :cca AND eliminado != true)
                                         AND AlumnoUsuario_codigoAlumno = :auca)';
                                         $resultado = $baseDatos->prepare($sql);
                                         $array = array(':cca'=>$claveAccesoClase, ':auca'=>$alumnoClase->codigo);
