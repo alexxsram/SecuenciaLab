@@ -1632,6 +1632,20 @@ function accionarRespaldo(dato, rutaRedireccionar) {
     url: "backup.php",
     dataType: "HTML",
     data: dato,
+    /*beforeSend: function() {
+        $("#loaderDiv").fadeIn();
+        bootbox.alert({
+          message: "Mustra ventana de carga"
+          }
+        });
+    },
+    complete: function(){
+       $('#loaderDiv').fadeOut();
+       bootbox.alert({
+         message: "Escande ventana de carga"
+         }
+        });
+    },*/
     success: function(echo) {
       if(echo == "export success") {
         bootbox.alert({

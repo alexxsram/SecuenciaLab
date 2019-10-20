@@ -43,10 +43,11 @@ include('../operaciones/conexion.php');
                 <button type="button" class="btn btn-sm btn-danger" onclick="window.close();">Regresar <i class="fas fa-arrow-left"></i></button>
             </div>
         </div>
-
+        <!--<div id="loaderDiv" name="loaderDiv"><img src="..\..\images\loading\ajax-loader.gif"/></div>-->
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
             <div class="card-header bg-dark border-dark text-white">
                 <div class="float-right">
+
                     <button type="button" class="btn btn-sm btn-outline-warning" onclick="accionarRespaldo('method=export', 'respaldos-bd.php');">
                         <i class="fas fa-file-export"></i> Exportar
                     </button>
@@ -95,7 +96,11 @@ include('../operaciones/conexion.php');
                     </table>
                 </div>
 
-                <?php } ?>
+              <?php }else{ ?>
+                <p class="lead text-justify">
+                    No hay copias de seguridad disponibles.
+                </p>
+              <?php } ?>
             </div>
         </div>
     </div>

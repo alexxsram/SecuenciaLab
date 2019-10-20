@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 //Descomentar para probar en local
 //Hacer git checkout de este file para no subir los cambios de las cadenas de conexión local
-// $HOST = 'mysql:host=localhost; dbname=secuencialab';
-// $USER = 'root';
-// $PASS = ''; // quitar esta contraseña y dejarla vacía
+ $HOST = 'mysql:host=localhost; dbname=secuencialab';
+ $USER = 'root';
+ $PASS = ''; // quitar esta contraseña y dejarla vacía
 
-$HOST = 'mysql:host=localhost; dbname=secuenc2_secuencialab';
-$USER = 'secuenc2';
-$PASS = 'secuencialabcucei'; // quitar esta contraseña y dejarla vacía
+//$HOST = 'mysql:host=localhost; dbname=id11133718_secuenc2_secuencialab';
+//$USER = 'id11133718_secuenc2';
+//$PASS = 'secuencialabcucei'; // quitar esta contraseña y dejarla vacía
 
 try {
 	$baseDatos = new PDO ($HOST, $USER, $PASS);
