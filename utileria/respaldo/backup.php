@@ -4,21 +4,23 @@ $sqlFilename = isset($_POST['sql_filename']) ? $_POST['sql_filename'] : '';
 $zipFoldername = isset($_POST['zip_foldername']) ? $_POST['zip_foldername'] : '';
 $path = isset($_POST['path']) ? $_POST['path'] : '';
 
- $host = 'localhost';
- $user = 'root';
- $password = '';
- $database = 'secuencialab';
- //Usar esto si se tienen configuradas las variables de entorno o estas en servidor
- $mysqldump = 'mysqldump';
- $mysql = 'mysql';
- //Escribir tu ruta absoluta si no funciona el caso anterior
- //$mysqldump = 'C:\wamp64\bin\mysql\mysql5.7.24\bin\mysqldump';
- //$mysql = 'C:\wamp64\bin\mysql\mysql5.7.24\bin\mysql';
+// $host = 'localhost';
+// $user = 'root';
+// $password = '';
+// $database = 'secuencialab';
 
-//$host = 'localhost';
-//$user = 'secuenc2';
-//$password = 'secuencialabcucei';
-//$database = 'secuenc2_secuencialab';
+$host = 'localhost'; 
+$user = 'id11295144_adminsecuencialab1';
+$password = 'secuencialabcucei';
+$database = 'id11295144_secuencialab1';
+
+// Usar esto si se tienen configuradas las variables de entorno o estas en servidor
+$mysqldump = 'mysqldump';
+$mysql = 'mysql';
+
+// Escribir tu ruta absoluta si no funciona el caso anterior
+// $mysqldump = 'C:\wamp64\bin\mysql\mysql5.7.24\bin\mysqldump';
+// $mysql = 'C:\wamp64\bin\mysql\mysql5.7.24\bin\mysql';
 
 switch ($method) {
     case 'export':
@@ -50,11 +52,9 @@ switch ($method) {
         $zip->close();
 
         $comando = "{$mysqldump} --host={$host} --user={$user} --password={$password} {$database} > {$path}{$sqlFileName}";
-        //echo "Comando: " . $comando;
         exec($comando, $output, $resultado);
-        //echo "Resultado: " . $resultado;
         switch($resultado) {
-            case 0://La exportación se pudo llevar acabo
+            case 0:
                 $archivoBackupJson = $rutaBackups.'/backups.json';
                 $array = array();
                 $array['dumps'] = array();
@@ -76,9 +76,6 @@ switch ($method) {
                 echo 'export success';
                 break;
             case 1://Error en la exportación
-                echo "<pre>";
-                print_r($output);
-                die;
                 echo 'Error al realizar la exportación de la base de datos';
                 break;
         }

@@ -47,7 +47,6 @@ include('../operaciones/conexion.php');
         <div class="card border-dark mb-3" id="maindashboard" name="maindashboard">
             <div class="card-header bg-dark border-dark text-white">
                 <div class="float-right">
-
                     <button type="button" class="btn btn-sm btn-outline-warning" onclick="accionarRespaldo('method=export', 'respaldos-bd.php');">
                         <i class="fas fa-file-export"></i> Exportar
                     </button>
@@ -96,7 +95,7 @@ include('../operaciones/conexion.php');
                     </table>
                 </div>
 
-              <?php }else{ ?>
+              <?php } else { ?>
                 <p class="lead text-justify">
                     No hay copias de seguridad disponibles.
                 </p>
