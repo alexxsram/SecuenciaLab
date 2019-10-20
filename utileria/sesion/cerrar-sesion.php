@@ -15,7 +15,7 @@ session_destroy();
 $baseDatos = null;
 
 //Redireccionamos a el index
-header("Location: ../../");
+header("Location: ../../index.php");
 
 die();
 ?>
