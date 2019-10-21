@@ -265,6 +265,7 @@ try {
         
         $pdf->writeHTML($html, true, false, true, false, '');
         
+        ob_start();
         if(ob_get_length() > 0) {
             ob_end_clean();
         }
@@ -275,6 +276,7 @@ try {
         
         $pdf->writeHTML($html, true, false, true, false, '');
         
+        ob_start();
         if(ob_get_length() > 0) {
             ob_end_clean();
         }
