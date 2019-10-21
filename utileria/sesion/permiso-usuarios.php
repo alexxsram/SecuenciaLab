@@ -47,22 +47,33 @@ include('../operaciones/conexion.php');
             <div class="card-header bg-dark border-dark text-white">Usuario: <?php echo $nombre; ?> <br> Permiso actual: <?php echo $permiso; ?></div>
             <div class="card-body">
                 <?php
-                $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor != :cp ORDER BY apellidoPaterno ASC';
+                if(!isset($_GET['pagina'])) {
+                    header('Location: ./permiso-usuarios.php?pagina=1');
+                }
+
+                $sql = 'SELECT * FROM profesorusuario WHERE codigoProfesor != :cp';
                 $resultado = $baseDatos->prepare($sql);
                 $resultado->bindValue(':cp', $codigo);
+                $resultado->execute();
+                $total = $resultado->rowCount();
+
+                $limitePaginador = 6;
+                $paginas = ceil($total/$limitePaginador);
+                $inicio = ($_GET['pagina'] - 1) * $limitePaginador;
+
+                $sql = "SELECT * FROM profesorusuario WHERE codigoProfesor != :cp ORDER BY apellidoPaterno ASC LIMIT :i, :t";
+                $resultado = $baseDatos->prepare($sql);
+                $resultado->bindValue(':cp', $codigo);
+                $resultado->bindValue(':i', $inicio, PDO::PARAM_INT);
+                $resultado->bindValue(':t', $limitePaginador, PDO::PARAM_INT);
                 $resultado->execute();
 
                 $numRow = $resultado->rowCount();
 
                 if($numRow != 0) {
-                    $limitePaginador = 10;
-                    $paginas = ceil($numRow/$limitePaginador);
                     $profesores = $resultado->fetchAll(PDO::FETCH_OBJ);
-
-                    if(!isset($_GET['pagina'])) {
-                        header('Location: ./permiso-usuarios.php?pagina=1');
-                    }
                 ?>
+
                 <div class="card table-responsive" style="border-radius: 5px;">
                     <table class="table table-hover table-stripped cart-wrap">
                         <thead class="text-muted">
