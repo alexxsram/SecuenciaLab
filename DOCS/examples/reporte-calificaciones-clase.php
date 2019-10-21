@@ -1,7 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['codigo']) && ($_SESSION['estado'] != 'INICIO_SESION_PROFESOR'
-|| $_SESSION['estado'] != 'INICIO_SESION_ALUMNO')) {
+if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
   header('Location: ../sesion/sesion.php');
 }
 
