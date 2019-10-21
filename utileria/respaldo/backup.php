@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $method = isset($_POST['method']) ? $_POST['method'] : '';
 $sqlFilename = isset($_POST['sql_filename']) ? $_POST['sql_filename'] : '';
 $zipFoldername = isset($_POST['zip_foldername']) ? $_POST['zip_foldername'] : '';
@@ -9,10 +9,15 @@ $path = isset($_POST['path']) ? $_POST['path'] : '';
 // $password = '';
 // $database = 'secuencialab';
 
-$host = 'localhost'; 
+$host = 'localhost';
 $user = 'id11295144_adminsecuencialab1';
 $password = 'secuencialabcucei';
 $database = 'id11295144_secuencialab1';
+
+//Variables solo por declararlas
+$comando = null;
+$output = null;
+$resultado = null;
 
 // Usar esto si se tienen configuradas las variables de entorno o estas en servidor
 $mysqldump = 'mysqldump';
