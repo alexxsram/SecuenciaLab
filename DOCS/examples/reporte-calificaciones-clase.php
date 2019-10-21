@@ -182,6 +182,7 @@ try {
 
     $practicas = $resultado->fetchAll(PDO::FETCH_OBJ);
 
+    $infoCalificaciones = '';
     $infoCalificaciones .= '<table border="1" cellspacing="3" cellpadding="4">
     <tbody>
     <tr>
@@ -304,8 +305,10 @@ try {
       $html .= $infoCalificaciones;
 
       $pdf->writeHTML($html, true, false, true, false, '');
-
-      ob_end_clean();
+      
+      if(ob_get_length() > 0) {
+        ob_end_clean();
+      }
 
       $pdf->Output('reporte_calificaciones_' . $claveAccesoClase . '.pdf', 'I');
     } else {
@@ -313,7 +316,9 @@ try {
 
       $pdf->writeHTML($html, true, false, true, false, '');
 
-      ob_end_clean();
+      if(ob_get_length() > 0) {
+        ob_end_clean();
+      }
 
       // Agua del retiro y Contra daños
       $pdf->Output('reporte_calificaciones_' . $claveAccesoClase . '.pdf', 'I');

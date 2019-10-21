@@ -414,7 +414,9 @@ try {
 
     $pdf->writeHTML($html, true, false, true, false, '');
 
-    ob_end_clean();
+    if(ob_get_length() > 0) {
+      ob_end_clean();
+    }
     
     $pdf->Output('reporte_practicas_' . $codigoAlumno . '.pdf', 'I');
   } else {
@@ -422,7 +424,9 @@ try {
 
     $pdf->writeHTML($html, true, false, true, false, '');
 
-    ob_end_clean();
+    if(ob_get_length() > 0) {
+      ob_end_clean();
+    }
 
     $pdf->Output('reporte_practicas_' . $codigoAlumno . '.pdf', 'I');
   }
