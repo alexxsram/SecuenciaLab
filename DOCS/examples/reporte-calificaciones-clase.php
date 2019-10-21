@@ -239,11 +239,13 @@ try {
                 $promedioTotalAlumnos += $promedio;
             }
         }
+
         if($numeroDeAlumnos > 0) {
             $promedioTotalAlumnos = $promedioTotalAlumnos / $numeroDeAlumnos;
         } else {
             $promedioTotalAlumnos = 0;
         }
+        
         $tbody .= '<tr>';
         $tbody .= '<td style="text-align: center; background-color: #555555; color: #FFFFFF;"> <b> Totales </b> </td>';
         foreach($practicas as $practica) {
