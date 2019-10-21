@@ -271,6 +271,8 @@ try {
         }
 
         $pdf->Output('reporte_calificaciones_' . $claveAccesoClase . '.pdf', 'I');
+
+        ob_end_flush();
     } else {
         $html = '';
         
@@ -283,6 +285,8 @@ try {
 
         // Agua del retiro y Contra daños
         $pdf->Output('reporte_calificaciones_' . $claveAccesoClase . '.pdf', 'I');
+
+        ob_end_flush();
     }
 } catch(Exception $exec) {
     die('Error en la base de datos: ' . $exec->getMessage());
