@@ -1,6 +1,6 @@
 ﻿<?php
-//Descomentar para probar en local
-//Hacer git checkout de este file para no subir los cambios de las cadenas de conexión local
+// Descomentar para probar en local
+// Hacer git checkout de este file para no subir los cambios de las cadenas de conexión local
 // $HOST = 'mysql:host=localhost; dbname=secuencialab';
 // $USER = 'root';
 // $PASS = ''; // quitar esta contraseña y dejarla vacía
