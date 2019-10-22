@@ -53,6 +53,13 @@ include('../operaciones/conexion.php');
                 </div>
             </div>
             <div class="card-body">
+                <div id="loadingDiv" class="progress progress-striped active">
+                    <div id="loadingbar" class="progress-bar" style="width: 0%; display: false;">
+                        <span class="sr-only">60% Complete</span>
+                    </div>
+                </div>
+                <br>
+
                 <?php
                 $fileBackups = realpath('../../sql/backups').'/backups.json';
                 if(file_exists($fileBackups)) {

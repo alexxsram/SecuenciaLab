@@ -10,9 +10,9 @@ $path = isset($_POST['path']) ? $_POST['path'] : '';
 // $database = 'secuencialab';
 
 $host = 'localhost';
-$user = 'id11295144_adminsecuencialab1';
+$user = 'u952941344_admi';
 $password = 'secuencialabcucei';
-$database = 'id11295144_secuencialab1';
+$database = 'u952941344_secuencialab1';
 
 //Variables solo por declararlas
 $comando = null;
@@ -77,7 +77,6 @@ switch ($method) {
                 $fo = fopen($archivoBackupJson, 'w');
                 fwrite($fo, $json);
                 fclose($fo);
-
                 echo 'export success';
                 break;
             case 1://Error en la exportación
