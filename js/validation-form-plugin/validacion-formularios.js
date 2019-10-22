@@ -1627,6 +1627,7 @@ function accionarConsulta(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRed
 }
 
 function accionarRespaldo(dato, rutaRedireccionar) {
+  $('#btn-exportar-importar').attr("disabled", true);
   $.ajax({
     xhr: function() {
       var xhr = new window.XMLHttpRequest();
