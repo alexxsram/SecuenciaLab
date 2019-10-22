@@ -1628,51 +1628,58 @@ function accionarConsulta(tipoMetodo, ruta, archivoPHP, tipoDato, datos, rutaRed
 
 function accionarRespaldo(dato, rutaRedireccionar) {
   $.ajax({
+    xhr: function() {
+      var xhr = new window.XMLHttpRequest();
+      // Upload progress
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = evt.loaded / evt.total;
+          // Do something with upload progress
+          $("loadingDiv").removeClass("d-none");
+          console.log(percentComplete);
+        }
+      }, false);
+      // Download progress
+      xhr.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = evt.loaded / evt.total;
+          // Do something with download progress
+          var value = (percentComplete * 100) + "%";
+          $("#loadingbar").width(value);
+          console.log(percentComplete);
+        }
+      }, false);
+      return xhr;
+    },
     type: "POST",
     url: "backup.php",
     dataType: "HTML",
-    data: dato,
-    /*beforeSend: function() {
-        $("#loaderDiv").fadeIn();
-        bootbox.alert({
-          message: "Mustra ventana de carga"
-          }
-        });
-    },
-    complete: function(){
-       $('#loaderDiv').fadeOut();
-       bootbox.alert({
-         message: "Escande ventana de carga"
-         }
-        });
-    },*/
-    success: function(echo) {
-      if(echo == "export success") {
-        bootbox.alert({
-          message: "Archivos de respaldo exportados correctamente",
-          callback: function () {
-            redireccionarPagina(rutaRedireccionar);
-          }
-        });
-      } else if(echo == "import success") {
-        bootbox.alert({
-          message: "Archivos de respaldo importados correctamente",
-          callback: function () {
-            redireccionarPagina(rutaRedireccionar);
-          }
-        });
-      } else {
-        bootbox.alert({
-          message: echo,
-          callback: function () {
-            redireccionarPagina(rutaRedireccionar);
-          }
-        });
-      }
-    },
-    error: function(xhr, textStatus, errorThrown) {
-      bootbox.alert("Error: " + xhr.responseText);
+    data: dato
+  }).done(function (echo) {
+    if(echo == "export success") {
+      bootbox.alert({
+        message: "Archivos de respaldo exportados correctamente",
+        callback: function () {
+          redireccionarPagina(rutaRedireccionar);
+        }
+      });
+    } else if(echo == "import success") {
+      bootbox.alert({
+        message: "Archivos de respaldo importados correctamente",
+        callback: function () {
+          redireccionarPagina(rutaRedireccionar);
+        }
+      });
+    } else {
+      bootbox.alert({
+        message: echo,
+        callback: function () {
+          redireccionarPagina(rutaRedireccionar);
+        }
+      });
     }
+  }).fail(function (xhr, textStatus, errorThrown) {
+    bootbox.alert("Error: " + xhr.responseText);
   });
 }
 
