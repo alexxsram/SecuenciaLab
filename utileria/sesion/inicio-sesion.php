@@ -18,15 +18,10 @@ try {
     $numRow = $resultado->rowCount();
     if($numRow != 0) {
       $profesor = $resultado->fetch(PDO::FETCH_OBJ);
-      //if(password_verify($passwordUsuario, $profesor->password)) { Esta linea solo se descomenta y se borra la de abajo, con esto se verifica la contraseña con la del hash
-      if($profesor->password == $passwordUsuario) {
+      if(password_verify($passwordUsuario, $profesor->password)) {
+      // if($profesor->password == $passwordUsuario) {
         $_SESSION['codigo'] = $profesor->codigoProfesor;
         $_SESSION['nombre'] = $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno;
-        // if($profesor->permiso == 'dba') {
-        //   $_SESSION['estado'] = 'INICIO_SESION_ADMIN';
-        // } else {
-        //   $_SESSION['estado'] = 'INICIO_SESION_PROFESOR';
-        // }
         $_SESSION['permiso'] = $profesor->permiso;
         $_SESSION['tiempo_sesion'] = time();
         echo 'success';
@@ -46,10 +41,10 @@ try {
     $numRow = $resultado->rowCount();
     if($numRow != 0) {
       $alumno = $resultado->fetch(PDO::FETCH_OBJ);
-      if($alumno->password == $passwordUsuario) {
+      if(password_verify($passwordUsuario, $profesor->password)) {
+      // if($alumno->password == $passwordUsuario) {
         $_SESSION['codigo'] = $alumno->codigoAlumno;
         $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
-        // $_SESSION['estado'] = 'INICIO_SESION_ALUMNO';
         $_SESSION['permiso'] = 'alumno';
         $_SESSION['tiempo_sesion'] = time();
         echo 'success';
