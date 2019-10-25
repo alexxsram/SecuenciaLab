@@ -11,12 +11,12 @@ try {
         $pUsuarios = $resultado->fetchAll(PDO::FETCH_OBJ);
 
         foreach($pUsuarios as $usuario) {
+            $respuestaHash = hash('sha1', $usuario->respuestaSeguridad, false);
             $passwordHash = password_hash(substr($usuario->codigoProfesor, 1), PASSWORD_DEFAULT, array('cost' => 13));
-            $sql = 'UPDATE profesorusuario SET password = :p WHERE codigoProfesor = :cp';
+            $sql = 'UPDATE profesorusuario SET respuestaSeguridad = :rs, password = :p WHERE codigoProfesor = :cp';
             $resultado = $baseDatos->prepare($sql);
-            $resultado->bindValue(':p', $passwordHash); 
-            $resultado->bindValue(':cp', $usuario->codigoProfesor);
-            $resultado->execute();
+            $array = array(':rs' => $respuestaHash, ':p' => $passwordHash, ':cp' => $usuario->codigoProfesor);
+            $resultado->execute($array);
             echo 'Contraseña profesor { '.$usuario->codigoProfesor.' } actualizada.<br>';
         }
     }
@@ -29,10 +29,11 @@ try {
         $aUsuarios = $resultado->fetchAll(PDO::FETCH_OBJ);
 
         foreach($aUsuarios as $usuario) {
+            $respuestaHash = hash('sha1', $usuario->respuestaSeguridad, false);
             $passwordHash = password_hash(substr($usuario->codigoAlumno, 1), PASSWORD_DEFAULT, array('cost' => 13)); 
-            $sql = 'UPDATE alumnousuario SET password = :p WHERE codigoAlumno = :ca';
+            $sql = 'UPDATE alumnousuario SET respuestaSeguridad = :rs, password = :p WHERE codigoAlumno = :ca';
             $resultado = $baseDatos->prepare($sql);
-            $array = array(':p' => $passwordHash, ':ca' => $usuario->codigoAlumno);
+            $array = array(':rs' => $respuestaHash, ':p' => $passwordHash, ':ca' => $usuario->codigoAlumno);
             $resultado->execute($array);
             echo 'Contraseña alumno { '.$usuario->codigoAlumno.' } actualizada.<br>';
         }
