@@ -10,6 +10,7 @@ try {
   $preguntaSeguridad = htmlentities(addslashes($_POST['preguntaSeguridad']));
   $respuestaSeguridad = htmlentities(addslashes($_POST['respuestaSeguridad']));
   $passwordUsuario = htmlentities(addslashes($_POST['passwordUsuario']));
+  $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
 
   //Convertir elementos de texto en codificación UTF-8
   $nombrePilaUsuario = html_entity_decode($nombrePilaUsuario, ENT_QUOTES | ENT_HTML401, 'UTF-8');
@@ -25,8 +26,9 @@ try {
   $apellidoMaternoUsuario = mb_strtoupper($apellidoMaternoUsuario,'UTF-8');
   $claveUsuario = mb_strtoupper($claveUsuario,'UTF-8');
 
-  //$passwordHash =  password_hash($passwordUsuario, PASSWORD_DEFAULT, array('cost'=>30)); Ejemplo de como convertir la contraseña en un hash
-  $confirmPasswordUsuario = htmlentities(addslashes($_POST['confirmPasswordUsuario']));
+  $respuestaHash = hash('sha1', $preguntaSeguridad, false);
+  $passwordHash = password_hash($passwordUsuario, PASSWORD_DEFAULT, array('cost' => 13));
+  
   $aux = substr($claveUsuario, 0, 1);
   $claveUsuario = substr($claveUsuario, 1); //Código del usaurio
 
@@ -55,8 +57,8 @@ try {
             ':am' => $apellidoMaternoUsuario,
             ':e' => $emailUsuario,
             ':psidps' => $preguntaSeguridad,
-            ':rs' => $respuestaSeguridad,
-            ':p' => $passwordUsuario,
+            ':rs' => $respuestaHash,
+            ':p' => $passwordHash,
             ':pe' => 'pnormal'
           );
           $resultado->execute($array);
@@ -80,8 +82,8 @@ try {
             ':am' => $apellidoMaternoUsuario,
             ':e' => $emailUsuario,
             ':psidps' => $preguntaSeguridad,
-            ':rs' => $respuestaSeguridad,
-            ':p' => $passwordUsuario
+            ':rs' => $respuestaHash,
+            ':p' => $passwordHash
           );
           $resultado->execute($array);
           echo 'success';
