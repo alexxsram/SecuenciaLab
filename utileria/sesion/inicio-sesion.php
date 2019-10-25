@@ -41,7 +41,7 @@ try {
     $numRow = $resultado->rowCount();
     if($numRow != 0) {
       $alumno = $resultado->fetch(PDO::FETCH_OBJ);
-      if(password_verify($passwordUsuario, $profesor->password)) {
+      if(password_verify($passwordUsuario, $alumno->password)) {
       // if($alumno->password == $passwordUsuario) {
         $_SESSION['codigo'] = $alumno->codigoAlumno;
         $_SESSION['nombre'] = $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno;
