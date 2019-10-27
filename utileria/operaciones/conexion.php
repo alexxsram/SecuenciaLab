@@ -5,12 +5,9 @@
 // $USER = 'root';
 // $PASS = ''; // quitar esta contraseña y dejarla vacía
 
+// Datos de conexión al server
 $HOST = 'mysql:host=localhost; dbname=u952941344_secuencialab1';
-<<<<<<< HEAD
 $USER = 'u952941344_admi';//'id11295144_adminsecuencialab1';
-=======
-$USER = 'u952941344_admi';
->>>>>>> b8cfb730dcda2f7f9040ef93bff3c197b672666b
 $PASS = 'secuencialabcucei'; // quitar esta contraseña y dejarla vacía
 
 try {
