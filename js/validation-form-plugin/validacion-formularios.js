@@ -1573,6 +1573,54 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
   });
 });
 
+$("#modalMD").on("show.bs.modal", function (event) {
+  $("#formUnirseClase").validate({
+    rules: {
+      nombreCsv: {
+        required: true,
+        accept: "csv"
+      }
+    },
+    messages: {
+      nombreCsv: {
+        required: "Agregar un archivo",
+        accept: "Solo se permiten archivos con el formato .csv"
+      }
+    },
+    submitHandler: function(form) {
+      var formData = new FormData(form);
+      $.ajax({
+        url: "../../utileria/materia/zeror-algorithm.php",
+        type: "POST",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "HTML",
+        data: formData
+      }).done(function(echo) {
+        bootbox.alert(echo);
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("invalid-feedback");
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    }
+  });
+});
+
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Funciones auxiliares en caso de necesitarlas en el futuro, luego revisar como funcionaba
 function limpiarFormulario(idFormulario) {
   $(idFormulario)[0].reset();

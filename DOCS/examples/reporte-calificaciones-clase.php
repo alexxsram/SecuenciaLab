@@ -142,7 +142,6 @@ try {
         $html = '';
         $html .= $infoClase;
 
-        $numeroDePracticas = 0;
         $promediosPracticas = array();
         $NumeroDeAlumnosEntregadosPracticas = array();
 
@@ -170,7 +169,6 @@ try {
         foreach($practicas as $practica) {
             $promediosPracticas['\'' . $practica->idPractica . '\''] = 0;
             $NumeroDeAlumnosEntregadosPracticas['\'' . $practica->idPractica . '\''] = 0;
-            $numeroDePracticas++; 
             $thead .= '<th style="text-align: center; background-color: #555555; color: #FFFFFF;"> <b> ' . $practica->nombre . ' </b> </th>';
         }
         $thead .= '<th style="text-align: center; background-color: #555555; color: #FFFFFF;"> <b> Promedio </b> </th>';

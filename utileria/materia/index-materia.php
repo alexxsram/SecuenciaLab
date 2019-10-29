@@ -135,8 +135,16 @@ try {
 
                             <?php } ?>
 
+                            <button class="dropdown-item" onclick="cargarContenido('', 'csv-calificaciones-clase.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>)">
+                                <i class="fas fa-file-csv"></i> CSV calificaciones
+                            </button>
+
                             <button class="dropdown-item" onclick="cargarContenido('../../DOCS/examples/', 'reporte-calificaciones-clase.php', 'claveAccesoClase=' + <?php echo '\'' . base64_encode($clase->claveAcceso) . '\''; ?>);">
                                 <i class="fas fa-file-pdf"></i> PDF calificaciones
+                            </button>
+
+                            <button class="dropdown-item" data-toggle="modal" data-target="#modalMD">
+                                <i class=""></i> Zero R
                             </button>
                         </div>
                     </div>
@@ -341,7 +349,7 @@ try {
                                             }
                                             ?>
 
-                                            <form id="formComentarAnuncio" name="formComentarAnuncio" method="POST">
+                                            <form id="formComentarAnuncio<?php echo $anuncio->idAnuncio; ?>" name="formComentarAnuncio" method="POST">
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" id="claveAccesoClase" name="claveAccesoClase" value="<?php echo $clase->claveAcceso; ?>" disabled="disabled">
                                                 </div>

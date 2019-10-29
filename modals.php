@@ -805,3 +805,41 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalMD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h4 class="modal-title text-white">Agregar descripcion aqui</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <form id="formMD" name="formMD" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="alert alert-info text-justify" role="alert">
+            Agregar una descripcion aquí
+          </div>
+
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="nombreCsv" name="nombreCsv" onchange="$(this).next('.custom-file-label').html($(this).val().replace('C:\\fakepath\\', ' '));" required="required">
+              <label class="custom-file-label" for="labelCsv" id="labelCsv" name="labelCsv" data-browse="Buscar">Selecccionar archivo csv...</label>
+            </div>
+          </div>
+
+          <div class="alert alert-info text-justify" role="alert" id="resultado">
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times-circle"></i> </button>
+          <button type="submit" class="btn btn-primary">Guardar <i class="fas fa-save"></i> </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
