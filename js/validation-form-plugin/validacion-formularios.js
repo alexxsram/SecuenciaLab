@@ -1574,17 +1574,17 @@ $("#modalEntregaPractica").on("show.bs.modal", function (event) {
 });
 
 $("#modalMD").on("show.bs.modal", function (event) {
-  $("#formUnirseClase").validate({
+  $("#formMD").validate({
     rules: {
       nombreCsv: {
         required: true,
-        accept: "csv"
+        extension: "csv"
       }
     },
     messages: {
       nombreCsv: {
         required: "Agregar un archivo",
-        accept: "Solo se permiten archivos con el formato .csv"
+        extension: "Solo se permiten archivos con el formato .csv"
       }
     },
     submitHandler: function(form) {
@@ -1598,7 +1598,7 @@ $("#modalMD").on("show.bs.modal", function (event) {
         dataType: "HTML",
         data: formData
       }).done(function(echo) {
-        bootbox.alert(echo);
+        $("#resultado").html(echo);
       });
     },
     errorElement: "em",

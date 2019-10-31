@@ -830,8 +830,7 @@ if(!isset($_SESSION['codigo']) && $_SESSION['permiso'] == '') {
             </div>
           </div>
 
-          <div class="alert alert-info text-justify" role="alert" id="resultado">
-          </div>
+          <div id="resultado"></div>
         </div>
 
         <!-- Modal footer -->
