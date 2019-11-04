@@ -944,55 +944,58 @@ $("#modalEditarAnuncio").on("show.bs.modal", function (event) {
 });
 
 // ***************************************** Para la realizar un comentario
-$("#formComentarAnuncio").validate({
-  rules: {
-    comentario: {
-      required: true
-    }
-  },
-  messages: {
-    comentario: {
-      required: "Ingrese un comentario en caso de ser necesario."
-    }
-  },
-  submitHandler: function(form) {
-    $.ajax({
-      url: "../../utileria/materia/crear-comentario.php",
-      type: "POST",
-      dataType: "HTML",
-      data: "idAnuncio=" + $("#comentarioIdAnuncio").val()
-      + "&nombre=" + $("#comentarioNombre").val()
-      + "&comentario=" + $("#comentario").val()
-    }).done(function(echo) {
-      if(echo == "success") {
-        limpiarFormulario("#formComentarAnuncio");
-        redireccionarPagina("../materia/index-materia.php?claveAccesoClase=" + btoa($("#formComentarAnuncio #claveAccesoClase").val()));
+$('form[name=formComentarAnuncio]').each(function () {
+  var idForm = "#" + $(this).attr("id");
+  $(idForm).validate({
+    rules: {
+      comentario: {
+        required: true
       }
-      else {
-        var html = "<div class='alert alert-danger' role='alert'>";
-        html += echo;
-        html += "</div>";
-        bootbox.alert(html);
+    },
+    messages: {
+      comentario: {
+        required: "Ingrese un comentario en caso de ser necesario."
       }
-    });
-  },
-  errorElement: "em",
-  errorPlacement: function(error, element) {
-    // Add the `help-block` class to the error element
-    error.addClass("invalid-feedback");
-    if(element.prop("type") === "checkbox") {
-      // error.insertAfter(element.parent("label"));
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        url: "../../utileria/materia/crear-comentario.php",
+        type: "POST",
+        dataType: "HTML",
+        data: "idAnuncio=" + $(idForm + " #comentarioIdAnuncio").val()
+        + "&nombre=" + $(idForm + " #comentarioNombre").val()
+        + "&comentario=" + $(idForm + " #comentario").val()
+      }).done(function(echo) {
+        if(echo == "success") {
+          limpiarFormulario(idForm);
+          redireccionarPagina("../materia/index-materia.php?claveAccesoClase=" + btoa($(idForm + " #claveAccesoClase").val()));
+        }
+        else {
+          var html = "<div class='alert alert-danger' role='alert'>";
+          html += echo;
+          html += "</div>";
+          bootbox.alert(html);
+        }
+      });
+    },
+    errorElement: "em",
+    errorPlacement: function(error, element) {
+      // Add the `help-block` class to the error element
       error.addClass("invalid-feedback");
-    } else {
-      error.insertAfter(element);
+      if(element.prop("type") === "checkbox") {
+        // error.insertAfter(element.parent("label"));
+        error.addClass("invalid-feedback");
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
     }
-  },
-  highlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-invalid").removeClass("is-valid");
-  },
-  unhighlight: function (element, errorClass, validClass) {
-    $(element).addClass("is-valid").removeClass("is-invalid");
-  }
+  });
 });
 
 // ***************************************** Para el creación de la práctica
