@@ -474,8 +474,8 @@ $("#modalCrearClase").on("show.bs.modal", function (event) {
       },
       seccionClase: {
         required: true,
-        minlength: 2,
-        maxlength: 5
+        minlength: 1,
+        maxlength: 3
       },
       nrcClase: {
         required: true
@@ -618,8 +618,8 @@ $("#modalEditarClase").on("show.bs.modal", function (event) {
       },
       editarSeccionClase: {
         required: true,
-        minlength: 2,
-        maxlength: 5
+        minlength: 1,
+        maxlength: 3
       },
       editarNrcClase: {
         required: true
