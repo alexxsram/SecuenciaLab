@@ -81,17 +81,17 @@ try {
 
     // definir efectos de sombra en el texto
     $textShadow = array(
-        'enabled' => false, 
-        'depth_w' => 0.2, 
-        'depth_h' => 0.2, 
-        'color' => array(196, 196, 196), 
-        'opacity' => 1, 
+        'enabled' => false,
+        'depth_w' => 0.2,
+        'depth_h' => 0.2,
+        'color' => array(196, 196, 196),
+        'opacity' => 1,
         'blend_mode' => 'Normal'
     );
     $pdf->setTextShadow($textShadow);
 
-    $sql = 'SELECT C.*, CE.* FROM clase C 
-    INNER JOIN cicloescolar CE ON CE.idCicloEscolar = C.CicloEscolar_idCicloEscolar 
+    $sql = 'SELECT C.*, CE.* FROM clase C
+    INNER JOIN cicloescolar CE ON CE.idCicloEscolar = C.CicloEscolar_idCicloEscolar
     WHERE C.claveAcceso = :ca';
     $resultado = $baseDatos->prepare($sql);
     $resultado->bindValue(':ca', $claveAccesoClase);
@@ -132,7 +132,7 @@ try {
 
                 <tr>
                     <td colspan="2" style="background-color: #555555; color: #FFFFFF;"> <b> Año </b> </td>
-                    <td colspan="4" style="text-align: center; background-color: #D0E4F5;"> ' . $datosClase->anio . ' </td> 
+                    <td colspan="4" style="text-align: center; background-color: #D0E4F5;"> ' . $datosClase->anio . ' </td>
                     <td colspan="2" style="background-color: #555555; color: #FFFFFF;"> <b> Ciclo </b> </td>
                     <td colspan="4" style="text-align: center; background-color: #D0E4F5;"> ' . $datosClase->ciclo . ' </td>
                 </tr>
@@ -178,7 +178,7 @@ try {
 
         $promedioTotalAlumnos = 0;
         $sql = 'SELECT AU.codigoAlumno as codigo, CONCAT(AU.apellidoPaterno, " ", AU.apellidoMaterno, ", ", AU.nombrePila) as nombre FROM clase_has_alumnousuario CHAU
-        INNER JOIN alumnousuario AU ON AU.codigoAlumno = CHAU.AlumnoUsuario_codigoAlumno 
+        INNER JOIN alumnousuario AU ON AU.codigoAlumno = CHAU.AlumnoUsuario_codigoAlumno
         WHERE CHAU.Clase_claveAcceso = :cca ORDER BY nombre ASC';
 
         $resultado = $baseDatos->prepare($sql);
@@ -190,9 +190,9 @@ try {
 
         $tbody = '<tbody>';
         foreach($alumnos as $alumno) {
-            
-            $sql = 'SELECT EV.*, CU.* FROM cuestionario CU 
-            INNER JOIN evaluacion EV ON EV.Cuestionario_idCuestionario = CU.idCuestionario 
+
+            $sql = 'SELECT EV.*, CU.* FROM cuestionario CU
+            INNER JOIN evaluacion EV ON EV.Cuestionario_idCuestionario = CU.idCuestionario
             WHERE CU.AlumnoUsuario_codigoAlumno = :auca';
             $resultado = $baseDatos->prepare($sql);
             $resultado->bindValue(':auca', $alumno->codigo);
@@ -223,7 +223,7 @@ try {
                         }
                     }
                     if(!$PracticaYaCalificada) {
-                        $promedio = $promedio + 0; 
+                        $promedio = $promedio + 0;
                         $tbody .= '<td style="text-align: center; background-color: #D0E4F5;"> Sin calificación </td>';
                     }
                 }
@@ -231,19 +231,22 @@ try {
                     $promedio = round($promedio / $numeroDeCalificaciones, 4);
                 } else {
                     $promedio = 'Sin promedio';
+                    //$numeroDeAlumnos = $numeroDeAlumnos - 1;
                 }
                 $tbody .= '<td style="text-align: center; background-color: #D0E4F5;"> <b>' . $promedio . '</b> </td>';
                 $tbody .= '</tr>';
-                $promedioTotalAlumnos += $promedio;
+                if(is_numeric($promedio) && $promedio!='Sin promedio'){
+                  $promedioTotalAlumnos += $promedio;
+                }
             }
         }
 
-        if($numeroDeAlumnos > 0) {
+        if($numeroDeAlumnos > 0 && is_numeric($promedioTotalAlumnos)) {
             $promedioTotalAlumnos = $promedioTotalAlumnos / $numeroDeAlumnos;
         } else {
             $promedioTotalAlumnos = 0;
         }
-        
+
         $tbody .= '<tr>';
         $tbody .= '<td style="text-align: center; background-color: #555555; color: #FFFFFF;"> <b> Totales </b> </td>';
         foreach($practicas as $practica) {
@@ -257,14 +260,14 @@ try {
         $tbody .= '<td style="text-align: center; background-color: #D0E4F5;"> <b> '. $promedioTotalAlumnos . ' </b></td>';
         $tbody .= '</tr>';
         $tbody .= '</tbody>';
-        
+
         $infoCalificaciones .= $tbody;
         $infoCalificaciones .= '</table>';
-        
+
         $html .= $infoCalificaciones;
-        
+
         $pdf->writeHTML($html, true, false, true, false, '');
-        
+
         ob_start();
         if(ob_get_length() > 0) {
             ob_end_clean();
@@ -275,9 +278,9 @@ try {
         ob_end_flush();
     } else {
         $html = '';
-        
+
         $pdf->writeHTML($html, true, false, true, false, '');
-        
+
         ob_start();
         if(ob_get_length() > 0) {
             ob_end_clean();
