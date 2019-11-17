@@ -27,16 +27,14 @@ try {
         // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE ALUMNOS A SU CORREO
         ini_set( 'display_errors', 1 );
         error_reporting( E_ALL );
-        $destinatario = 'soportesecuencialab@secuencialab.com';
-        $remitente = $alumno->email;
+        $para = $alumno->email;
         $asunto = 'Restablecimiento  de contraseña.';
-        $texto = 'Que tal estimado usuario:  ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
-        $texto .= 'con el siguiente código: ' . $alumno->codigoAlumno . ' ';
-        $texto .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
-        $message = $texto;
-        $headers = 'From: ' . $destinatario;
-        mail($remitente, $asunto, $message, $headers);
-        echo 'Correo exitosamente enviado a: ' . $remitente;
+        $mensaje = 'Que tal estimado usuario: ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
+        $mensaje .= 'con el siguiente código: ' . $alumno->codigoAlumno . ' ';
+        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
+        $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
+        mail($para, $asunto, $mensaje, $cabecera);
+        echo 'Correo exitosamente enviado a: ' . $para;
       }
     } else {
       echo 'Error. No se encontró un alumno con ese código.';
@@ -54,15 +52,13 @@ try {
         // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE PROFESORES A SU CORREO
         ini_set( 'display_errors', 1 );
         error_reporting( E_ALL );
-        $destinatario = 'soportesecuencialab@secuencialab.com';
-        $remitente = $profesor->email;
-        $asunto = 'Restablecimiento de contraseña.';
-        $texto = 'Que tal estimado usuario:  ' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ' ';
-        $texto .= 'con el siguiente código: ' . $profesor->codigoProfesor . ' ';
-        $texto .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
-        $message = $texto;
-        $headers = 'DE: ' . $destinatario;
-        mail($remitente, $asunto, $message, $headers);
+        $para = $profesor->email;
+        $asunto = 'Restablecimiento  de contraseña.';
+        $mensaje = 'Que tal estimado usuario: ' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ' ';
+        $mensaje .= 'con el siguiente código: ' . $profesor->codigoProfesor . ' ';
+        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
+        $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
+        mail($para, $asunto, $mensaje, $cabecera);
         echo 'Correo exitosamente enviado a: ' . $remitente;
       }
     } else {
