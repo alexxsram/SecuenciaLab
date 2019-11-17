@@ -26,7 +26,7 @@ try {
   $apellidoMaternoUsuario = mb_strtoupper($apellidoMaternoUsuario,'UTF-8');
   $claveUsuario = mb_strtoupper($claveUsuario,'UTF-8');
 
-  $respuestaHash = hash('sha1', $preguntaSeguridad, false);
+  $respuestaHash = hash('sha1', $respuestaSeguridad, false);
   $passwordHash = password_hash($passwordUsuario, PASSWORD_DEFAULT, array('cost' => 13));
   
   $aux = substr($claveUsuario, 0, 1);
