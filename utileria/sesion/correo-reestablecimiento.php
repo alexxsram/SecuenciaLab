@@ -31,7 +31,7 @@ try {
         $asunto = 'Restablecimiento  de contraseña.';
         $mensaje = 'Que tal estimado usuario: ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
         $mensaje .= 'con el siguiente código: ' . $alumno->codigoAlumno . ' ';
-        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
+        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: https://secuencialab1.hostingerapp.com/SecuenciaLab/utileria/sesion/reestablecer-contrasena.php?cu=\'' . base64_encode($alumno->codigoAlumno) . '\'';
         $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
         mail($para, $asunto, $mensaje, $cabecera);
         echo 'Correo exitosamente enviado a: ' . $para;
@@ -56,7 +56,7 @@ try {
         $asunto = 'Restablecimiento  de contraseña.';
         $mensaje = 'Que tal estimado usuario: ' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ' ';
         $mensaje .= 'con el siguiente código: ' . $profesor->codigoProfesor . ' ';
-        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
+        $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace:  https://secuencialab1.hostingerapp.com/SecuenciaLab/utileria/sesion/reestablecer-contrasena.php?cu=\'' . base64_encode($alumno->codigoProfesor) . '\'';
         $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
         mail($para, $asunto, $mensaje, $cabecera);
         echo 'Correo exitosamente enviado a: ' . $para;

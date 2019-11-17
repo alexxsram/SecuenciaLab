@@ -1,4 +1,4 @@
 <?php
-$claveUsuario = $_GET['claveUsuario'];
+$claveUsuario = base64_decode($_GET['cu']);
 echo $claveUsuario."\n";
 ?>
