@@ -27,15 +27,15 @@ try {
         // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE ALUMNOS A SU CORREO
         ini_set( 'display_errors', 1 );
         error_reporting( E_ALL );
-        $destinatario = 'soporte@secuencialab.x10host.com';
+        $destinatario = 'soportesecuencialab@secuencialab.com';
         $remitente = $alumno->email;
         $asunto = 'Restablecimiento  de contraseña.';
-        $texto = 'Hola usuario ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
-        $texto = 'con código ' . $alumno->codigoAlumno . ' ';
-        $texto = 'tu contraseña es: ' . $alumno->password;
+        $texto = 'Que tal estimado usuario:  ' . $alumno->nombrePila . ' ' . $alumno->apellidoPaterno . ' ' . $alumno->apellidoMaterno . ' ';
+        $texto .= 'con el siguiente código: ' . $alumno->codigoAlumno . ' ';
+        $texto .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
         $message = $texto;
         $headers = 'From: ' . $destinatario;
-        @mail($remitente, $asunto, $message, $headers);
+        mail($remitente, $asunto, $message, $headers);
         echo 'Correo exitosamente enviado a: ' . $remitente;
       }
     } else {
@@ -54,15 +54,15 @@ try {
         // SI EN DADO CASO FUERAMOS A ENVIAR LA CONTRASEÑA DE PROFESORES A SU CORREO
         ini_set( 'display_errors', 1 );
         error_reporting( E_ALL );
-        $destinatario = 'soporte@secuencialab.x10host.com';
+        $destinatario = 'soportesecuencialab@secuencialab.com';
         $remitente = $profesor->email;
         $asunto = 'Restablecimiento de contraseña.';
-        $texto = 'Hola usuario <b>' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . '</b> ';
-        $texto .= 'con código de usuario <b>' . $profesor->codigoProfesor . '</b> ';
-        $texto .= 'tu contraseña es: ' . $profesor->password;
+        $texto = 'Que tal estimado usuario:  ' . $profesor->nombrePila . ' ' . $profesor->apellidoPaterno . ' ' . $profesor->apellidoMaterno . ' ';
+        $texto .= 'con el siguiente código: ' . $profesor->codigoProfesor . ' ';
+        $texto .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
         $message = $texto;
         $headers = 'DE: ' . $destinatario;
-        @mail($remitente, $asunto, $message, $headers);
+        mail($remitente, $asunto, $message, $headers);
         echo 'Correo exitosamente enviado a: ' . $remitente;
       }
     } else {
