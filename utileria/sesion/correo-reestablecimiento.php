@@ -59,7 +59,7 @@ try {
         $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: ';
         $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
         mail($para, $asunto, $mensaje, $cabecera);
-        echo 'Correo exitosamente enviado a: ' . $remitente;
+        echo 'Correo exitosamente enviado a: ' . $para;
       }
     } else {
       echo 'Error. No se encontró un profesor con ese código.';

@@ -217,7 +217,7 @@ $("#formRestablecerContrasena").validate({
   },
   submitHandler: function(form) {
     $.ajax({
-      url: "utileria/sesion/restablecer-contrasena-sesion.php",
+      url: "utileria/sesion/correo-reestablecimiento.php",
       type: "POST",
       dataType: "HTML",
       data: "claveUsuario=" + $("#claveUsuario").val() + "&respuestaSeguridad=" + $("#respuestaSeguridad").val()
