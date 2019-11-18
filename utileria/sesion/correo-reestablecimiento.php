@@ -33,7 +33,7 @@ try {
         $mensaje .= 'con el siguiente código: ' . $alumno->codigoAlumno . ' ';
         $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace: https://secuencialab1.hostingerapp.com/SecuenciaLab/utileria/sesion/reestablecer-contrasena.php?cu=\'' . base64_encode($alumno->codigoAlumno) . '\'';
         $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
-        mail($para, $asunto, $mensaje, $cabecera);
+        @mail($para, $asunto, $mensaje, $cabecera);
         echo 'Correo exitosamente enviado a: ' . $para;
       }
     } else {
@@ -58,7 +58,7 @@ try {
         $mensaje .= 'con el siguiente código: ' . $profesor->codigoProfesor . ' ';
         $mensaje .= 'para actualizar tu contraseña, haz clic en el siguiente enlace:  https://secuencialab1.hostingerapp.com/SecuenciaLab/utileria/sesion/reestablecer-contrasena.php?cu=\'' . base64_encode($profesor->codigoProfesor) . '\'';
         $cabecera = 'From: soportesecuencialab@secuencialab.com' . "\r\n" . 'Reply-To: soportesecuencialab@secuencialab.com' . "\r\n" . 'X-Mailer: HELLO-' . $para;
-        mail($para, $asunto, $mensaje, $cabecera);
+        @mail($para, $asunto, $mensaje, $cabecera);
         echo 'Correo exitosamente enviado a: ' . $para;
       }
     } else {
